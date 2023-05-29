@@ -219,8 +219,8 @@ void beacon_set_app_advertisement_data2(void)
     num_elem++;
 
     adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_NAME_COMPLETE;
-    adv_elem[num_elem].len          = strlen((const char *)"LAIRD BLB");
-    adv_elem[num_elem].p_data       = (uint8_t*)"LAIRD BLB";
+    adv_elem[num_elem].len          = strlen((const char *)"LAIRD BLC");
+    adv_elem[num_elem].p_data       = (uint8_t*)"LAIRD BLC";
     num_elem++;
 
     wiced_bt_ble_set_raw_advertisement_data(num_elem, adv_elem);
@@ -262,8 +262,8 @@ void gap_transferA(void)
     num_elem++;
 
     adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_NAME_COMPLETE;
-    adv_elem[num_elem].len          = strlen((const char *)"LAIRD BLB");
-    adv_elem[num_elem].p_data       = (uint8_t*)"LAIRD BLB";
+    adv_elem[num_elem].len          = strlen((const char *)"LAIRD BLC");
+    adv_elem[num_elem].p_data       = (uint8_t*)"LAIRD BLC";
     num_elem++;
 
     wiced_bt_ble_set_raw_advertisement_data(num_elem, adv_elem);

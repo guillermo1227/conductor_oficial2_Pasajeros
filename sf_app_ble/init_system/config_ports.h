@@ -9,24 +9,25 @@
 #define SF_APP_BLE_INIT_SYSTEM_CONFIG_PORTS_H_
 
 //#define PORT_INT_4                               WICED_P04
-#define PORT_INT_02                              WICED_P02
-#define PORT_INT_13                              WICED_P13
-#define PORT_INT_26                              WICED_P26
+#define PORT_INT_14                              WICED_P14
+//#define PORT_INT_13                              WICED_P13
+//#define PORT_INT_26                              WICED_P26
 
-#define LED_GPIO_00                              WICED_P00
+//#define LED_GPIO_00                              WICED_P00
 #define LED_GPIO_01                              WICED_P01
+#define LED_GPIO_02                              WICED_P02
 #define LED_GPIO_03                              WICED_P03
 #define LED_GPIO_04                              WICED_P04
 #define LED_GPIO_05                              WICED_P05
 #define LED_GPIO_06                              WICED_P06
 #define LED_GPIO_07                              WICED_P07
-#define LED_GPIO_09                              WICED_P09
-#define LED_GPIO_11                              WICED_P11
+#define LED_GPIO_08                              WICED_P08
+//#define LED_GPIO_11                              WICED_P11
 //#define LED_GPIO_13                              WICED_P13
-#define LED_GPIO_14                              WICED_P14
-#define LED_GPIO_16                              WICED_P16
-#define LED_GPIO_17                              WICED_P17
-#define LED_GPIO_25                              WICED_P25
+//#define LED_GPIO_14                              WICED_P14
+//#define LED_GPIO_16                              WICED_P16
+//#define LED_GPIO_17                              WICED_P17
+//#define LED_GPIO_25                              WICED_P25
 #define LED_GPIO_26                              WICED_P26
 
 

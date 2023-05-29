@@ -23,25 +23,25 @@
 void set_outPuts(void)
 {
     /* Configure LED PIN as input and initial outvalue as high */
-	wiced_hal_gpio_configure_pin( LED_GPIO_00, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
+	//wiced_hal_gpio_configure_pin( LED_GPIO_00, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_01, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_03, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_04, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_05, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
     wiced_hal_gpio_configure_pin( LED_GPIO_06, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
     wiced_hal_gpio_configure_pin( LED_GPIO_07, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
-    wiced_hal_gpio_configure_pin( LED_GPIO_09, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
-    wiced_hal_gpio_configure_pin( LED_GPIO_11, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
+    wiced_hal_gpio_configure_pin( LED_GPIO_08, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
+    //wiced_hal_gpio_configure_pin( LED_GPIO_11, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
 	//wiced_hal_gpio_configure_pin( LED_GPIO_13, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
-	wiced_hal_gpio_configure_pin( LED_GPIO_14, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
-	wiced_hal_gpio_configure_pin( LED_GPIO_16, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
-	wiced_hal_gpio_configure_pin( LED_GPIO_17, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
-	wiced_hal_gpio_configure_pin( LED_GPIO_25, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
-	wiced_hal_gpio_configure_pin( LED_GPIO_26, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
-	wiced_hal_gpio_configure_pin(PORT_INT_02, ( GPIO_INPUT_ENABLE | GPIO_PULL_UP_DOWN_NONE | GPIO_EN_INT_FALLING_EDGE ), GPIO_PIN_OUTPUT_HIGH );
+	//wiced_hal_gpio_configure_pin( LED_GPIO_14, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
+	//wiced_hal_gpio_configure_pin( LED_GPIO_16, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
+	//wiced_hal_gpio_configure_pin( LED_GPIO_17, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
+	//wiced_hal_gpio_configure_pin( LED_GPIO_25, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
+	//wiced_hal_gpio_configure_pin( LED_GPIO_26, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
+	wiced_hal_gpio_configure_pin(PORT_INT_14, ( GPIO_INPUT_ENABLE | GPIO_PULL_UP_DOWN_NONE | GPIO_EN_INT_FALLING_EDGE ), GPIO_PIN_OUTPUT_HIGH );
 	//wiced_hal_gpio_configure_pin(PORT_INT_26, ( GPIO_INPUT_ENABLE | GPIO_PULL_UP_DOWN_NONE | GPIO_EN_INT_FALLING_EDGE ), GPIO_PIN_OUTPUT_HIGH );
 	//wiced_hal_gpio_register_pin_for_interrupt( PORT_INT_13, button_cback_4, 0 );
-	//wiced_hal_gpio_register_pin_for_interrupt( PORT_INT_02, button_cback_26, 0 );
+	wiced_hal_gpio_register_pin_for_interrupt( PORT_INT_14, button_cback_26, 0 );
 }
 
 

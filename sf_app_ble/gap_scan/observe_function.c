@@ -99,7 +99,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 				  value_paV1=WICED_FALSE;
   			    if(value_alrm)
   			    {
-  		        	wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);
+  		        	wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);
   			    }
 
 	        };
@@ -131,7 +131,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 			datacrl=p_name[15];
 			//WICED_BT_TRACE("Datacrl: %d\n",datacrl);
 	        if(dataFiltC[0]>0 && dataFiltC[0]<230){wiced_hal_gpio_set_pin_output( LED_GPIO_01, GPIO_PIN_OUTPUT_HIGH);};
-	        if(dataFiltC[1]>0 && dataFiltC[1]<230){wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);};
+	        if(dataFiltC[1]>0 && dataFiltC[1]<230){wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);};
 	        value_onl=WICED_TRUE;
 			start_TreturnCER();
 	    }
@@ -148,7 +148,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     {
     	memcpy(dataFilt5,p_scan_result->remote_bd_addr,6);
     	memcpy(dataFilt, p_name, 5);
-         if(p_scan_result->rssi>=-63 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
+         if(p_scan_result->rssi>=-125 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
         		 ){
     	if(//value_pin==WICED_TRUE
 
@@ -390,7 +390,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 {
 	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
 	    		    			    value_AL=WICED_TRUE;
-	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 	    		    			    start_TreturnfA();
 	    		    			    if(value_alrm)
 	    		    			    {
@@ -415,7 +415,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 {
 	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
 	    		    			    value_AL=WICED_TRUE;
-	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 	    		    		        start_TreturnfA();
 	    		    			    if(value_alrm)
 	    		    			    {
@@ -456,7 +456,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 {
 	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
 	    		    			    value_AL=WICED_TRUE;
-	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 	    		    			    start_TreturnfA();
 	    		    			    if(value_alrm)
 	    		    			    {
@@ -481,7 +481,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 {
 	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
 	    		    			    value_AL=WICED_TRUE;
-	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 	    		    		        start_TreturnfA();
 	    		    			    if(value_alrm)
 	    		    			    {
@@ -521,7 +521,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     							 {
     	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
     	    		    			    value_AL=WICED_TRUE;
-    	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+    	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
     	    		    			    //start_TreturnfA();
     	    		    			    start_TreturnfAR();
     	    		    			    if(value_alrm)
@@ -547,7 +547,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     							 {
     	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
     	    		    			    value_AL=WICED_TRUE;
-    	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+    	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
     	    		    		        //start_TreturnfA();
     	    		    		        start_TreturnfAR();
     	    		    			    if(value_alrm)
@@ -581,7 +581,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							  datac_mV++;
 							  if(!value_notifV)
 							  {
-								  wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);
+								  wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);
 								  value_pV1=WICED_TRUE;
 								  value_paV1=WICED_FALSE;
 								  //WICED_BT_TRACE("PIN 04 HIGH xx:%d  \n",datac_mV);
@@ -602,7 +602,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								memcpy(datam_bufferV2,datam_bufferV,data_mc3V-6);
 								datac_mV2=datac_mV-1;
 								data_mc3V2=data_mc3V-6;
-								wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);
+								wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);
 								value_pV1 = WICED_TRUE;
 								value_paV1=WICED_FALSE;
 								//WICED_BT_TRACE("COPEARRRRRRRRRRRRRRRRRRRRR2\n");
@@ -762,7 +762,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 {
 		    		    			    //WICED_BT_TRACE("RSSI FILTV\n");
 		    		    			    value_AV=WICED_TRUE;
-		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 		    		    			    start_TreturnfAV();
 		    		    			    if(value_alrm)
 		    		    			    {
@@ -780,7 +780,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 {
 		    		    			    //WICED_BT_TRACE("RSSI FILTV\n");
 		    		    			    value_AV=WICED_TRUE;
-		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 		    		    			    start_TreturnfAV();
 		    		    			    if(value_alrm)
 		    		    			    {
@@ -812,7 +812,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 {
 		    		    			    //WICED_BT_TRACE("RSSI FILTV\n");
 		    		    			    value_AV=WICED_TRUE;
-		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 		    		    			    //start_TreturnfAV();
 		    		    			    start_TreturnfAVR();
 		    		    			    if(value_alrm)
@@ -831,7 +831,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 {
 		    		    			    //WICED_BT_TRACE("RSSI FILTV\n");
 		    		    			    value_AV=WICED_TRUE;
-		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+		    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 		    		    			    //start_TreturnfAV();
 		    		    			    start_TreturnfAVR();
 		    		    			    if(value_alrm)
@@ -881,7 +881,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     			 {
     				 //WICED_BT_TRACE("PIN HIGH XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:%d  \n",datac_mV);
     				 value_paV1=WICED_FALSE;
-    				 wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);
+    				 wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);
     				 value_pV1= WICED_TRUE;
     				 //change_PWM();
     			 }
@@ -889,7 +889,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	   else if (memcmp(Filt_operate6, dataFilt, sizeof(dataFilt)) == 0)
     	   {
 
-    		   wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+    		   wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
     		   //WICED_BT_TRACE("SPIN 17 HIGH\n");
     		   start_TreturnfA();
     	   }
@@ -903,8 +903,8 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	   				if(value_gap)
     	   				{
     	   					value_gap= WICED_FALSE;
-    	   					wiced_hal_gpio_set_pin_output( LED_GPIO_16, GPIO_PIN_OUTPUT_HIGH);
-    	   					wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+    	   					wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_HIGH);
+    	   					wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
     	   					WICED_BT_TRACE("greeen\n");
     	   				}
     	   			  //gap_transfer();
@@ -999,7 +999,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 {
 	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
 	    		    			    value_AL=WICED_TRUE;
-	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+	    		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 	    		    			    start_TreturnfA();
 	    		    			    if(value_alrm)
 	    		    			    {
@@ -1024,7 +1024,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 {
 	    		    			    //WICED_BT_TRACE("RSSI FILT\n");
 	    		    			    value_AL=WICED_TRUE;
-	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+	    		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 	    		    		        start_TreturnfA();
 	    		    			    if(value_alrm)
 	    		    			    {
@@ -1080,8 +1080,8 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   					if(value_gap)
 		   					{
 		   						value_gap= WICED_FALSE;
-		   						wiced_hal_gpio_set_pin_output( LED_GPIO_16, GPIO_PIN_OUTPUT_HIGH);
-		   						wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+		   						wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_HIGH);
+		   						wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 		   					}
 		   					WICED_BT_TRACE("greeen2222\n");
 		   				  //gap_transfer();
@@ -1104,7 +1104,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   				  WICED_BT_TRACE(",BEAC,%d",p_scan_result->rssi);
 		   				  WICED_BT_TRACE(",0\n");
 		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
-		       		      wiced_hal_gpio_set_pin_output( LED_GPIO_25, GPIO_PIN_OUTPUT_HIGH);
+		       		      wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_HIGH);
 		       		      //WICED_BT_TRACE("SPIN 11 HIGH\n");
 		   				  start_TreturnfB();
 		   	    	}
@@ -1157,8 +1157,8 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 			   					if(value_gap)
 			   					{
 			   						value_gap= WICED_FALSE;
-			   						wiced_hal_gpio_set_pin_output( LED_GPIO_16, GPIO_PIN_OUTPUT_HIGH);
-			   						wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+			   						wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_HIGH);
+			   						wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 			   					}
 			   					WICED_BT_TRACE("greeen2222\n");
 			   				  //gap_transfer();
@@ -1207,7 +1207,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
      						 {
          		    			    //WICED_BT_TRACE("RSSI FILT\n");
          		    			    value_AL=WICED_TRUE;
-         		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+         		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
          		    			    //start_TreturnfA();
          		    			    start_TreturnfAR();
          		    			    if(value_alrm)
@@ -1233,7 +1233,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
      						 {
          		    			    //WICED_BT_TRACE("RSSI FILT\n");
          		    			    value_AL=WICED_TRUE;
-         		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+         		    		        wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
          		    		        //start_TreturnfA();
          		    		        start_TreturnfAR();
          		    			    if(value_alrm)
@@ -1261,7 +1261,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     						 {
         		    			    //WICED_BT_TRACE("RSSI FILTV\n");
         		    			    value_AV=WICED_TRUE;
-        		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+        		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
         		    			    //start_TreturnfAV();
         		    			    start_TreturnfAVR();
         		    			    if(value_alrm)
@@ -1280,7 +1280,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     						 {
         		    			    //WICED_BT_TRACE("RSSI FILTV\n");
         		    			    value_AV=WICED_TRUE;
-        		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_HIGH);
+        		    			    wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
         		    			    //start_TreturnfAV();
         		    			    start_TreturnfAVR();
         		    			    if(value_alrm)
@@ -1641,7 +1641,7 @@ void clear_cont(void)
 		//data_mc3=0;
 		//memset(datam_buffer2,'\0',350);
 		value_paV1=WICED_TRUE;
-		wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);
+		wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_LOW);
 		value_pV1 = WICED_FALSE;
 		//WICED_BT_TRACE_ARRAY(datam_bufferV, 18, "BUFFER VEHICULOSZZ3");
 		//WICED_BT_TRACE_ARRAY(datam_bufferV2, 18, "BUFFER VEHICULOS2ZZ3");
@@ -1700,7 +1700,7 @@ void stop_process(void)
 	 value_paV1=WICED_TRUE;
 
 	 wiced_hal_gpio_set_pin_output( LED_GPIO_01, GPIO_PIN_OUTPUT_LOW);
-	 wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);
+	 wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_LOW);
 
 }
 
@@ -1743,13 +1743,13 @@ void exam_gpio(void)
 		WICED_BT_TRACE("SBZ00\n");
 	}*/
 	//----------------------------------------------------------------------------------
-	if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_03 ))
+	if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_26 ))
 	{
-		 wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_LOW);
+		 wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);
 	}
 	else
 	{
-		wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_HIGH);
+		wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);
 	}
 
 	if(value_pa1==WICED_TRUE && datac_comp>0)
@@ -1771,15 +1771,15 @@ void exam_gpio(void)
 
 	if(value_paV1==WICED_TRUE && datac_compV>0)
 	{
-		if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_26 ) )
+		if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_02 ) )
 		{
-			 wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);
+			 wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_LOW);
 		}
 		else
 		{
 			if(value_pV1==WICED_TRUE)
 			{
-			 wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);
+			 wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);
 			}
 		}
 	}
@@ -1925,7 +1925,7 @@ void exam_gpio(void)
 
 	if(value_pV1==WICED_FALSE && dataFiltCED[1]==0)
 	{
-		wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);
+		wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_LOW);
 	}
 
 	if(value_onl==WICED_FALSE)
@@ -2000,7 +2000,7 @@ void clear_SB01(void)
 
 void   clear_SB10(void)
 {
-	wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);
+	wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_LOW);
 	value_pV1=WICED_FALSE;
 	value_paV1=WICED_FALSE;
 	value_notifV=WICED_FALSE;
@@ -2013,8 +2013,8 @@ void init_event_gap(void)
 	  WICED_BT_TRACE("Init event gap \n");
 	  beacon_set_app_advertisement_data3();
 	  //prevention_status();
-	  wiced_hal_gpio_set_pin_output( LED_GPIO_16, GPIO_PIN_OUTPUT_LOW);
-	  wiced_hal_gpio_set_pin_output( LED_GPIO_00, GPIO_PIN_OUTPUT_LOW);
+	  wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_LOW);
+	  wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_LOW);
 	}
 }
 void print_cst(void)
@@ -2214,6 +2214,6 @@ void      clear_cer(void)
 	dataFiltCED[0]=0;
     dataFiltCED[1]=0;
     if(value_p1==WICED_FALSE){wiced_hal_gpio_set_pin_output( LED_GPIO_01, GPIO_PIN_OUTPUT_LOW);};
-    if(value_pV1==WICED_FALSE){wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);};
+    if(value_pV1==WICED_FALSE){wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_LOW);};
     value_onl=WICED_FALSE;
 }
