@@ -903,7 +903,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	   				if(value_gap)
     	   				{
     	   					value_gap= WICED_FALSE;
-    	   					wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_HIGH);
+    	   					wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_HIGH);
     	   					wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
     	   					WICED_BT_TRACE("greeen\n");
     	   				}
@@ -2013,7 +2013,7 @@ void init_event_gap(void)
 	  WICED_BT_TRACE("Init event gap \n");
 	  beacon_set_app_advertisement_data3();
 	  //prevention_status();
-	  wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_LOW);
+	  wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_LOW);
 	  wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_LOW);
 	}
 }
