@@ -26,8 +26,20 @@
 #include "wiced_hal_nvram.h"
 #include "wiced_bt_trace.h"
 #include "config_timers.h"
+#include "wiced_rtos.h"
+#include "cycfg.h"
+#include "cycfg_gatt_db.h"
+#include "app_bt_utils.h"
+#include "wiced_transport.h"
+#include "sparcommon.h"
 
 
+
+
+static wiced_bt_gatt_status_t	app_gatt_callback( wiced_bt_gatt_evt_t event, wiced_bt_gatt_event_data_t *p_data );
+
+static wiced_bt_gatt_status_t	app_gatt_get_value( wiced_bt_gatt_read_t *p_data );
+static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data );
 /*#if defined(CYW20735B1) || defined(CYW20819A1) || defined(CYW20719B2) || defined(CYW20721B2) || defined (WICEDX)
 
 wiced_bt_ble_multi_adv_params_t adv_param =
@@ -120,7 +132,7 @@ wiced_result_t beacon_management_callback(wiced_bt_management_evt_t event, wiced
     if(close_interval== event)
     {
     	WICED_BT_TRACE("beacon_management_callback2: %x\n", event);
-    	event_select_OTA();
+    	//event_select_OTA();
     	//event_select_SPP();
     }
     switch(event)
@@ -137,6 +149,15 @@ wiced_result_t beacon_management_callback(wiced_bt_management_evt_t event, wiced
         start_BTimers();
         set_rssi();
 
+        //--------------------------------------------
+
+		wiced_bt_gatt_register( app_gatt_callback );
+		wiced_bt_gatt_db_init( gatt_database, gatt_database_len );
+
+		/* Enable/disable pairing */
+		wiced_bt_set_pairable_mode( WICED_FALSE, WICED_FALSE );
+
+        //-----------------------------------------
         /* Configure LED PIN as input and initial outvalue as high */
         //wiced_hal_gpio_configure_pin( LED_GPIO_1, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
         //wiced_hal_gpio_set_pin_output( LED_GPIO_1, GPIO_PIN_OUTPUT_LOW);
@@ -183,6 +204,193 @@ wiced_result_t beacon_management_callback(wiced_bt_management_evt_t event, wiced
 
     return result;
 }
+
+//---------------------------------------------------------------------
+
+
+/*******************************************************************************
+* Function Name: wiced_bt_gatt_status_t app_gatt_callback(
+* 					wiced_bt_gatt_evt_t event,
+* 					wiced_bt_gatt_event_data_t *p_data )
+********************************************************************************/
+wiced_bt_gatt_status_t app_gatt_callback( wiced_bt_gatt_evt_t event, wiced_bt_gatt_event_data_t *p_data )
+{
+    wiced_bt_gatt_status_t result = WICED_SUCCESS;
+
+    wiced_bt_gatt_connection_status_t *p_conn = &p_data->connection_status;
+    wiced_bt_gatt_attribute_request_t *p_attr = &p_data->attribute_request;
+
+    switch( event )
+    {
+        case GATT_CONNECTION_STATUS_EVT:					// Remote device initiates connect/disconnect
+            if( p_conn->connected )
+			{
+				WICED_BT_TRACE( "GATT connect to: BDA %B, Connection ID %d\r\n",p_conn->bd_addr, p_conn->conn_id );
+
+				/* TODO Ex 02: Handle the connection */
+			}
+			else
+			{
+				// Device has disconnected
+				WICED_BT_TRACE("GATT disconnect from: BDA %B, Connection ID '%d', Reason '%s'\r\n", p_conn->bd_addr, p_conn->conn_id, get_bt_gatt_disconn_reason_name(p_conn->reason) );
+
+				/* TODO Ex 02: Handle the disconnection */
+
+				/* Restart the advertisements */
+				wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_HIGH, 0, NULL );
+			}
+            break;
+
+        case GATT_ATTRIBUTE_REQUEST_EVT:					// Remote device initiates a GATT read/write
+			switch( p_attr->request_type )
+			{
+				case GATTS_REQ_TYPE_READ:
+					result = app_gatt_get_value( &(p_attr->data.read_req) );
+					break;
+
+				case GATTS_REQ_TYPE_WRITE:
+					result = app_gatt_set_value( &(p_attr->data.write_req) );
+					break;
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    return result;
+}
+
+
+/*******************************************************************************
+* Function Name: app_gatt_get_value(
+* 					wiced_bt_gatt_read_t *p_data )
+********************************************************************************/
+static wiced_bt_gatt_status_t	app_gatt_get_value( wiced_bt_gatt_read_t *p_data )
+{
+	uint16_t attr_handle = 	p_data->handle;
+	uint8_t  *p_val = 		p_data->p_val;
+	uint16_t *p_len = 		p_data->p_val_len;
+	uint16_t  offset =		p_data->offset;
+
+	int i = 0;
+	int len_to_copy;
+
+    wiced_bt_gatt_status_t res = WICED_BT_GATT_INVALID_HANDLE;
+
+    // Check for a matching handle entry
+    for (i = 0; i < app_gatt_db_ext_attr_tbl_size; i++)
+    {
+    	// Search for a matching handle in the external lookup table
+    	if (app_gatt_db_ext_attr_tbl[i].handle == attr_handle)
+        {
+            /* Start by assuming we will copy entire value */
+    		len_to_copy = app_gatt_db_ext_attr_tbl[i].cur_len;
+
+    		/* Offset is beyond the end of the actual data length, nothing to do*/
+    		if ( offset >= len_to_copy)
+    		{
+    			return WICED_BT_GATT_INVALID_OFFSET;
+    		}
+
+    		/* Only need to copy from offset to the end */
+    		len_to_copy = len_to_copy - offset;
+
+    		/* Determine if there is enough space to copy the entire value.
+    		 * If not, only copy as much as will fit. */
+            if (len_to_copy > *p_len)
+            {
+            	len_to_copy = *p_len;
+            }
+
+			/* Tell the stack how much will be copied to the buffer and then do the copy */
+			*p_len = len_to_copy;
+			memcpy(p_val, app_gatt_db_ext_attr_tbl[i].p_data + offset, len_to_copy);
+			res = WICED_BT_GATT_SUCCESS;
+
+            // Add code for any action required when this attribute is read
+            switch ( attr_handle )
+            {
+//				case HDLC_MYSVC_LED_VALUE:
+//					WICED_BT_TRACE( "LED is %s\r\n", app_mysvc_led[0] ? "ON" : "OFF" );
+//					break;
+            }
+			break; /* break out of for loop once matching handle is found */
+       }
+    }
+    return res;
+}
+
+
+/*******************************************************************************
+* Function Name: app_gatt_set_value(
+*					wiced_bt_gatt_write_t *p_data )
+********************************************************************************/
+static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data )
+{
+	uint16_t attr_handle = 	p_data->handle;
+	uint8_t  *p_val = 		p_data->p_val;
+	uint16_t len = 			p_data->val_len;
+
+	WICED_BT_TRACE("Data: %s\n ", p_val );
+
+    wiced_hal_puart_print(p_val);
+    switch(p_val[0])
+    {
+    case 'S':
+    	     process_SOM(p_val);
+    	break;
+
+    }
+    //wiced_bt_spp_send_session_data(handle, "Data Set: ", 10);
+    //wiced_bt_spp_send_session_data(handle, p_data, data_len);
+    memset(p_val,'\0',64);
+
+	int i = 0;
+    wiced_bool_t validLen = WICED_FALSE;
+
+    wiced_bt_gatt_status_t res = WICED_BT_GATT_INVALID_HANDLE;
+
+    // Check for a matching handle entry and find is max available size
+    for (i = 0; i < app_gatt_db_ext_attr_tbl_size; i++)
+    {
+        if (app_gatt_db_ext_attr_tbl[i].handle == attr_handle)
+        {
+            // Detected a matching handle in external lookup table
+            // Verify that size constraints have been met
+            validLen = (app_gatt_db_ext_attr_tbl[i].max_len >= len);
+            if (validLen)
+            {
+                // Value fits within the supplied buffer; copy over the value
+                app_gatt_db_ext_attr_tbl[i].cur_len = len;
+                memcpy(app_gatt_db_ext_attr_tbl[i].p_data, p_val, len);
+                res = WICED_BT_GATT_SUCCESS;
+
+                // Add code for any action required when this attribute is written
+                // For example you may need to write the value into NVRAM if it needs to be persistent
+                switch ( attr_handle )
+                {
+//                	case HDLC_MYSVC_LED_VALUE:
+//						wiced_hal_gpio_set_pin_output(LED2, !(app_mysvc_led[0]) );
+//						WICED_BT_TRACE( "Turn the LED %s\r\n", app_mysvc_led[0] ? "ON" : "OFF" );
+//						break;
+                }
+            }
+            else
+            {
+                // Value to write does not meet size constraints
+                res = WICED_BT_GATT_INVALID_ATTR_LEN;
+            }
+            break; /* break out of for loop once matching handle is found */
+        }
+    }
+
+    return res;
+}
+
+
+//--------------------------------------------------------------------
+
 
 /*
  * This function is invoked when advertisements stop.  Continue advertising if there

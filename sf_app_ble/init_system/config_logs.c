@@ -234,12 +234,12 @@ void init_mac_logs(void)
 	    else
 	    {
 	      WICED_BT_TRACE("Mac Address Null\n");
-	      bda[0]=0x04;
-	      bda[1]=0x23;
-	      bda[2]=0x23;
-	      bda[3]=0x23;
-	      bda[4]=0x31;
-	      bda[5]=0x41;
+	      bda[0]=0x27;
+	      bda[1]=0x27;
+	      bda[2]=0x27;
+	      bda[3]=0x27;
+	      bda[4]=0x27;
+	      bda[5]=0x27;
 	    }
 
 		wiced_bt_ble_address_type_t  macc= BLE_ADDR_PUBLIC_ID;

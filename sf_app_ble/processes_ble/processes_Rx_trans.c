@@ -264,7 +264,7 @@ void process_SOM(uint8_t *data_S_OM)
     	    {
     	    	//dataTx_spp1(3);
     	    	WICED_BT_TRACE( "Ingrese el Password\n");
-    	    	event_select_SPP();
+    	    	//event_select_SPP();
     	    }
       }
       else if(memcmp(data_SDB, data_f,sizeof(data_f))== 0)
@@ -292,7 +292,7 @@ void process_SOM(uint8_t *data_S_OM)
     	  {
   	    	//dataTx_spp1(3);
   	    	WICED_BT_TRACE( "Ingrese el Password\n");
-  	    	event_select_SPP();
+  	    	//event_select_SPP();
     	  }
       }
       else if(memcmp(data_SBP, data_f,sizeof(data_f))== 0)
@@ -321,7 +321,7 @@ void process_SOM(uint8_t *data_S_OM)
     	  {
     	    	//dataTx_spp1(3);
     	    	WICED_BT_TRACE( "Ingrese el Password\n");
-    	    	event_select_SPP();
+    	    	//event_select_SPP();
     	  }
       }
       else if(memcmp(data_SSC, data_f,sizeof(data_f))== 0)
@@ -360,7 +360,7 @@ void process_SOM(uint8_t *data_S_OM)
 		     WICED_BT_TRACE("Password: ");
 			 wiced_hal_puart_print(d_password1);
 			 WICED_BT_TRACE( "\n");
-			 event_select_SPP();
+			 //event_select_SPP();
     	  }
   	    else
   	    {
@@ -390,13 +390,13 @@ void process_SOM(uint8_t *data_S_OM)
     			 wiced_hal_puart_print(d_password1);
     			 WICED_BT_TRACE( "\n");
     			 WICED_BT_TRACE_ARRAY(data_rssi_save1, 18, "BUFFER LAMPARASA2");
-    	    	 event_select_SPP();
+    	    	 //event_select_SPP();
     	    }
     	    else
     	    {
     	    	//dataTx_spp1(2);
     	    	WICED_BT_TRACE( "Incorrect Password\n");
-    	    	event_select_SPP();
+    	    	//event_select_SPP();
     	    }
 			WICED_BT_TRACE_ARRAY(d_password1, 18, "BUFFER LAMPARASA2");
 			WICED_BT_TRACE_ARRAY(c_password1, 18, "BUFFER LAMPARASA3");
