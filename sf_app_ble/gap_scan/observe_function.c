@@ -148,7 +148,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     {
     	memcpy(dataFilt5,p_scan_result->remote_bd_addr,6);
     	memcpy(dataFilt, p_name, 5);
-         if(p_scan_result->rssi>=-125 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
+         if(p_scan_result->rssi>=-30 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
         		 ){
     	if(//value_pin==WICED_TRUE
 

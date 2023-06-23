@@ -311,9 +311,9 @@ static wiced_bt_gatt_status_t	app_gatt_get_value( wiced_bt_gatt_read_t *p_data )
             // Add code for any action required when this attribute is read
             switch ( attr_handle )
             {
-//				case HDLC_MYSVC_LED_VALUE:
-//					WICED_BT_TRACE( "LED is %s\r\n", app_mysvc_led[0] ? "ON" : "OFF" );
-//					break;
+				case HDLC_STV_CONFIG_VALUE:
+					WICED_BT_TRACE( "LED is %s\r\n", app_stv_config[0] ? "ON" : "OFF" );
+					break;
             }
 			break; /* break out of for loop once matching handle is found */
        }
@@ -344,7 +344,7 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
     }
     //wiced_bt_spp_send_session_data(handle, "Data Set: ", 10);
     //wiced_bt_spp_send_session_data(handle, p_data, data_len);
-    memset(p_val,'\0',64);
+
 
 	int i = 0;
     wiced_bool_t validLen = WICED_FALSE;
@@ -370,10 +370,10 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
                 // For example you may need to write the value into NVRAM if it needs to be persistent
                 switch ( attr_handle )
                 {
-//                	case HDLC_MYSVC_LED_VALUE:
-//						wiced_hal_gpio_set_pin_output(LED2, !(app_mysvc_led[0]) );
-//						WICED_BT_TRACE( "Turn the LED %s\r\n", app_mysvc_led[0] ? "ON" : "OFF" );
-//						break;
+                	case HDLC_STV_CONFIG_VALUE:
+						wiced_hal_gpio_set_pin_output(LED2, !(app_stv_config[0]) );
+						WICED_BT_TRACE( "Turn the LED %s\r\n", app_stv_config[0] ? "ON" : "OFF" );
+						break;
                 }
             }
             else
@@ -384,7 +384,7 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
             break; /* break out of for loop once matching handle is found */
         }
     }
-
+    memset(p_val,'\0',64);
     return res;
 }
 
