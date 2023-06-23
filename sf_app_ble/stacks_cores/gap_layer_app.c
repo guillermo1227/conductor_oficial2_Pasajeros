@@ -148,7 +148,7 @@ wiced_result_t beacon_management_callback(wiced_bt_management_evt_t event, wiced
         config_clk_timers();
         start_BTimers();
         set_rssi();
-
+        WICED_BT_TRACE("FLAG_RSSI: %B\n", data_rssi_save1);
         //--------------------------------------------
 
 		wiced_bt_gatt_register( app_gatt_callback );
@@ -156,7 +156,7 @@ wiced_result_t beacon_management_callback(wiced_bt_management_evt_t event, wiced
 
 		/* Enable/disable pairing */
 		wiced_bt_set_pairable_mode( WICED_FALSE, WICED_FALSE );
-
+        set_data_base();
         //-----------------------------------------
         /* Configure LED PIN as input and initial outvalue as high */
         //wiced_hal_gpio_configure_pin( LED_GPIO_1, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
@@ -332,7 +332,7 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
 	uint8_t  *p_val = 		p_data->p_val;
 	uint16_t len = 			p_data->val_len;
 
-	WICED_BT_TRACE("Data: %s\n ", p_val );
+	WICED_BT_TRACE("Data: %s, H: %d\n ", p_val ,attr_handle);
 
     wiced_hal_puart_print(p_val);
     switch(p_val[0])
@@ -345,6 +345,71 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
     //wiced_bt_spp_send_session_data(handle, "Data Set: ", 10);
     //wiced_bt_spp_send_session_data(handle, p_data, data_len);
 
+
+	int i = 0;
+    wiced_bool_t validLen = WICED_FALSE;
+
+    wiced_bt_gatt_status_t res = WICED_BT_GATT_INVALID_HANDLE;
+    set_data_base();
+    // Check for a matching handle entry and find is max available size
+//    for (i = 0; i < app_gatt_db_ext_attr_tbl_size; i++)
+//    {
+//        if (app_gatt_db_ext_attr_tbl[i].handle == attr_handle)
+//        {
+//            // Detected a matching handle in external lookup table
+//            // Verify that size constraints have been met
+//            validLen = (app_gatt_db_ext_attr_tbl[i].max_len >= len);
+//            if (validLen)
+//            {
+//                // Value fits within the supplied buffer; copy over the value
+//                app_gatt_db_ext_attr_tbl[i].cur_len = len;
+//                memcpy(app_gatt_db_ext_attr_tbl[i].p_data, p_val, len);
+//                res = WICED_BT_GATT_SUCCESS;
+//
+//                // Add code for any action required when this attribute is written
+//                // For example you may need to write the value into NVRAM if it needs to be persistent
+//                switch ( attr_handle )
+//                {
+//                	case HDLC_STV_CONFIG_VALUE:
+//						wiced_hal_gpio_set_pin_output(LED2, !(app_stv_config[0]) );
+//						WICED_BT_TRACE( "Turn the LED %s\r\n", app_stv_config[0] ? "ON" : "OFF" );
+//						break;
+//                }
+//            }
+//            else
+//            {
+//                // Value to write does not meet size constraints
+//                res = WICED_BT_GATT_INVALID_ATTR_LEN;
+//            }
+//            break; /* break out of for loop once matching handle is found */
+//        }
+//    }
+    memset(p_val,'\0',64);
+    return res;
+}
+
+void set_data_base(void)
+{
+	//char    Data_n[]    = { 'A', 'B', 'V', ':', 'o', ' ', '0' };             //Notification Name
+	char    Data_n[10];
+	uint16_t attr_handle = 	12;
+
+	Data_n[0]='A';
+	Data_n[1]=':';
+	Data_n[2]=data_rssi_save1[0];
+	Data_n[3]='B';
+	Data_n[4]=':';
+	Data_n[5]=data_rssi_save1[1];
+	Data_n[6]='V';
+	Data_n[7]=':';
+	Data_n[8]=data_rssi_save1[2];
+
+
+	uint8_t  *p_val = (uint8_t *)Data_n;
+	uint16_t len = 			10;
+
+
+	WICED_BT_TRACE("Data RSSI: %B\n ", p_val );
 
 	int i = 0;
     wiced_bool_t validLen = WICED_FALSE;
@@ -384,11 +449,7 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
             break; /* break out of for loop once matching handle is found */
         }
     }
-    memset(p_val,'\0',64);
-    return res;
 }
-
-
 //--------------------------------------------------------------------
 
 

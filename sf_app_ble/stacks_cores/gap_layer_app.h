@@ -22,6 +22,8 @@ char datafv_cfbV[8]={0x4c,0x41,0x49,0x52,0x44,0x53,0x54,0x56};
 char datac_cfb[6];
 char dataa_cfb2[14];
 
+extern unsigned char data_rssi_save1[10];
+
 extern const wiced_bt_cfg_settings_t app_cfg_settings2;
 extern const wiced_bt_cfg_buf_pool_t app_buf_pools2[];
 
@@ -35,6 +37,7 @@ static void                     beacon_advertisement_stopped(void);
 static void                     beacon_set_app_advertisement_data2();
 void                            beacon_set_app_advertisement_data3(void);
 void                            gap_transferER(void);
+void                            set_data_base(void);
 
 extern void	                    config_Transceiver(void);
 extern void                     init_config_logs(void);
