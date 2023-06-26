@@ -8,7 +8,17 @@
 #ifndef SF_APP_BLE_STACKS_CORES_GAP_LAYER_APP_H_
 #define SF_APP_BLE_STACKS_CORES_GAP_LAYER_APP_H_
 
+typedef struct
+{
+	uint8_t value_d;
+	uint8_t value_u;
+	uint8_t value_dt;
+	uint8_t value_ut;
+	uint8_t value_n;
 
+}data_config_t;
+
+data_config_t data_select[6];
 
 #define BEACON_EDDYSTONE_TLM 4
 

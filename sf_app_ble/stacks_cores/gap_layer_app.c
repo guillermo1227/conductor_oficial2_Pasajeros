@@ -394,10 +394,26 @@ void set_data_base(void)
 	char    Data_n[10];
 	uint16_t attr_handle = 	12;
 
+	data_select[1].value_n=data_rssi_save1[0];
+
+	data_select[1].value_d=(data_select[1].value_n%100-data_select[1].value_n%10)/10;
+	data_select[1].value_u=data_select[1].value_n%10;
+
+	WICED_BT_TRACE("Data D:%d, U:%d\n ", data_select[1].value_d, data_select[1].value_u );
+
+	data_select[1].value_dt=((data_select[1].value_d)%10)+48;
+	data_select[1].value_ut=data_select[1].value_u+48;
+
+	WICED_BT_TRACE("Data_T DT:%d, UT:%d\n ", data_select[1].value_dt, data_select[1].value_ut );
+
+
+
+
+
 	Data_n[0]='A';
 	Data_n[1]=':';
-	Data_n[2]=data_rssi_save1[0];
-	Data_n[3]='B';
+	Data_n[2]=data_select[1].value_dt;
+	Data_n[3]=data_select[1].value_ut;
 	Data_n[4]=':';
 	Data_n[5]=data_rssi_save1[1];
 	Data_n[6]='V';
