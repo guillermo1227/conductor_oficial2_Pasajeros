@@ -391,21 +391,24 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
 void set_data_base(void)
 {
 	//char    Data_n[]    = { 'A', 'B', 'V', ':', 'o', ' ', '0' };             //Notification Name
-	char    Data_n[10];
+	char    Data_n[15];
 	uint16_t attr_handle = 	12;
 
-	data_select[1].value_n=data_rssi_save1[0];
 
-	data_select[1].value_d=(data_select[1].value_n%100-data_select[1].value_n%10)/10;
-	data_select[1].value_u=data_select[1].value_n%10;
+	for(int c=1; c<4; c++)
+	{
+	data_select[c].value_n=data_rssi_save1[c-1];
 
-	WICED_BT_TRACE("Data D:%d, U:%d\n ", data_select[1].value_d, data_select[1].value_u );
+	data_select[c].value_d=(data_select[c].value_n%100-data_select[c].value_n%10)/10;
+	data_select[c].value_u=data_select[c].value_n%10;
 
-	data_select[1].value_dt=((data_select[1].value_d)%10)+48;
-	data_select[1].value_ut=data_select[1].value_u+48;
+	WICED_BT_TRACE("Data D:%d, U:%d\n ", data_select[1].value_d, data_select[c].value_u );
 
-	WICED_BT_TRACE("Data_T DT:%d, UT:%d\n ", data_select[1].value_dt, data_select[1].value_ut );
+	data_select[c].value_dt=((data_select[c].value_d)%10)+48;
+	data_select[c].value_ut=data_select[c].value_u+48;
 
+	WICED_BT_TRACE("Data_T DT:%d, UT:%d\n ", data_select[c].value_dt, data_select[c].value_ut );
+	}
 
 
 
@@ -414,15 +417,20 @@ void set_data_base(void)
 	Data_n[1]=':';
 	Data_n[2]=data_select[1].value_dt;
 	Data_n[3]=data_select[1].value_ut;
-	Data_n[4]=':';
-	Data_n[5]=data_rssi_save1[1];
-	Data_n[6]='V';
-	Data_n[7]=':';
-	Data_n[8]=data_rssi_save1[2];
+	Data_n[4]=',';
+	Data_n[5]='B';
+	Data_n[6]=':';
+	Data_n[7]=data_select[2].value_dt;
+	Data_n[8]=data_select[2].value_ut;
+	Data_n[9]=',';
+	Data_n[10]='V';
+	Data_n[11]=':';
+	Data_n[12]=data_select[3].value_dt;
+	Data_n[13]=data_select[3].value_ut;
 
 
 	uint8_t  *p_val = (uint8_t *)Data_n;
-	uint16_t len = 			10;
+	uint16_t len = 			15;
 
 
 	WICED_BT_TRACE("Data RSSI: %B\n ", p_val );

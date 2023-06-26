@@ -186,7 +186,7 @@
                                                 <Property id="Name" value="New field"/>
                                                 <Property id="Value" value=""/>
                                                 <Property id="Format" value="f_uint8_array"/>
-                                                <Property id="ByteLength" value="10"/>
+                                                <Property id="ByteLength" value="15"/>
                                             </FieldProperties>
                                         </Field>
                                     </Fields>
