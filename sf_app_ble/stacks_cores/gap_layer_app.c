@@ -429,6 +429,25 @@ void set_data_base(void)
 	Data_n[13]=data_select[3].value_ut;
 
 
+	if(Data_n[2]==48 && Data_n[3]==48)
+	{
+		Data_n[2]=56;
+		Data_n[3]=48;
+	}
+
+	if(Data_n[7]==48 && Data_n[8]==48)
+	{
+		Data_n[7]=56;
+		Data_n[8]=53;
+	}
+
+	if(Data_n[12]==48 && Data_n[13]==48)
+	{
+		Data_n[12]=56;
+		Data_n[13]=51;
+	}
+
+
 	uint8_t  *p_val = (uint8_t *)Data_n;
 	uint16_t len = 			15;
 
