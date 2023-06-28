@@ -147,13 +147,23 @@ int8_t datac_menviada2=0;
 char *dataV_DM[6] ={0};
 char *dataV_DM2[6] ={0};
 
+char dataV_SPI[6] ={0};
+char datav_dbs[7] ={0};
+
 char datam_buffer[350];
 char datam_buffer2[350];
 char datam_buffer3[350];
 
+char datam_bufferdbs[50];
+char datam_bufferact[350];
+
 int data_mc3=0;
 int data_mc32=0;
 int data_mc33=0;
+
+int data_mcdbs=0;
+int data_mc3act=0;
+int indice =0;
 
 int cc1 = 0;
 int cc4 = 0;
@@ -167,6 +177,9 @@ int clk_achV=0;
 int8_t datac_m =0;
 int8_t datac_m2=0;
 int8_t datac_m3=0;
+
+int8_t datac_mdbs=0;
+int8_t datac_mact=0;
 
 int8_t datac_st=0;
 

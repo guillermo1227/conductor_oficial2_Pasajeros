@@ -148,7 +148,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     {
     	memcpy(dataFilt5,p_scan_result->remote_bd_addr,6);
     	memcpy(dataFilt, p_name, 5);
-         if(p_scan_result->rssi>=-30 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
+         if(p_scan_result->rssi>=-125 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
         		 ){
     	if(//value_pin==WICED_TRUE
 
@@ -1095,14 +1095,14 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	 if(memcmp(Filt_operate103, dataFiltBC, sizeof(dataFiltBC)) == 0 ||
 		   	    	    	memcmp(Filt_operate103, dataFiltBC, sizeof(dataFiltBC)) == 0 )
 		   	    	{
-		   	      	      WICED_BT_TRACE("BNM:");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  WICED_BT_TRACE(",BEAC,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+//		   	      	      WICED_BT_TRACE("BNM:");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  WICED_BT_TRACE(",BEAC,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
 		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
 		       		      wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_HIGH);
 		       		      //WICED_BT_TRACE("SPIN 11 HIGH\n");
@@ -1115,16 +1115,16 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	    	memcmp(Filt_operate1, dataFiltLV, sizeof(dataFiltLV)) == 0 )
 		   	    	{
 
-		   	      	      WICED_BT_TRACE("BNM:");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+//		   	      	      WICED_BT_TRACE("BNM:");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
 		   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
 		   	    	      //wiced_hal_puart_print(p_name);
 
@@ -1134,16 +1134,16 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	    	memcmp(Filt_operate2, dataFiltLV, sizeof(dataFiltLV)) == 0 )
 		   	    	{
 
-		   	      	      WICED_BT_TRACE("BNM:");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",VEHI,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+//		   	      	      WICED_BT_TRACE("BNM:");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",VEHI,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
 		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
 
 		   	    	}
@@ -1169,6 +1169,108 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	   	//-----------------------------------------------------------
 
     	 }
+
+
+    	//--------------------------------------------------------------------------------
+    	        //uint8_t dataFilt5[6];
+
+    	    	 uint8_t                 length3;
+    	    	 uint8_t *               p_data3;
+    	    	uint8_t Filt_MAC1[6]  = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+    	    	char *dataV_DM3334[30] ={0};
+    	    	  	 char datam_fff[30];
+    	    	  	 char datam_fff22[30];
+    	    	  	char *substr2 = "CASASFCASCO";
+
+    	    	  	uint8_t datam_fff3[30];
+
+    	    	  	 char Filt_ddf2[2]  = {'S', 'F',};
+    	    	  	memcpy(dataV_SPI,p_scan_result->remote_bd_addr,6);
+    	    		 if(memcmp(Filt_MAC1, dataV_SPI, sizeof(dataV_SPI)) != 0 && gap_t1== WICED_FALSE)
+    	    		 {
+    	    			 /*WICED_BT_TRACE("URL:");
+    	    			 wiced_hal_puart_print(&p_data[3]);
+    	    			 WICED_BT_TRACE("\n");*/
+    	    		 //p_data = wiced_bt_ble_check_advertising_data( p_adv_data, BTM_BLE_ADVERT_TYPE_16SRV_COMPLETE, &length );
+    	    		 //WICED_BT_TRACE_ARRAY(p_data,40,"Data server %B");
+    	    		 //p_data = wiced_bt_ble_check_advertising_data( p_adv_data, 0x01   , &length1 );
+    	    		 //WICED_BT_TRACE_ARRAY(p_data,40,"Data server1 %B");
+    	    		 p_data3 = wiced_bt_ble_check_advertising_data( p_adv_data, 0x03, &length3 );
+    	    		 //WICED_BT_TRACE_ARRAY(p_data3,40,"Data server3 %B");
+
+    	    		 //WICED_BT_TRACE("Data server1: %B\n",&p_data3[8]);
+    	    		 //WICED_BT_TRACE("Data server2: %B\n",&p_data3[9]);
+    	    		 if(p_data3[8]=='S')
+    	    		 {
+    	    			 //WICED_BT_TRACE("Data server3: %B\n",&p_data3[8]);
+    	    			 memcpy(datam_fff3,&p_data3[8],sizeof(datam_fff3));
+    	    			 //memcpy(dataV_DM3334,datam_fff3,sizeof(datam_fff3));
+
+    	    		 }
+    	    		 else if(p_data3[9]=='S')
+    	    		 {
+    	    			 //WICED_BT_TRACE("Data server4: %B\n",&p_data3[9]);
+    	    			 memcpy(datam_fff3,&p_data3[9],sizeof(datam_fff3));
+    	    			 //memcpy(dataV_DM3334,datam_fff3,sizeof(datam_fff3));
+    	    		 }
+    	    		 else
+    	    		 {
+    	    			 return;
+    	    		 }
+
+
+    	    		 //memcpy(datam_fff2,dt,30);
+
+    	    		 char *substr3 =datam_fff3;
+    	    		 //WICED_BT_TRACE_ARRAY(substr3,40,"Data server5: %B");
+    	    		    char *substr2 = "SP";
+    	    		    //char *substrx = "";
+
+
+
+    	    		        //char *sK = strstr( substr3,substr);
+    	    	   		if (strstr(substr3,substr2) == NULL)
+    	    	   		{
+    	    	   			 //WICED_BT_TRACE("SSSSSSSS7\n");
+    	    				      /*indice = sK - substr3;
+    	    				      WICED_BT_TRACE("3BACK La cadena '%s',  en la posición %d\n", sK, indice);
+    	    				      indice = substr- sK;
+    	    					  WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);*/
+    	    	   		}
+    	    	   		else
+    	    	   		{
+    	    	   			//WICED_BT_TRACE("NNNNNNNNRRR7\n");
+    	    				      //indice = sK - substr3;
+    	    				      //WICED_BT_TRACE("3BACK La cadena '%s',  en la posición %d\n", sK, indice);
+    	    				      //indice = substr3- sK;
+    	    					  //WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);
+    	//----------------------------------------------------------------------------------------
+    						 char *p_dataDBS = strstr(datam_buffer2,dataV_SPI);
+    						 if(p_dataDBS)
+    						 {
+    							 char *p_dataDBS2 = strstr(datam_bufferdbs,dataV_SPI);
+    							 if(!p_dataDBS2)
+    							 {
+    							 memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
+    							 data_mcdbs+=6;
+    							 datac_mdbs++;
+    							 //WICED_BT_TRACE("Si contiene lamparasB2\n");
+    				    			//WICED_BT_TRACE_ARRAY(datam_bufferdbs, 18, "BUFFER LAMPARAS2");
+    				    			//WICED_BT_TRACE("Numero de lamparas st:%d  \n",datac_mdbs);
+    							 }
+
+    						 }
+    	//----------------------------------------------------------------------------
+
+    	    	         		 //WICED_BT_TRACE("Data server1: %B\n",&p_data3[8]);
+    	    	         		 //WICED_BT_TRACE("Data server2: %B\n",&p_data3[9]);
+
+
+    	    	}
+    	    		 }
+    	    	//--------------------------------------------------------------------------------------------------
+    	//--------------------------------------------------------------------------------
 
     }
 
@@ -1324,6 +1426,79 @@ void        f_timer_radc( uint32_t data )
 void clear_cont(void)
 {
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
+
+
+	//-------------------------------------------------------------------------------------
+	if(datac_mdbs>0 && datac_m2>0)
+	{
+		for(int c=0; c < datac_m2; c++)
+		{
+			/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Abuffer dbs1: %B");
+			WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Abuffer dbs2: %B");
+			WICED_BT_TRACE_ARRAY(datam_buffer2,20,"ADatam2: %B");
+			WICED_BT_TRACE_ARRAY(datam_buffer3,20,"ADatam3: %B");
+			WICED_BT_TRACE_ARRAY(datam_bufferact,20,"ADatamact: %B");
+			WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
+			memcpy(datav_dbs,&datam_buffer2[c*6],6);
+			//WICED_BT_TRACE("FILT: %B\n", datav_dbs);
+			 char *p_datadbs = strstr(datam_bufferdbs,datav_dbs);
+			 if(p_datadbs)
+			 {
+					indice = p_datadbs - datam_buffer2;
+			 //WICED_BT_TRACE("Si contiene lamparas\n");
+				/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Bbuffer dbs1: %B");
+				WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Bbuffer dbs2: %B");
+				WICED_BT_TRACE_ARRAY(datam_buffer2,20,"BDatam2: %B");
+				WICED_BT_TRACE_ARRAY(datam_buffer3,20,"BDatam3: %B");
+				WICED_BT_TRACE_ARRAY(datam_bufferact,20,"BDatamact: %B");
+				WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
+			 }
+			 else
+			 {
+				 memcpy(&datam_bufferact[data_mc3act],&datam_buffer2[c*6],6);
+				 data_mc3act+=6;
+				 datac_mact++;
+					/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"B2buffer dbs1: %B");
+					WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"B2buffer dbs2: %B");
+					WICED_BT_TRACE_ARRAY(datam_buffer2,20,"B2Datam2: %B");
+					WICED_BT_TRACE_ARRAY(datam_buffer3,20,"B2Datam3: %B");
+					WICED_BT_TRACE_ARRAY(datam_bufferact,20,"B2Datamact: %B");
+					WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
+			 }
+
+			/*	WICED_BT_TRACE_ARRAY(datam_buffer,20,"Cbuffer dbs1: %B");
+				WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Cbuffer dbs2: %B");
+				WICED_BT_TRACE_ARRAY(datam_buffer2,20,"CDatam2: %B");
+				WICED_BT_TRACE_ARRAY(datam_buffer3,20,"CDatam3: %B");
+				WICED_BT_TRACE_ARRAY(datam_bufferact,20,"CDatamact: %B");
+				WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
+		}
+
+		memcpy(datam_buffer2,datam_bufferact,350);
+		datac_m2=datac_mact;
+		//datac_m2=0;
+		data_mc32=data_mc3act;
+		datac_comp=0;
+		datac_mdbs=0;
+		data_mcdbs=0;
+		memset(datam_bufferdbs,'\0',350);
+		datac_mact=0;
+		data_mc3act=0;
+		memset(datam_bufferact,'\0',350);
+		datac_m3=0;
+		data_mc33=0;
+		memset(datam_buffer3,'\0',350);
+		cc1 = 0;
+		/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Dbuffer dbs1: %B");
+		WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Dbuffer dbs2: %B");
+		WICED_BT_TRACE_ARRAY(datam_buffer2,20,"DDatam2: %B");
+		WICED_BT_TRACE_ARRAY(datam_buffer3,20,"DDatam3: %B");
+		WICED_BT_TRACE_ARRAY(datam_bufferact,20,"DDatamact: %B");
+		WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
+	}
+
+
+	//----------------------------------------------------------------------------------------
 
     if(datac_m > datac_st)
     {
@@ -1974,19 +2149,19 @@ void exam_gpio(void)
 		gap_cfb(datam_buffer2);
 
 	}*/
-	if(datac_menviada2>0 && value_ach == WICED_FALSE)
-	{
-		Start_Timerach();
-		value_ach = WICED_TRUE;
-		WICED_BT_TRACE("ENTER RETR\n");
-	}
+//	if(datac_menviada2>0 && value_ach == WICED_FALSE)
+//	{
+//		Start_Timerach();
+//		value_ach = WICED_TRUE;
+//		WICED_BT_TRACE("ENTER RETR\n");
+//	}
 
-	if(datac_menviadaV2>0 && value_ach == WICED_FALSE)
-	{
-		Start_Timerach();
-		value_achV = WICED_TRUE;
-		WICED_BT_TRACE("ENTER RETRV\n");
-	}
+//	if(datac_menviadaV2>0 && value_ach == WICED_FALSE)
+//	{
+//		Start_Timerach();
+//		value_achV = WICED_TRUE;
+//		WICED_BT_TRACE("ENTER RETRV\n");
+//	}
 
 }
 

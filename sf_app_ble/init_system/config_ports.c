@@ -25,6 +25,7 @@ void set_outPuts(void)
     /* Configure LED PIN as input and initial outvalue as high */
 	//wiced_hal_gpio_configure_pin( LED_GPIO_00, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_01, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
+	wiced_hal_gpio_configure_pin( LED_GPIO_02, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_03, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_04, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	wiced_hal_gpio_configure_pin( LED_GPIO_05, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
