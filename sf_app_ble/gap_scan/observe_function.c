@@ -57,6 +57,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     wiced_bt_dev_read_local_addr(static_addr );
     uint8_t dataFilt5[6];
     uint8_t dataFiltR[6];
+    uint8_t data_flt[6];
     uint8_t dataFilter[3];
     uint8_t dataFilterED[3];
     uint8_t dataFilterED2[3];
@@ -163,6 +164,13 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	      memcmp(Filt_operate20, dataFilt, sizeof(dataFilt)) == 0 )
     	   {//filtro de nombres
 
+    		   memcpy(data_flt,p_scan_result->remote_bd_addr,6);
+
+    		   if(data_flt[0]<1 || data_flt[1]<1 || data_flt[2]<1 || data_flt[3]<1 || data_flt[4]<1 || data_flt[5]<1)
+    		   {
+    			   WICED_BT_TRACE( "Return\n");
+    			   return;
+    		   }
       	      /*WICED_BT_TRACE("BNM:%B,BSF,%d,", p_scan_result->remote_bd_addr, p_scan_result->rssi);
       	      WICED_BT_TRACE( "%B\n", static_addr );
     	      wiced_hal_puart_print(p_name);

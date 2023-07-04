@@ -147,6 +147,7 @@ int8_t datac_menviada2=0;
 char *dataV_DM[6] ={0};
 char *dataV_DM2[6] ={0};
 
+
 char dataV_SPI[6] ={0};
 char datav_dbs[7] ={0};
 
