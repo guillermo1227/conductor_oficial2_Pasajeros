@@ -1112,9 +1112,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 //		   				  WICED_BT_TRACE(",BEAC,%d",p_scan_result->rssi);
 //		   				  WICED_BT_TRACE(",0\n");
 		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
-		       		      wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_HIGH);
+		       		      //wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_HIGH);
 		       		      //WICED_BT_TRACE("SPIN 11 HIGH\n");
-		   				  start_TreturnfB();
+		   				  //start_TreturnfB();
 		   	    	}
 
 		   	      memcpy(dataFiltLV, p_name, 5);
@@ -1185,6 +1185,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    	 uint8_t                 length3;
     	    	 uint8_t *               p_data3;
     	    	uint8_t Filt_MAC1[6]  = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    	    	uint8_t filt_sl[6];
 
     	    	char *dataV_DM3334[30] ={0};
     	    	  	 char datam_fff[30];
@@ -1233,6 +1234,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    		 char *substr3 =datam_fff3;
     	    		 //WICED_BT_TRACE_ARRAY(substr3,40,"Data server5: %B");
     	    		    char *substr2 = "SP";
+    	    		    char *substrSL = "SL";
     	    		    //char *substrx = "";
 
 
@@ -1276,6 +1278,24 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
 
     	    	}
+    	    	   		if (strstr(substr3,substrSL) != NULL)
+    	    	   		{
+    	    	   		 if(substr3[4]==2 || substr3[4]==4 || substr3[4]==6)
+    	    	   		 {
+    	    	   			memcpy(filt_sl,p_scan_result->remote_bd_addr,6);
+    	    	   			//WICED_BT_TRACE("Enter: \n");
+    			   	   		  WICED_BT_TRACE("BNM:");
+    		   	      	      WICED_BT_TRACE("%02X",filt_sl[0]);
+    		   				  for(int k=1; k<=5; k++)
+    		   				  {
+    		   				    WICED_BT_TRACE(":%02X",filt_sl[k]);
+    		   				  }
+    		   				  //WICED_BT_TRACE("NAME:");
+    		   				  //wiced_hal_puart_print(p_name);
+    		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+    		   				  WICED_BT_TRACE(",1\n");
+    	    	   		 }
+    	    	   		}
     	    		 }
     	    	//--------------------------------------------------------------------------------------------------
     	//--------------------------------------------------------------------------------
