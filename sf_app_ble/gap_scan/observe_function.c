@@ -1088,10 +1088,10 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   					if(value_gap)
 		   					{
 		   						value_gap= WICED_FALSE;
-		   						wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_HIGH);
+		   						wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_HIGH);
 		   						wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 		   					}
-		   					WICED_BT_TRACE("greeen2222\n");
+		   					WICED_BT_TRACE("greeen1111\n");
 		   				  //gap_transfer();
 		   					   start_Treturn();
 		   	       		}
@@ -1165,7 +1165,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 			   					if(value_gap)
 			   					{
 			   						value_gap= WICED_FALSE;
-			   						wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_HIGH);
+			   						wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_HIGH);
 			   						wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 			   					}
 			   					WICED_BT_TRACE("greeen2222\n");

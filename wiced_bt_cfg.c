@@ -41,7 +41,7 @@
 #include "wiced_bt_gatt.h"
 #include "wiced_bt_cfg.h"
 
-#define WICED_DEVICE_NAME                       "OTA_FW_UPGRADE"
+#define WICED_DEVICE_NAME                       "OTA_FW_UPGRADE_MODULE_C"
 
 /*****************************************************************************
  * wiced_bt core stack configuration
