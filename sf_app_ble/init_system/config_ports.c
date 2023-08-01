@@ -32,6 +32,7 @@ void set_outPuts(void)
     wiced_hal_gpio_configure_pin( LED_GPIO_06, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
     wiced_hal_gpio_configure_pin( LED_GPIO_07, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
     wiced_hal_gpio_configure_pin( LED_GPIO_08, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
+    wiced_hal_gpio_configure_pin( LED_GPIO_P26, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_HIGH);
     //wiced_hal_gpio_configure_pin( LED_GPIO_11, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
 	//wiced_hal_gpio_configure_pin( LED_GPIO_13, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );
 	//wiced_hal_gpio_configure_pin( LED_GPIO_14, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );

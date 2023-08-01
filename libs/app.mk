@@ -4,74 +4,74 @@
 # the next time 'make getlibs' is run.
 #
 bsp-assistant:
-	(cd Firmware_Upgrade_via_OTA_9; make bsp-assistant)
+	(cd Firmware_Upgrade_via_OTA_20; make bsp-assistant)
 .PHONY: bsp-assistant
 
 config_bt:
-	(cd Firmware_Upgrade_via_OTA_9; make config_bt)
+	(cd Firmware_Upgrade_via_OTA_20; make config_bt)
 .PHONY: config_bt
 
 bt-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make bt-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make bt-configurator)
 .PHONY: bt-configurator
 
 capsense-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make capsense-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make capsense-configurator)
 .PHONY: capsense-configurator
 
 capsense-tuner:
-	(cd Firmware_Upgrade_via_OTA_9; make capsense-tuner)
+	(cd Firmware_Upgrade_via_OTA_20; make capsense-tuner)
 .PHONY: capsense-tuner
 
 config:
-	(cd Firmware_Upgrade_via_OTA_9; make config)
+	(cd Firmware_Upgrade_via_OTA_20; make config)
 .PHONY: config
 
 device-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make device-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make device-configurator)
 .PHONY: device-configurator
 
 config_ezpd:
-	(cd Firmware_Upgrade_via_OTA_9; make config_ezpd)
+	(cd Firmware_Upgrade_via_OTA_20; make config_ezpd)
 .PHONY: config_ezpd
 
 ez-pd-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make ez-pd-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make ez-pd-configurator)
 .PHONY: ez-pd-configurator
 
 modlibs:
-	(cd Firmware_Upgrade_via_OTA_9; make modlibs)
+	(cd Firmware_Upgrade_via_OTA_20; make modlibs)
 .PHONY: modlibs
 
 library-manager:
-	(cd Firmware_Upgrade_via_OTA_9; make library-manager)
+	(cd Firmware_Upgrade_via_OTA_20; make library-manager)
 .PHONY: library-manager
 
 config_lin:
-	(cd Firmware_Upgrade_via_OTA_9; make config_lin)
+	(cd Firmware_Upgrade_via_OTA_20; make config_lin)
 .PHONY: config_lin
 
 lin-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make lin-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make lin-configurator)
 .PHONY: lin-configurator
 
 qspi-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make qspi-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make qspi-configurator)
 .PHONY: qspi-configurator
 
 seglcd-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make seglcd-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make seglcd-configurator)
 .PHONY: seglcd-configurator
 
 smartio-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make smartio-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make smartio-configurator)
 .PHONY: smartio-configurator
 
 config_usbdev:
-	(cd Firmware_Upgrade_via_OTA_9; make config_usbdev)
+	(cd Firmware_Upgrade_via_OTA_20; make config_usbdev)
 .PHONY: config_usbdev
 
 usbdev-configurator:
-	(cd Firmware_Upgrade_via_OTA_9; make usbdev-configurator)
+	(cd Firmware_Upgrade_via_OTA_20; make usbdev-configurator)
 .PHONY: usbdev-configurator
 

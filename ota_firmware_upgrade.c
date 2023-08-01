@@ -139,6 +139,7 @@ extern Point    ecdsa256_public_key;
  #define PORT_INT_26                              WICED_P26
 
  #define LED_GPIO_3                               WICED_P03
+ #define  LED_GPIO_2                               WICED_P02
  #define LED_GPIO_6                               WICED_P06
  #define LED_GPIO_13                              WICED_P13
  #define LED_GPIO_16                              WICED_P16
@@ -449,6 +450,7 @@ wiced_result_t app_management_callback(wiced_bt_management_evt_t event, wiced_bt
     case BTM_ENABLED_EVT:
         app_init();
     	wiced_hal_gpio_configure_pin( LED_GPIO_3,  GPIO_OUTPUT_DISABLE, GPIO_PIN_OUTPUT_LOW);
+    	wiced_hal_gpio_configure_pin( LED_GPIO_2,  GPIO_OUTPUT_DISABLE, GPIO_PIN_OUTPUT_LOW);
         wiced_hal_gpio_configure_pin( LED_GPIO_6 , GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW);
     	wiced_hal_gpio_configure_pin( LED_GPIO_13,  GPIO_OUTPUT_DISABLE, GPIO_PIN_OUTPUT_LOW );
     	wiced_hal_gpio_configure_pin( LED_GPIO_16,  GPIO_OUTPUT_DISABLE, GPIO_PIN_OUTPUT_LOW );

@@ -28,7 +28,7 @@
 //#define LED_GPIO_16                              WICED_P16
 //#define LED_GPIO_17                              WICED_P17
 //#define LED_GPIO_25                              WICED_P25
-#define LED_GPIO_26                              WICED_P26
+#define LED_GPIO_P26                              WICED_P26
 
 
 

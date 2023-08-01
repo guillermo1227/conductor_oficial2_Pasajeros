@@ -168,8 +168,14 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     		   if(data_flt[0]<1 || data_flt[1]<1 || data_flt[2]<1 || data_flt[3]<1 || data_flt[4]<1 || data_flt[5]<1)
     		   {
-    			   WICED_BT_TRACE( "Return\n");
-    			   return;
+    			   data_flt[0]=0xFF;
+    			   data_flt[1]=0xFF;
+    			   data_flt[2]=0xFF;
+    			   data_flt[3]=0xFF;
+    			   data_flt[4]=0xFF;
+    			   data_flt[5]=0xFF;
+    			   //WICED_BT_TRACE( "Return1\n");
+    			   //return;
     		   }
       	      /*WICED_BT_TRACE("BNM:%B,BSF,%d,", p_scan_result->remote_bd_addr, p_scan_result->rssi);
       	      WICED_BT_TRACE( "%B\n", static_addr );
@@ -196,7 +202,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     			if(st_Tipe==0x00 || st_Tipe==0x01)
     			{
-    			   memcpy(dataV_DM,p_scan_result->remote_bd_addr,6);
+    			   memcpy(dataV_DM,data_flt,6);
     		   	   char *p_dataDm = strstr(datam_buffer,dataV_DM);
     			   if(!p_dataDm)
     			   {
@@ -238,7 +244,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							}
 
 	 //--------------------------------------------------------------------------------
-					        WICED_BT_TRACE("DATA1 %d, %d\n", dataFiltC[0], dataFiltC[1]);
+					       // WICED_BT_TRACE("DATA1 %d, %d\n", dataFiltC[0], dataFiltC[1]);
 
 					        if(dataFiltCED[0]>230){dataFiltCED[0]=0;};
 					        if(dataFiltCED[1]>230){dataFiltCED[1]=0;};
@@ -578,7 +584,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     			if(st_Tipe==0x0a || st_Tipe==0x0b)
     			{
-    			   memcpy(dataV_DMV,p_scan_result->remote_bd_addr,6);
+    			   memcpy(dataV_DMV,data_flt ,6);
     		   	   char *p_dataDmV = strstr(datam_bufferV,dataV_DMV);
     			   if(!p_dataDmV)
     			   {
@@ -621,7 +627,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		//----------------------------------------------------------------------------------
 							 //--------------------------------------------------------------------------------
 
-					        WICED_BT_TRACE("DATA2 %d, %d\n", dataFiltCED[0], dataFiltCED[1]);
+					        //WICED_BT_TRACE("DATA2 %d, %d\n", dataFiltCED[0], dataFiltCED[1]);
 
 					        if(dataFiltCED[0]>230){dataFiltCED[0]=0;};
 					        if(dataFiltCED[1]>230){dataFiltCED[1]=0;};
@@ -911,7 +917,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	   				if(value_gap)
     	   				{
     	   					value_gap= WICED_FALSE;
+    	   					value_le = WICED_TRUE;
     	   					wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_HIGH);
+    	   					wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_LOW);
     	   					wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
     	   					WICED_BT_TRACE("greeen\n");
     	   				}
@@ -1088,7 +1096,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   					if(value_gap)
 		   					{
 		   						value_gap= WICED_FALSE;
+		   						value_le = WICED_TRUE;
 		   						wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_HIGH);
+		   						wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_LOW);
 		   						wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 		   					}
 		   					WICED_BT_TRACE("greeen1111\n");
@@ -1165,7 +1175,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 			   					if(value_gap)
 			   					{
 			   						value_gap= WICED_FALSE;
+			   						value_le = WICED_TRUE;
 			   						wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_HIGH);
+			   						wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_LOW);
 			   						wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
 			   					}
 			   					WICED_BT_TRACE("greeen2222\n");
@@ -1184,8 +1196,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     	    	 uint8_t                 length3;
     	    	 uint8_t *               p_data3;
-    	    	uint8_t Filt_MAC1[6]  = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    	    	uint8_t Filt_MAC4[6]  = {0x31, 0x31, 0xFF, 0xFF, 0xFF, 0xFF};
     	    	uint8_t filt_sl[6];
+    	    	 uint8_t data_flt2[6];
 
     	    	char *dataV_DM3334[30] ={0};
     	    	  	 char datam_fff[30];
@@ -1195,8 +1208,23 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    	  	uint8_t datam_fff3[30];
 
     	    	  	 char Filt_ddf2[2]  = {'S', 'F',};
-    	    	  	memcpy(dataV_SPI,p_scan_result->remote_bd_addr,6);
-    	    		 if(memcmp(Filt_MAC1, dataV_SPI, sizeof(dataV_SPI)) != 0 && gap_t1== WICED_FALSE)
+
+    	             memcpy(data_flt2,p_scan_result->remote_bd_addr,6);
+
+    	                 if(data_flt2[0]<1 || data_flt2[1]<1 || data_flt2[2]<1 || data_flt2[3]<1 || data_flt2[4]<1 || data_flt2[5]<1)
+    	      		   {
+    	      			   data_flt2[0]=0xFF;
+    	      			   data_flt2[1]=0xFF;
+    	      			   data_flt2[2]=0xFF;
+    	      			   data_flt2[3]=0xFF;
+    	      			   data_flt2[4]=0xFF;
+    	      			   data_flt2[5]=0xFF;
+    	      			  // WICED_BT_TRACE( "Return2\n");
+    	      			   //return;
+    	      		   }
+
+    	    	  	memcpy(dataV_SPI,data_flt2,6);
+    	    		 if(memcmp(Filt_MAC4, dataV_SPI, sizeof(dataV_SPI)) != 0 && gap_t1== WICED_FALSE)
     	    		 {
     	    			 /*WICED_BT_TRACE("URL:");
     	    			 wiced_hal_puart_print(&p_data[3]);
@@ -1278,24 +1306,24 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
 
     	    	}
-    	    	   		if (strstr(substr3,substrSL) != NULL)
-    	    	   		{
-    	    	   		 if(substr3[4]==2 || substr3[4]==4 || substr3[4]==6)
-    	    	   		 {
-    	    	   			memcpy(filt_sl,p_scan_result->remote_bd_addr,6);
-    	    	   			//WICED_BT_TRACE("Enter: \n");
-    			   	   		  WICED_BT_TRACE("BNM:");
-    		   	      	      WICED_BT_TRACE("%02X",filt_sl[0]);
-    		   				  for(int k=1; k<=5; k++)
-    		   				  {
-    		   				    WICED_BT_TRACE(":%02X",filt_sl[k]);
-    		   				  }
-    		   				  //WICED_BT_TRACE("NAME:");
-    		   				  //wiced_hal_puart_print(p_name);
-    		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-    		   				  WICED_BT_TRACE(",1\n");
-    	    	   		 }
-    	    	   		}
+//    	    	   		if (strstr(substr3,substrSL) != NULL)
+//    	    	   		{
+//    	    	   		 if(substr3[4]==2 || substr3[4]==4 || substr3[4]==6)
+//    	    	   		 {
+//    	    	   			memcpy(filt_sl,p_scan_result->remote_bd_addr,6);
+//    	    	   			//WICED_BT_TRACE("Enter: \n");
+//    			   	   		  WICED_BT_TRACE("BNM:");
+//    		   	      	      WICED_BT_TRACE("%02X",filt_sl[0]);
+//    		   				  for(int k=1; k<=5; k++)
+//    		   				  {
+//    		   				    WICED_BT_TRACE(":%02X",filt_sl[k]);
+//    		   				  }
+//    		   				  //WICED_BT_TRACE("NAME:");
+//    		   				  //wiced_hal_puart_print(p_name);
+//    		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//    		   				  WICED_BT_TRACE(",1\n");
+//    	    	   		 }
+//    	    	   		}
     	    		 }
     	    	//--------------------------------------------------------------------------------------------------
     	//--------------------------------------------------------------------------------
@@ -1946,13 +1974,13 @@ void exam_gpio(void)
 		WICED_BT_TRACE("SBZ00\n");
 	}*/
 	//----------------------------------------------------------------------------------
-	if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_26 ))
+	if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_P26 ))
 	{
-		 wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_LOW);
+		 wiced_hal_gpio_set_pin_output( LED_GPIO_P26, GPIO_PIN_OUTPUT_HIGH);
 	}
 	else
 	{
-		wiced_hal_gpio_set_pin_output( LED_GPIO_26, GPIO_PIN_OUTPUT_HIGH);
+		wiced_hal_gpio_set_pin_output( LED_GPIO_P26, GPIO_PIN_OUTPUT_HIGH);
 	}
 
 	if(value_pa1==WICED_TRUE && datac_comp>0)

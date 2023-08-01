@@ -279,13 +279,14 @@ void      f_timer_er( uint32_t data )
 
 	if(!gap_t1)
 	{
-	if( GPIO_PIN_OUTPUT_LOW == wiced_hal_gpio_get_pin_output(LED_GPIO_05 ) )
+	if( value_le == WICED_FALSE )
 	{
 	 gap_transferER();
 	 value_le = WICED_TRUE;
 	 //wiced_hal_gpio_set_pin_output( LED_GPIO_17, GPIO_PIN_OUTPUT_HIGH);
 	 wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_HIGH);
 	 wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_HIGH);
+	 wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_LOW);
 	}
 	else
 	{
@@ -294,6 +295,7 @@ void      f_timer_er( uint32_t data )
 		 //wiced_hal_gpio_set_pin_output( LED_GPIO_17, GPIO_PIN_OUTPUT_LOW);
 		 wiced_hal_gpio_set_pin_output( LED_GPIO_05, GPIO_PIN_OUTPUT_LOW);
 		 wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_LOW);
+		 wiced_hal_gpio_set_pin_output( LED_GPIO_06, GPIO_PIN_OUTPUT_LOW);
 	}
 	}
 }
