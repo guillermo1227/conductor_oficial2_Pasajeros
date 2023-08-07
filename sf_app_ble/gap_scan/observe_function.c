@@ -1262,7 +1262,10 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    		 char *substr3 =datam_fff3;
     	    		 //WICED_BT_TRACE_ARRAY(substr3,40,"Data server5: %B");
     	    		    char *substr2 = "SP";
+    	    		    //char *substrSL = "SL";
     	    		    char *substrSL = "SL";
+    	    		    char *substrSA = "SA";
+    	    		    char *substrSB = "SB";
     	    		    //char *substrx = "";
 
 
@@ -1306,6 +1309,77 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
 
     	    	}
+
+    	    	   		//-----------------------------------------
+    	    	   		//----------------------------------------------------------------------------------
+    	    	   		if (strstr(substr3,substrSL) != NULL)
+    	    	   		{
+    	    	   			 WICED_BT_TRACE("SLB\n");
+    	    				      /*indice = sK - substr3;
+    	    				      WICED_BT_TRACE("3BACK La cadena '%s',  en la posición %d\n", sK, indice);
+    	    				      indice = substr- sK;
+    	    					  WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);*/
+    	    	   		}
+
+    	    	   		else if (strstr(substr3,substrSA) != NULL)
+    	    	   		{
+
+
+    		   	      	      WICED_BT_TRACE("CAR#");
+    		   	      	      WICED_BT_TRACE("%02X",substr3[2]);
+    		   				  for(int k=3; k<=7; k++)
+    		   				  {
+    		   				    WICED_BT_TRACE(":%02X",substr3[k]);
+    		   				  }
+    		   				  //WICED_BT_TRACE("NAME:");
+    		   				  //wiced_hal_puart_print(p_name);
+
+    		   				  if(p_data3[16]==1)
+    		   				  {
+    		   					WICED_BT_TRACE("|1\n");
+    		   				  }
+    		   				  else if(p_data3[17]==1)
+    		   				  {
+    		   					WICED_BT_TRACE("|1\n");
+    		   				  }
+    		   				  else if(p_data3[16]==2)
+    		   				  {
+    		   					WICED_BT_TRACE("|2\n");
+    		   				  }
+    		   				  else if(p_data3[17]==2)
+    		   				  {
+    		   					WICED_BT_TRACE("|2\n");
+    		   				  }
+    		   				  else if(p_data3[16]==3)
+    		   				  {
+    		   					WICED_BT_TRACE("|3\n");
+    		   				  }
+    		   				  else if(p_data3[17]==3)
+    		   				  {
+    		   					WICED_BT_TRACE("|3\n");
+    		   				  }
+    		   				  else if(p_data3[16]==4)
+    		   				  {
+    		   					WICED_BT_TRACE("|4\n");
+    		   				  }
+    		   				  else if(p_data3[17]==4)
+    		   				  {
+    		   					WICED_BT_TRACE("|4\n");
+    		   				  }
+
+
+    	    				      /*indice = sK - substr3;
+    	    				      WICED_BT_TRACE("3BACK La cadena '%s',  en la posición %d\n", sK, indice);
+    	    				      indice = substr- sK;
+    	    					  WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);*/
+    	    	   		}
+    	    	   		else if (strstr(substr3,substrSB) != NULL)
+    	    	   		{
+    	    	   			WICED_BT_TRACE("NBC#%s\n",&substr3[2]);
+    	    	   		}
+
+    	    	   		//----------------------------------------------------------------------------------
+    	    	   		//------------------------------------------
 //    	    	   		if (strstr(substr3,substrSL) != NULL)
 //    	    	   		{
 //    	    	   		 if(substr3[4]==2 || substr3[4]==4 || substr3[4]==6)
