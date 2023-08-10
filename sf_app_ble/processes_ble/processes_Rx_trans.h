@@ -66,6 +66,8 @@ uint8_t data_f[3];
 #define data_SWD "SWD"
 #define data_SDA "SDA"
 #define data_SDB "SDB"
+#define data_SFM "SFM"
+#define data_SRM "SRM"
 
 #define BT_LOCAL_NAME_DEFAULT "L4SEC BLE"
 
@@ -87,13 +89,14 @@ uint8_t dtv = 0;
 int cv1,cv2,cv3;
 
 unsigned char data_bn_save[10];
-unsigned char data_ma_save[6];
+unsigned char data_ma_save[12];
 unsigned char data_flash[20];
 unsigned char data_rssi_save1[10];
 uint8_t data_uuid[16];
 uint8_t data_rssi[3];
 uint8_t d_password1[7];
 uint8_t c_password1[7];
+uint8_t datac_cfbf[6];
 
 
 void process_Write(uint8_t *data_Write);
@@ -117,6 +120,8 @@ extern void event_mlfb(void);
 extern void set_rssi(void);
 extern void dataTx_spp1(int select);
 extern void event_select_SPP(void);
+extern void filt_cfb(uint8_t *data_cfb2);
+extern void filt_cfb_log(uint8_t *data_cfb3);
 
 
 

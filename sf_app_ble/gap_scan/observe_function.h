@@ -213,6 +213,7 @@ int8_t datac_mV2=0;
 int8_t datac_mV3=0;
 
 int8_t datac_stV=0;
+uint8_t datac_cfbf2[6];
 //---------------------------------------------------------------
 
 static void        Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uint8_t *p_adv_data );
@@ -227,6 +228,7 @@ void               init_event_gap(void);
 void               print_cst(void);
 void               event_mlfb(void);
 void               clear_cer(void);
+void               filt_cfb(uint8_t *data_cfb2);
 
 
 extern void gap_cfb(char *data_cfb);

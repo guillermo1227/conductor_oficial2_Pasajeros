@@ -61,10 +61,12 @@ void process_Write(uint8_t *data_Write)
     else if(memcmp(data_WMA, data_f,sizeof(data_f))== 0)
 	  {
   	    memcpy(data_uuid,&data_Write[3] ,16);
-		memcpy(data_ma_save,data_uuid ,16);
+
+	    numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
+		memcpy(data_ma_save,data_uuid ,6);
 		numbytes3 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
 		WICED_BT_TRACE("Mac Address Saved: ");
-		for(int i=0;i< 6; i++){wiced_hal_puart_write(data_ma_save[i]);}
+		for(int i=0;i< 12; i++){wiced_hal_puart_write(data_ma_save[i]);}
 		WICED_BT_TRACE( "\n");
 		flag2 = 1;
 		numbytes4 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+3, sizeof(flag2), &flag2, &status4 );
@@ -343,6 +345,25 @@ void process_SOM(uint8_t *data_S_OM)
       {
     	  WICED_BT_TRACE("Report STS\n");
     	  event_mlfb();
+      }
+      else if(memcmp(data_SFM, data_f,sizeof(data_f))== 0)
+      {
+    	  WICED_BT_TRACE("Report SFM\n");
+    	  //filt_cfb_log(datac_cfbf);
+  	    numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
+
+  		memcpy(&data_ma_save[6],&data_S_OM[3] ,6);
+  		numbytes3 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
+  	    numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
+  		WICED_BT_TRACE("Mac Address Saved: ");
+  		for(int i=0;i< 12; i++){wiced_hal_puart_write(data_ma_save[i]);}
+  		WICED_BT_TRACE( "\n");
+
+      }
+      else if(memcmp(data_SRM, data_f,sizeof(data_f))== 0)
+      {
+    	  WICED_BT_TRACE("Report SRM\n");
+
       }
       else if(memcmp(data_SSW, data_f,sizeof(data_f))== 0)
       {

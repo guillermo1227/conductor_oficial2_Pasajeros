@@ -341,6 +341,12 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
     	     process_SOM(p_val);
     	break;
 
+    case 'W':
+    	process_Write(p_val);
+    	break;
+
+
+
     }
     //wiced_bt_spp_send_session_data(handle, "Data Set: ", 10);
     //wiced_bt_spp_send_session_data(handle, p_data, data_len);

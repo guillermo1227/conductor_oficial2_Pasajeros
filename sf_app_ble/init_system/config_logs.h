@@ -61,7 +61,7 @@ extern uint8_t         BT_LOCAL_NAME2[64];
 
 
 extern unsigned char data_bn_save[10];
-extern unsigned char data_ma_save[6];
+extern unsigned char data_ma_save[12];
 
 #define BT_LOCAL_NAME_DEFAULT  "L4SEC BLE8"
 #define BT_LOCAL_NAME_DEFAULT2 "L4sec BLE8"
@@ -99,6 +99,7 @@ void   init_config_logs(void);
 void   init_mac_logs(void);
 
 extern             void prevention_inspection(void);
+extern void filt_cfb(uint8_t *data_cfb2);
 
 
 

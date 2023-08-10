@@ -220,8 +220,8 @@ void init_mac_logs(void)
 		  //WICED_BT_TRACE("FLAG2:%d\n", flag2);
 		  numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
 		  //for(int i=0;i< sizeof(Msm_MCU)-1; i++){wiced_hal_puart_write(Msm_MCU[i]);}
-	  	  WICED_BT_TRACE("Mac Address: %B ", data_ma_save);
-	  	  //for(int i=0;i< 6; i++){wiced_hal_puart_write(data_ma_save[i]);}
+	  	  WICED_BT_TRACE("Mac Address2: ");
+	  	  for(int i=0;i< 12; i++){wiced_hal_puart_write(data_ma_save[i]);}
 		  WICED_BT_TRACE( "\n");
 	      bda[0]=data_ma_save[0];
 	      bda[1]=data_ma_save[1];
@@ -245,7 +245,7 @@ void init_mac_logs(void)
 		wiced_bt_ble_address_type_t  macc= BLE_ADDR_PUBLIC_ID;
 
 	    wiced_bt_set_local_bdaddr(bda,macc);
-
+	    filt_cfb(&data_ma_save[6]);
 }
 
 void send_level_p(uint8_t *p_dlevel)
@@ -257,4 +257,9 @@ void send_level_p(uint8_t *p_dlevel)
 	//WICED_BT_TRACE( "Porciento3 = %X \n\r",Uart_pu8PutTx);
 	//WICED_BT_TRACE( "Porciento4 = %d \n\r",Uart_pu8PutTx);
 	numbytes12 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+12, sizeof(Uart_pu8PutTx), &Uart_pu8PutTx, &status12 );
+}
+
+void filt_cfb_log(uint8_t *data_cfb3)
+{
+
 }

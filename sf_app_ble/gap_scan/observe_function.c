@@ -1321,7 +1321,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    					  WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);*/
     	    	   		}
 
-    	    	   		else if (strstr(substr3,substrSA) != NULL)
+    	    	   		else if (strstr(substr3,substrSA) != NULL && memcmp(datac_cfbf2, dataV_SPI, sizeof(dataV_SPI)) == 0)
     	    	   		{
 
 
@@ -1373,7 +1373,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    				      indice = substr- sK;
     	    					  WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);*/
     	    	   		}
-    	    	   		else if (strstr(substr3,substrSB) != NULL)
+    	    	   		else if (strstr(substr3,substrSB) != NULL && memcmp(datac_cfbf2, dataV_SPI, sizeof(dataV_SPI)) == 0)
     	    	   		{
     	    	   			WICED_BT_TRACE("NBC#%s\n",&substr3[2]);
     	    	   		}
@@ -2521,4 +2521,11 @@ void      clear_cer(void)
     if(value_p1==WICED_FALSE){wiced_hal_gpio_set_pin_output( LED_GPIO_01, GPIO_PIN_OUTPUT_LOW);};
     if(value_pV1==WICED_FALSE){wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_LOW);};
     value_onl=WICED_FALSE;
+}
+
+
+void                filt_cfb(uint8_t *data_cfb2)
+{
+	memcpy(datac_cfbf2,data_cfb2,6);
+	WICED_BT_TRACE("Data Filt: %B\n",datac_cfbf2);
 }
