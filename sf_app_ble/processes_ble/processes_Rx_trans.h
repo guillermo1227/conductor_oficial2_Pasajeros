@@ -90,6 +90,7 @@ int cv1,cv2,cv3;
 
 unsigned char data_bn_save[10];
 unsigned char data_ma_save[12];
+unsigned char data_conver[12];
 unsigned char data_flash[20];
 unsigned char data_rssi_save1[10];
 uint8_t data_uuid[16];
@@ -98,7 +99,20 @@ uint8_t d_password1[7];
 uint8_t c_password1[7];
 uint8_t datac_cfbf[6];
 
+//---------------------------------------------------
+#define a  10
+#define b  11
+#define c  12
+#define d  13
+#define e  14
+#define f  15
 
+int mac_val[6] = {a,b,c,d,e,f};
+char mac_char[6]= {'a','b','c','d','e','f'};
+int mac_sum[6]={0,0,0,0,0,0};
+uint8_t inter;
+uint8_t i, flag;
+//-------------------------------------------------
 void process_Write(uint8_t *data_Write);
 void process_CMA(uint8_t *data_C_MA);
 void process_data_config(uint8_t *data_dc);

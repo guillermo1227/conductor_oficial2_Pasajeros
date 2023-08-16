@@ -350,9 +350,56 @@ void process_SOM(uint8_t *data_S_OM)
       {
     	  WICED_BT_TRACE("Report SFM\n");
     	  //filt_cfb_log(datac_cfbf);
+
+    	  //-----------------------------------------------------------------
+    	  memcpy(data_conver,&data_S_OM[3] ,12);
+    		inter=0;
+    		for(int t=0;t<6;t++)mac_sum[t]=0;
+
+
+    		for( i=0; i<=11;i++)
+    			{
+    			flag=0;
+    			for(int k=0; k<6;k++)
+    				{
+    				/* ¿Es igual a algun valor hexadecimal? */
+    				if(data_conver[i+1]==mac_char[k])
+    					{
+    						flag=1;
+    						mac_sum[inter]=mac_val[k];
+
+    					}
+    				}
+    			if(flag==0)       /* --------> Si el dato ingresado no era una letra se viene para acá y toma el dato entero*/
+    							{
+    								mac_sum[inter]=data_conver[i+1]-'0';
+    							}
+    			flag=0;
+    			for(int k=0;k<6;k++)
+    				{
+    				/* ¿Es igual a algun valor hexadecimal? */
+    					if(data_conver[i+1-1]==mac_char[k])
+    					{
+
+    						mac_sum[inter]=mac_sum[inter]+ (mac_val[k]*16);
+    						flag=1;
+    					}
+    				}
+    			if(flag==0)       /* --------> Si el dato ingresado no era una letra se viene para acá y toma el dato entero*/
+    				{
+    					mac_sum[inter]=mac_sum[inter]+ ((data_conver[i+1-1]-'0') * 16);
+    				}
+    			inter++;
+    			i=i+1;
+    			WICED_BT_TRACE("\n Aumento de numero i %d \n", i);
+    			}
+
+
+
+    	  //-----------------------------------------------------------------
   	    numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
 
-  		memcpy(&data_ma_save[6],&data_S_OM[3] ,6);
+  		memcpy(&data_ma_save[6],mac_sum ,6);
   		numbytes3 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
   	    numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
   		WICED_BT_TRACE("Mac Address Saved: ");
