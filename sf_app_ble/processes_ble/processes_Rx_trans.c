@@ -26,7 +26,20 @@
 #include "wiced_memory.h"
 #include "wiced_bt_cfg.h"
 
+//----------------------
+#define a  10
+#define b  11
+#define c  12
+#define d  13
+#define e  14
+#define f  15
 
+//int mac_val[6] = {a,b,c,d,e,f};
+//char mac_char[6]= {'a','b','c','d','e','f'};
+//int mac_sum[6]={0,0,0,0,0,0};
+uint8_t inter;
+uint8_t i, flag;
+//-----------------------
 
 void process_Write(uint8_t *data_Write)
 {
@@ -350,9 +363,22 @@ void process_SOM(uint8_t *data_S_OM)
       {
     	  WICED_BT_TRACE("Report SFM\n");
     	  //filt_cfb_log(datac_cfbf);
-
+   		  WICED_BT_TRACE("\n dat1:  ");
+ 	      //WICED_BT_TRACE("%c",data_S_OM[0]);
+		  for(int k=0; k<=14; k++)
+		  {
+		    WICED_BT_TRACE("%c",data_S_OM[k]);
+		  }
     	  //-----------------------------------------------------------------
     	  memcpy(data_conver,&data_S_OM[3] ,12);
+
+   		  WICED_BT_TRACE("\n\n dat2:  ");
+ 	      //WICED_BT_TRACE("%c",data_conver[0]);
+		  for(int k=0; k<12; k++)
+		  {
+		    WICED_BT_TRACE("%c",data_conver[k]);
+		  }
+
     		inter=0;
     		for(int t=0;t<6;t++)mac_sum[t]=0;
 
@@ -367,6 +393,8 @@ void process_SOM(uint8_t *data_S_OM)
     					{
     						flag=1;
     						mac_sum[inter]=mac_val[k];
+    						WICED_BT_TRACE("\n1 %c ",data_conver[i+1]);
+    						WICED_BT_TRACE(" %d \n",mac_val[k]);
 
     					}
     				}
@@ -383,6 +411,8 @@ void process_SOM(uint8_t *data_S_OM)
 
     						mac_sum[inter]=mac_sum[inter]+ (mac_val[k]*16);
     						flag=1;
+    						WICED_BT_TRACE("\n2 %c ",data_conver[i+1]);
+    					    WICED_BT_TRACE(" %d \n",mac_val[k]);
     					}
     				}
     			if(flag==0)       /* --------> Si el dato ingresado no era una letra se viene para acá y toma el dato entero*/
@@ -393,13 +423,23 @@ void process_SOM(uint8_t *data_S_OM)
     			i=i+1;
     			WICED_BT_TRACE("\n Aumento de numero i %d \n", i);
     			}
+//    		for(int i=0;i< 6; i++){
+//    			WICED_BT_TRACE(" %02X ",mac_sum[i]);
+//    			data_ma_save[i+6]=mac_sum[i];
+//    		}
 
 
+    		//memcpy(&data_ma_save[6],mac_sum ,6);
+//    		WICED_BT_TRACE("\n Primer data_ma_save:");
+//    		for(int i=0; i<12; i++){WICED_BT_TRACE("%c",data_ma_save[i]);}
 
     	  //-----------------------------------------------------------------
   	    numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
 
-  		memcpy(&data_ma_save[6],mac_sum ,6);
+		for(int i=0;i< 6; i++){
+			WICED_BT_TRACE(" %02X ",mac_sum[i]);
+			data_ma_save[i+6]=mac_sum[i];
+		}
   		numbytes3 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
   	    numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
   		WICED_BT_TRACE("Mac Address Saved: ");

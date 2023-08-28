@@ -1224,6 +1224,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	      		   }
 
     	    	  	memcpy(dataV_SPI,data_flt2,6);
+    	    	  	memcpy(datac_fp,data_flt2,6);
     	    		 if(memcmp(Filt_MAC4, dataV_SPI, sizeof(dataV_SPI)) != 0 && gap_t1== WICED_FALSE)
     	    		 {
     	    			 /*WICED_BT_TRACE("URL:");
@@ -1321,7 +1322,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    					  WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);*/
     	    	   		}
 
-    	    	   		else if (strstr(substr3,substrSA) != NULL && memcmp(datac_cfbf2, dataV_SPI, sizeof(dataV_SPI)) == 0)
+    	    	   		else if (strstr(substr3,substrSA) != NULL && memcmp(datac_cfbf2, datac_fp, sizeof(datac_fp)) == 0)
     	    	   		{
 
 
@@ -1373,7 +1374,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    				      indice = substr- sK;
     	    					  WICED_BT_TRACE("4BACK La cadena '%s',  en la posición %d\n", sK, indice);*/
     	    	   		}
-    	    	   		else if (strstr(substr3,substrSB) != NULL && memcmp(datac_cfbf2, dataV_SPI, sizeof(dataV_SPI)) == 0)
+    	    	   		else if (strstr(substr3,substrSB) != NULL && memcmp(datac_cfbf2, datac_fp, sizeof(datac_fp)) == 0)
     	    	   		{
     	    	   			WICED_BT_TRACE("NBC#%s\n",&substr3[2]);
     	    	   		}
