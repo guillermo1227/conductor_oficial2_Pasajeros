@@ -1335,7 +1335,15 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     		   				  //WICED_BT_TRACE("NAME:");
     		   				  //wiced_hal_puart_print(p_name);
 
-    		   				  if(p_data3[16]==1)
+    		   				  if(p_data3[16]==0)
+    		   				  {
+    		   					WICED_BT_TRACE("|0\n");
+    		   				  }
+    		   				  else if(p_data3[17]==0)
+    		   				  {
+    		   					WICED_BT_TRACE("|0\n");
+    		   				  }
+    		   				  else if(p_data3[16]==1)
     		   				  {
     		   					WICED_BT_TRACE("|1\n");
     		   				  }
