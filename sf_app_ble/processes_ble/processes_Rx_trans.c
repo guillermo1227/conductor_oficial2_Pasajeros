@@ -265,6 +265,10 @@ void process_SOM(uint8_t *data_S_OM)
 		  cv3= ((cv1*10)+cv2);
     	  data_rssi[0] = cv3;
     	  WICED_BT_TRACE("cv3: %d\n", cv3);
+    	  numbytes13 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );
+    	  WICED_BT_TRACE("1.2FLAG13: %B\n", data_rssi_save1);
+    	  data_rssi[1] = data_rssi_save1[1];
+    	  data_rssi[2] = data_rssi_save1[2];
     	  memcpy(data_rssi_save1,data_rssi ,3);
 			WICED_BT_TRACE("1FLAG13: %B\n", data_rssi_save1);
 			numbytes13 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );
@@ -293,6 +297,10 @@ void process_SOM(uint8_t *data_S_OM)
 		  cv3= ((cv1*10)+cv2);
     	  data_rssi[1]= cv3;
     	  WICED_BT_TRACE("cv3: %d\n", cv3);
+    	  numbytes13 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );
+    	  WICED_BT_TRACE("1.2FLAG13: %B\n", data_rssi_save1);
+    	  data_rssi[0] = data_rssi_save1[0];
+    	  data_rssi[2] = data_rssi_save1[2];
     	  memcpy(data_rssi_save1,data_rssi ,3);
 			WICED_BT_TRACE("1FLAG13: %B\n", data_rssi_save1);
 			numbytes13 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );
@@ -322,6 +330,10 @@ void process_SOM(uint8_t *data_S_OM)
 		  cv3= ((cv1*10)+cv2);
     	  data_rssi[2] = cv3;
     	  WICED_BT_TRACE("cv3: %d\n", cv3);
+    	  numbytes13 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );
+    	  WICED_BT_TRACE("1.2FLAG13: %B\n", data_rssi_save1);
+    	  data_rssi[0] = data_rssi_save1[0];
+    	  data_rssi[1] = data_rssi_save1[1];
     	  memcpy(data_rssi_save1,data_rssi ,3);
 			WICED_BT_TRACE("1FLAG13: %B\n", data_rssi_save1);
 			numbytes13 = wiced_hal_write_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );
