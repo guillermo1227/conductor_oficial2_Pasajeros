@@ -1342,7 +1342,6 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	    	   		else if (strstr(substr3,substrSA) != NULL && memcmp(datac_cfbf2, datac_fp, sizeof(datac_fp)) == 0)
     	    	   		{
 
-
     		   	      	      WICED_BT_TRACE("CAR#");
     		   	      	      WICED_BT_TRACE("%02X",substr3[2]);
     		   				  for(int k=3; k<=7; k++)
@@ -1352,47 +1351,27 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     		   				  //WICED_BT_TRACE("NAME:");
     		   				  //wiced_hal_puart_print(p_name);
 
-    		   				  if(p_data3[16]==0)
+    		   				  if(datam_fff3[8]==0)
     		   				  {
-    		   					WICED_BT_TRACE("|0\n");
+    		   					WICED_BT_TRACE("|0");
     		   				  }
-    		   				  else if(p_data3[17]==0)
+    		   				  else if(datam_fff3[8]==1)
     		   				  {
-    		   					WICED_BT_TRACE("|0\n");
+    		   					WICED_BT_TRACE("|1");
     		   				  }
-    		   				  else if(p_data3[16]==1)
+    		   				  else if(datam_fff3[8]==2)
     		   				  {
-    		   					WICED_BT_TRACE("|1\n");
+    		   					WICED_BT_TRACE("|2");
     		   				  }
-    		   				  else if(p_data3[17]==1)
+    		   				  else if(datam_fff3[8]==3)
     		   				  {
-    		   					WICED_BT_TRACE("|1\n");
+    		   					WICED_BT_TRACE("|3");
     		   				  }
-    		   				  else if(p_data3[16]==2)
+    		   				  else if(datam_fff3[8]==4)
     		   				  {
-    		   					WICED_BT_TRACE("|2\n");
+    		   					WICED_BT_TRACE("|4");
     		   				  }
-    		   				  else if(p_data3[17]==2)
-    		   				  {
-    		   					WICED_BT_TRACE("|2\n");
-    		   				  }
-    		   				  else if(p_data3[16]==3)
-    		   				  {
-    		   					WICED_BT_TRACE("|3\n");
-    		   				  }
-    		   				  else if(p_data3[17]==3)
-    		   				  {
-    		   					WICED_BT_TRACE("|3\n");
-    		   				  }
-    		   				  else if(p_data3[16]==4)
-    		   				  {
-    		   					WICED_BT_TRACE("|4\n");
-    		   				  }
-    		   				  else if(p_data3[17]==4)
-    		   				  {
-    		   					WICED_BT_TRACE("|4\n");
-    		   				  }
-
+    		   				    WICED_BT_TRACE("\n");
 
     	    				      /*indice = sK - substr3;
     	    				      WICED_BT_TRACE("3BACK La cadena '%s',  en la posición %d\n", sK, indice);
