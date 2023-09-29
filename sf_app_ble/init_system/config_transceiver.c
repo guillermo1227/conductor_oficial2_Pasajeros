@@ -35,6 +35,10 @@
 #include "wiced_bt_mesh_core.h"
 #include "config_transceiver.h"
 
+/*
+ * Function name: config_Transceiver
+ * Description:  uart transceiver configuration
+ */
 void	config_Transceiver(void)
 {
     //-----------------------------------------------------------------------------------------------

@@ -41,6 +41,11 @@ uint8_t inter;
 uint8_t i, flag;
 //-----------------------
 
+/*
+ * Function name: process_Write
+ * Description:  Command filtering through uart and through remote communications
+ * data_Write: Filtering to configure the mac address and set transmitter name
+ */
 void process_Write(uint8_t *data_Write)
 {
     memcpy(data_f,data_Write ,3);
@@ -211,6 +216,11 @@ void process_ODT(uint8_t *data_ODT)
       }
 }
 
+/*
+ * Function name: process_SOM
+ * Description:  Reception for calibration of proximity alerts, change mode OTA
+ * data_S_OM: Command filtering through uart and through remote communications
+ */
 void process_SOM(uint8_t *data_S_OM)
 {
     memcpy(data_f,data_S_OM ,3);
@@ -560,6 +570,10 @@ void gap_out_f(void)
     }
 }
 
+/*
+ * Function name: set_rssi
+ * Description:  calibration data for proximity alert
+ */
 void                     set_rssi(void)
 {
 	 numbytes13 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );

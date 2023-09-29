@@ -39,7 +39,12 @@ void    start_observe(void)
 }
 
 
-
+/*
+ * Function name: Observer_scan_result_cback
+ * Description: Main scanner,Lamp and vehicle filterPacket Relay Vehicles
+ * p_adv_data:  url name
+ * p_scan_result: shows mac address and uuid
+ */
 void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uint8_t *p_adv_data )
 {
     wiced_result_t         status;
@@ -1557,7 +1562,10 @@ void        f_timer_radc( uint32_t data )
 }
 
 
-
+/*
+ * Function name: clear_cont
+ * Description: Deletion processes, updating of counted and addressed devices
+ */
 void clear_cont(void)
 {
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
@@ -2408,6 +2416,10 @@ void               event_mlfb(void)
 
 }
 
+/*
+ * Function name: evalue_ach
+ * Description: transmission of addressed devices
+ */
 void evalue_ach(void)
 {
 	if(datac_menviada2>0 && datac_menviadaV2>0 && value_rah==WICED_FALSE)

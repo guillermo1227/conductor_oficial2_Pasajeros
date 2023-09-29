@@ -104,6 +104,11 @@ void    f_clear10( uint32_t data )
 	clear_SB10();
 }
 
+/*
+ * Function name: f_gap
+ * Description: device boarding notification*********************************
+ * data: data with current time
+ */
 void      f_gap( uint32_t data )
 {
 	if(!value_le)
@@ -147,6 +152,11 @@ void      f_timer_return( uint32_t data )
     value_gap = WICED_TRUE;
 }
 
+/*
+ * Function name: f_timer_returnfA
+ * Description: Timer for deleting proximity alerts in lamps
+ * data: data with current time
+ */
 void      f_timer_returnfA( uint32_t data )
 {
 	//WICED_BT_TRACE("Enter returnfA\n");
@@ -154,6 +164,11 @@ void      f_timer_returnfA( uint32_t data )
 	wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_LOW);
 }
 
+/*
+ * Function name: f_timer_returnfAV
+ * Description: Timer for deleting proximity alerts in vehicles
+ * data: data with current time
+ */
 void      f_timer_returnfAV( uint32_t data )
 {
 	//WICED_BT_TRACE("Enter returnfAV\n");
@@ -167,6 +182,11 @@ void      f_timer_returnfB( uint32_t data )
 	wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_LOW);
 }
 
+/*
+ * Function name: f_timer_alrm
+ * Description: led sequences
+ * data: data with current time
+ */
 void      f_timer_alrm( uint32_t data )
 {
 	//WICED_BT_TRACE("Enter ALRM\n");
@@ -274,6 +294,11 @@ void      f_timer_EA( uint32_t data )
 	  WICED_BT_TRACE("EA  OFF\n");
 }
 
+/*
+ * Function name: f_timer_er
+ * Description: notification for reader link
+ * data: data with current time
+ */
 void      f_timer_er( uint32_t data )
 {
 
