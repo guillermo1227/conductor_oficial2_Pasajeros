@@ -37,6 +37,11 @@
 #include "processes_timers.h"
 #include "config_ports.h"
 
+/*************************************************************
+ * Function name: f_timer_Online
+ * Description:   timer that prints the total device count,
+ * and verifies the devices addressed
+ ************************************************************/
 void f_timer_Online( uint32_t data )
 {
 	if(value_rst == WICED_TRUE)
@@ -51,6 +56,10 @@ void f_timer_Online( uint32_t data )
 	exam_gpio();
 }
 
+/****************************************************
+ * Function name: f_timer_st_Online
+ * Description:   check if the WiFi module is active
+ ****************************************************/
 void f_timer_st_Online( uint32_t data )
 {
    if(status_Online)
@@ -85,6 +94,10 @@ void      f_timer_inspection( uint32_t data )
     gap_out_f();
 }
 
+/****************************************************
+ * Function name: f_timer_contM
+ * Description:   update the counter
+ ****************************************************/
 void f_timer_contM( uint32_t data )
 {
 	//WICED_BT_TRACE("limit\n");
@@ -92,23 +105,31 @@ void f_timer_contM( uint32_t data )
 	clear_cont();
 }
 
+/****************************************************
+ * Function name: f_clear
+ * Description:   clears personnel detection
+ ****************************************************/
 void    f_clear( uint32_t data )
 {
 	WICED_BT_TRACE("CLEAAAR \n");
 	clear_SB01();
 }
 
+/****************************************************
+ * Function name: f_clear10
+ * Description:   clears vehicle detection
+ ****************************************************/
 void    f_clear10( uint32_t data )
 {
 	WICED_BT_TRACE("CLEAAAR 10\n");
 	clear_SB10();
 }
 
-/*
+/****************************************************
  * Function name: f_gap
- * Description: device boarding notification*********************************
- * data: data with current time
- */
+ * Description:   device boarding notification
+ * @parameter     data: data with current time
+ ****************************************************/
 void      f_gap( uint32_t data )
 {
 	if(!value_le)
@@ -152,11 +173,11 @@ void      f_timer_return( uint32_t data )
     value_gap = WICED_TRUE;
 }
 
-/*
+/******************************************************************
  * Function name: f_timer_returnfA
- * Description: Timer for deleting proximity alerts in lamps
- * data: data with current time
- */
+ * Description:   Timer for deleting proximity alerts in lamps
+ * @parameter     data: data with current time
+ ******************************************************************/
 void      f_timer_returnfA( uint32_t data )
 {
 	//WICED_BT_TRACE("Enter returnfA\n");
@@ -164,11 +185,11 @@ void      f_timer_returnfA( uint32_t data )
 	wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_LOW);
 }
 
-/*
+/*******************************************************************
  * Function name: f_timer_returnfAV
  * Description: Timer for deleting proximity alerts in vehicles
- * data: data with current time
- */
+ * @parameter   data: data with current time
+ *******************************************************************/
 void      f_timer_returnfAV( uint32_t data )
 {
 	//WICED_BT_TRACE("Enter returnfAV\n");
@@ -182,11 +203,11 @@ void      f_timer_returnfB( uint32_t data )
 	wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_LOW);
 }
 
-/*
+/*******************************************
  * Function name: f_timer_alrm
  * Description: led sequences
- * data: data with current time
- */
+ * @parameter   data: data with current time
+ *******************************************/
 void      f_timer_alrm( uint32_t data )
 {
 	//WICED_BT_TRACE("Enter ALRM\n");
@@ -294,11 +315,11 @@ void      f_timer_EA( uint32_t data )
 	  WICED_BT_TRACE("EA  OFF\n");
 }
 
-/*
+/****************************************************
  * Function name: f_timer_er
  * Description: notification for reader link
- * data: data with current time
- */
+ * @parameter   data: data with current time
+ ***************************************************/
 void      f_timer_er( uint32_t data )
 {
 

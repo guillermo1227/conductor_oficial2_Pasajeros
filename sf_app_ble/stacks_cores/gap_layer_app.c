@@ -123,12 +123,12 @@ void beacon_init(void)
     WICED_BT_TRACE("wiced_bt_start_advertisements %d\n", result);
 }
 
-/*
+/****************************************************************************************************************
  * Function name: beacon_management_callback
- * Description:  controls all general events, and allows changing to serial port configuration mode
- * event: event number
- * p_event_data: Structure definitions for Bluetooth Management
- */
+ * Description:   controls all general events, and allows changing to serial port configuration mode
+ * @parameter     event: event number
+ * @parameter     p_event_data: Structure definitions for Bluetooth Management
+ ****************************************************************************************************************/
 wiced_result_t beacon_management_callback(wiced_bt_management_evt_t event, wiced_bt_management_evt_data_t *p_event_data)
 {
     wiced_result_t                    result = WICED_BT_SUCCESS;
@@ -401,10 +401,10 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
     return res;
 }
 
-/*
+/***********************************************************
  * Function name: set_data_base
  * Description: calibration data conversion
- */
+ ***********************************************************/
 void set_data_base(void)
 {
 	//char    Data_n[]    = { 'A', 'B', 'V', ':', 'o', ' ', '0' };             //Notification Name
@@ -555,6 +555,10 @@ void beacon_set_app_advertisement_data2(void)
     wiced_bt_ble_set_raw_advertisement_data(num_elem, adv_elem);
 }
 
+/*********************************************************************
+ * Function name: beacon_set_app_advertisement_data3
+ * Description:   confirmation of boarding event
+ *********************************************************************/
 void beacon_set_app_advertisement_data3(void)
 {
 	wiced_result_t         result;
@@ -578,6 +582,10 @@ void beacon_set_app_advertisement_data3(void)
     WICED_BT_TRACE("wiced_bt_start_advertisements %d\n", result);
 }
 
+/*********************************************************************
+ * Function name: gap_transferA
+ * Description:   transmits the name of the device type
+ *********************************************************************/
 void gap_transferA(void)
 {
 	wiced_result_t         result;
@@ -602,10 +610,10 @@ void gap_transferA(void)
 }
 
 
-/*
+/********************************************************
  * Function name: gap_transferB
  * Description: boarding notification message
- */
+ ********************************************************/
 void gap_transferB(void)
 {
 	wiced_result_t         result;
@@ -629,11 +637,10 @@ void gap_transferB(void)
     WICED_BT_TRACE("wiced_bt_start_advertisements %d\n", result);
 }
 
-/*
+/********************************************************
  * Function name: gap_transferER
  * Description: link message with external reader
- */
-
+ ********************************************************/
 void gap_transferER(void)
 {
 	wiced_result_t         result;
@@ -657,6 +664,11 @@ void gap_transferER(void)
     WICED_BT_TRACE("wiced_bt_start_advertisements %d\n", result);
 }
 
+/*********************************************************************
+ * Function name: gap_cfb
+ * Description:   sends the addressed devices to the reader
+ * @param[in]     data_cfb: event number
+ *********************************************************************/
 void gap_cfb(char *data_cfb)
 {
 	memcpy(datac_cfb,data_cfb,6);
@@ -685,10 +697,10 @@ void gap_cfb(char *data_cfb)
     WICED_BT_TRACE("wiced_bt_start_advertisements datb %d\n", result);
 }
 
-/*
+/*******************************************************************
  * Function name: gap_cfbV
  * Description: transmitting messages from addressed devices
- */
+ *******************************************************************/
 void gap_cfbV(char *data_cfbV)
 {
 	memcpy(datac_cfb,data_cfbV,6);
@@ -727,11 +739,11 @@ extern void process_SOM(uint8_t *data_S_OM);
 uint8_t Uart_BuffRX[64];
 int cont_buffRX=0;
 
-/*
+/********************************************************
  * Function name: rx_cback
  * Description: data reception through uart
- * data: variable with each input byte
- */
+ * @parameter data: variable with each input byte
+ ********************************************************/
 void rx_cback( void *data )
 {
     uint8_t  readbyte;

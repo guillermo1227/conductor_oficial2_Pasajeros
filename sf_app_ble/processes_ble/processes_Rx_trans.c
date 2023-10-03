@@ -41,11 +41,11 @@ uint8_t inter;
 uint8_t i, flag;
 //-----------------------
 
-/*
+/***************************************************************************************
  * Function name: process_Write
  * Description:  Command filtering through uart and through remote communications
- * data_Write: Filtering to configure the mac address and set transmitter name
- */
+ * @param[in]    data_Write: Filtering to configure the mac address and set transmitter name
+ ***************************************************************************************/
 void process_Write(uint8_t *data_Write)
 {
     memcpy(data_f,data_Write ,3);
@@ -103,6 +103,10 @@ void process_Write(uint8_t *data_Write)
 
 }
 
+/*************************************************************************
+ * Function name: process_CMA
+ * Description:  changing the flag that sets a random mac address
+ *************************************************************************/
 void process_CMA(uint8_t *data_C_MA)
 {
     memcpy(data_f,data_C_MA ,3);
@@ -120,6 +124,11 @@ void process_CMA(uint8_t *data_C_MA)
 
 }
 
+/*********************************************************************************************
+ * Function name: process_data_config
+ * Description:  allows you to read the name and mac address of the configured device
+ * @param[in]    data_dc: ODC and OTA command reception
+ *********************************************************************************************/
 void process_data_config(uint8_t *data_dc)
 {
     memcpy(data_f,data_dc ,3);
@@ -200,6 +209,11 @@ void process_data_config(uint8_t *data_dc)
 	  }
 }
 
+/*********************************************************************************************
+ * Function name: process_ODT
+ * Description:  activate the sequence in OTA mode and receive online confirmation
+ * @param[in]    data_ODT: ODC and OTA command reception
+ *********************************************************************************************/
 void process_ODT(uint8_t *data_ODT)
 {
     memcpy(data_f,data_ODT ,3);
@@ -216,11 +230,11 @@ void process_ODT(uint8_t *data_ODT)
       }
 }
 
-/*
+/*********************************************************************************************
  * Function name: process_SOM
  * Description:  Reception for calibration of proximity alerts, change mode OTA
- * data_S_OM: Command filtering through uart and through remote communications
- */
+ * @param[in]    data_S_OM: Command filtering through uart and through remote communications
+ *********************************************************************************************/
 void process_SOM(uint8_t *data_S_OM)
 {
     memcpy(data_f,data_S_OM ,3);
@@ -535,6 +549,10 @@ void process_SOM(uint8_t *data_S_OM)
 
 }
 
+/**************************************************************************
+ * Function name: gap_transfer
+ * Description:   change of operation mode
+ **************************************************************************/
 void gap_transfer(void)
 {
 	    numbytes11 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+11, sizeof(flag11), &flag11, &status11 );
@@ -556,7 +574,10 @@ void gap_transfer(void)
 	    }
 }
 
-
+/**************************************************************************
+ * Function name: gap_out_f
+ * Description:   changes the flag of the operating mode as a vehicle tag
+ **************************************************************************/
 void gap_out_f(void)
 {
     numbytes11 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+11, sizeof(flag11), &flag11, &status11 );
@@ -570,10 +591,10 @@ void gap_out_f(void)
     }
 }
 
-/*
+/********************************************************
  * Function name: set_rssi
  * Description:  calibration data for proximity alert
- */
+ ********************************************************/
 void                     set_rssi(void)
 {
 	 numbytes13 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+13, sizeof(data_rssi_save1), &data_rssi_save1, &status13 );
