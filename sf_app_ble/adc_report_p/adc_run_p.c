@@ -18,7 +18,10 @@
 #include "adc_run_p.h"
 
 
-//level
+/***************************************************************************
+ * Function name: app_task
+ * Description:   The task that shows the battery ADC value is executed
+ ***************************************************************************/
 void app_task( uint32_t arg )
 {
 	extern void send_level_p(uint8_t *p_dlevel);

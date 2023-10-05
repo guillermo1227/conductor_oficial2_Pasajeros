@@ -32,7 +32,10 @@
 #include "config_ports.h"
 #include "wiced_hal_gpio.h"
 
-
+/******************************************
+ * Function name: start_observe
+ * Description: start the scanner
+ ******************************************/
 void    start_observe(void)
 {
 	wiced_bt_ble_observe (1,0 , Observer_scan_result_cback);
@@ -2341,6 +2344,10 @@ void   clear_SB10(void)
 	value_notifV=WICED_FALSE;
 }
 
+/*******************************************************
+ * Function name: init_event_gap
+ * Description:   boarding request is confirmed
+ *******************************************************/
 void init_event_gap(void)
 {
   if(!value_gap)
@@ -2352,6 +2359,11 @@ void init_event_gap(void)
 	  wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_LOW);
 	}
 }
+
+/**************************************************************
+ * Function name: print_cst
+ * Description:   prints the total count of detected devices
+ **************************************************************/
 void print_cst(void)
 {
 	//-----------------------------------------------------------------
@@ -2420,6 +2432,10 @@ void print_cst(void)
 
 }
 
+/**************************************************************************
+ * Function name: event_mlfb
+ * Description:   the mac address of the linked external reader is saved
+ **************************************************************************/
 void               event_mlfb(void)
 {
 	if(datac_menviada2>0)
@@ -2433,10 +2449,10 @@ void               event_mlfb(void)
 
 }
 
-/*
+/*******************************************************
  * Function name: evalue_ach
  * Description: transmission of addressed devices
- */
+ *******************************************************/
 void evalue_ach(void)
 {
 	if(datac_menviada2>0 && datac_menviadaV2>0 && value_rah==WICED_FALSE)
@@ -2547,6 +2563,11 @@ void evalue_ach(void)
 	//-----------------------------------------------------------------
 }
 
+/*******************************************************
+ * Function name: clear_cer
+ * Description:   external reader counting
+ *                data is deleted
+ *******************************************************/
 void      clear_cer(void)
 {
 	WICED_BT_TRACE("CLEAR CER\n");
@@ -2557,7 +2578,11 @@ void      clear_cer(void)
     value_onl=WICED_FALSE;
 }
 
-
+/*******************************************************
+ * Function name: filt_cfb
+ * Description:   the mac address of the added external
+ *                reader is configured
+ *******************************************************/
 void                filt_cfb(uint8_t *data_cfb2)
 {
 	memcpy(datac_cfbf2,data_cfb2,6);

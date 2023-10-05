@@ -17,7 +17,10 @@
 #include "wiced_bt_gatt.h"
 #include "config_adc_p.h"
 
-
+/**************************************************************************
+ * Function name: set_adc_p
+ * Description:   a task is created and the battery adc configurations
+ **************************************************************************/
 void set_adc_p(void)
 {
     //level

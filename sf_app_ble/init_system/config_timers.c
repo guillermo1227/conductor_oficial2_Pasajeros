@@ -80,7 +80,7 @@ void config_clk_timers(void)
 
 /***********************************************************
  * Function name: start_BTimers
- * Description: calibration data conversion
+ * Description: counting timer
  ***********************************************************/
 void start_BTimers(void)
 {
@@ -92,7 +92,7 @@ void start_BTimers(void)
 
 /***********************************************************
  * Function name: start_TOnline
- * Description: calibration data conversion
+ * Description: activity indicator timer
  ***********************************************************/
 void start_TOnline(void)
 {
@@ -101,7 +101,7 @@ void start_TOnline(void)
 
 /***********************************************************
  * Function name: start_TOnline_long
- * Description: calibration data conversion
+ * Description: WiFi module activity checker timer
  ***********************************************************/
 void start_TOnline_long(void)
 {
@@ -110,7 +110,7 @@ void start_TOnline_long(void)
 
 /***********************************************************
  * Function name: stop_TOnline
- * Description: calibration data conversion
+ * Description: WiFi module activity checker timer
  ***********************************************************/
 void stop_TOnline(void)
 {
@@ -135,7 +135,7 @@ void prevention_inspection(void)
 
 /***********************************************************
  * Function name: stop_timer_st_online
- * Description: calibration data conversion
+ * Description: stops WiFi module activity checker timer
  ***********************************************************/
 void stop_timer_st_online(void)
 {
@@ -144,7 +144,7 @@ void stop_timer_st_online(void)
 
 /***********************************************************
  * Function name: Start_TimerCont
- * Description: calibration data conversion
+ * Description: counting timer
  ***********************************************************/
 void Start_TimerCont(void)
 {
@@ -153,7 +153,8 @@ void Start_TimerCont(void)
 
 /***********************************************************
  * Function name: timer_clr01
- * Description: calibration data conversion
+ * Description: timer that clears the first
+ *              personnel detection
  ***********************************************************/
 void   timer_clr01(void)
 {
@@ -164,7 +165,8 @@ void   timer_clr01(void)
 
 /***********************************************************
  * Function name: timer_clr10
- * Description: calibration data conversion
+ * Description: timer that deletes the first
+ *              vehicle stop
  ***********************************************************/
 void   timer_clr10(void)
 {
@@ -175,7 +177,7 @@ void   timer_clr10(void)
 
 /***********************************************************
  * Function name: init_gap
- * Description: calibration data conversion
+ * Description: starts the timer for boarding request
  ***********************************************************/
 void   init_gap(void)
 {
@@ -184,7 +186,8 @@ void   init_gap(void)
 
 /***********************************************************
  * Function name: start_Treturn
- * Description: calibration data conversion
+ * Description: starts the timer to clear
+ *          the risk zone detection alert
  ***********************************************************/
 void start_Treturn(void)
 {
@@ -193,7 +196,7 @@ void start_Treturn(void)
 
 /***********************************************************
  * Function name: start_TreturnfA
- * Description: calibration data conversion
+ * Description: activates proximity alarm timer on personal
  ***********************************************************/
 void start_TreturnfA(void)
 {
@@ -202,7 +205,8 @@ void start_TreturnfA(void)
 
 /***********************************************************
  * Function name: start_TreturnfAR
- * Description: calibration data conversion
+ * Description: timer that clears proximity alarm
+ *              received from external reader
  ***********************************************************/
 void start_TreturnfAR(void)
 {
@@ -211,7 +215,7 @@ void start_TreturnfAR(void)
 
 /***********************************************************
  * Function name: start_TreturnfAV
- * Description: calibration data conversion
+ * Description: activates proximity alarm timer on vehicles
  ***********************************************************/
 void start_TreturnfAV(void)
 {
@@ -220,7 +224,8 @@ void start_TreturnfAV(void)
 
 /***********************************************************
  * Function name: start_TreturnfAVR
- * Description: calibration data conversion
+ * Description: timer that clears proximity alarm
+ *              received from external reader
  ***********************************************************/
 void start_TreturnfAVR(void)
 {
@@ -229,26 +234,29 @@ void start_TreturnfAVR(void)
 
 /***********************************************************
  * Function name: start_TreturnfB
- * Description: calibration data conversion
+ * Description: starts the timer to clear
+ *          the risk zone detection alert
  ***********************************************************/
 void start_TreturnfB(void)
 {
 	wiced_start_timer( &timer_returnfB, 10);
 }
 
-/***********************************************************
+/**************************************************************
  * Function name: start_alrm
- * Description: calibration data conversion
- ***********************************************************/
+ * Description: starts the timer that indicates proximity
+ * alert detection and activates the flashing signal
+ **************************************************************/
 void start_alrm(void)
 {
 	wiced_start_timer( &timer_alrm, clock_alrm);
 }
 
-/***********************************************************
+/**************************************************************
  * Function name: stop_alrm
- * Description: calibration data conversion
- ***********************************************************/
+ * Description: stops the timer that indicates the proximity
+ *         alert detection and activates the flashing signal
+ **************************************************************/
 void stop_alrm(void)
 {
 	 wiced_stop_timer( &timer_alrm);
@@ -256,7 +264,7 @@ void stop_alrm(void)
 
 /***********************************************************
  * Function name: start_TreturnEA
- * Description: calibration data conversion
+ * Description: timer that clears the man down alert
  ***********************************************************/
 void start_TreturnEA(void)
 {
@@ -265,7 +273,8 @@ void start_TreturnEA(void)
 
 /***********************************************************
  * Function name: init_event_er
- * Description: calibration data conversion
+ * Description: timer that activates a link request
+ *              with the external reader
  ***********************************************************/
 void init_event_er(void)
 {
@@ -274,7 +283,8 @@ void init_event_er(void)
 
 /***********************************************************
  * Function name: Start_Timerach
- * Description: calibration data conversion
+ * Description: timer that sends the addressed
+ *              devices to the external reader
  ***********************************************************/
 void Start_Timerach(void)
 {
@@ -283,17 +293,19 @@ void Start_Timerach(void)
 
 /***********************************************************
  * Function name: Stop_Timerach
- * Description: calibration data conversion
+ * Description: stops the timer that sends the addressed
+ *              devices to the external reader
  ***********************************************************/
 void Stop_Timerach(void)
 {
 	wiced_stop_timer( &timer_ach);
 }
 
-/***********************************************************
+/*************************************************************
  * Function name: start_TreturnCER
- * Description: calibration data conversion
- ***********************************************************/
+ * Description: timer that clears the device count data that
+ *              has been detected on the external reader
+ *************************************************************/
 void start_TreturnCER(void)
 {
 	wiced_start_timer( &timer_cer, 7000);

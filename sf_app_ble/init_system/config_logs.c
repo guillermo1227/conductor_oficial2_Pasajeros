@@ -37,7 +37,12 @@
 #include "wiced_bt_mesh_core.h"
 #include "config_logs.h"
 
-
+/*********************************************************************************
+ * Function name: init_config_logs
+ * Description:   The transmission name is configured in the warning layer,
+ *                this name can contain in its last characters the battery
+ *                values on a scale from 0 to 10
+ *********************************************************************************/
 void   init_config_logs(void)
 {
 	 numbytes2 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+1, sizeof(flag1), &flag1, &status2 );
@@ -171,6 +176,11 @@ void   init_config_logs(void)
 	 }
 }
 
+/*******************************************************
+ * Function name: init_mac_logs
+ * Description:  the mac address that was saved in
+ *               flash memory is configured
+ *******************************************************/
 void init_mac_logs(void)
 {
 	   wiced_bt_device_address_t bda;
@@ -248,6 +258,10 @@ void init_mac_logs(void)
 	    filt_cfb(&data_ma_save[6]);
 }
 
+/*******************************************************
+ * Function name: send_level_p
+ * Description:   the battery adc values are updated
+ *******************************************************/
 void send_level_p(uint8_t *p_dlevel)
 {
 	//WICED_BT_TRACE( "Porciento1 = %X \n\r",p_dlevel);
