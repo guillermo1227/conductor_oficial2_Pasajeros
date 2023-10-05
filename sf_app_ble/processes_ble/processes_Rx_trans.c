@@ -43,8 +43,10 @@ uint8_t i, flag;
 
 /***************************************************************************************
  * Function name: process_Write
- * Description:  Command filtering through uart and through remote communications
- * @param[in]    data_Write: Filtering to configure the mac address and set transmitter name
+ * Description:  Command filtering through uart and
+ *               through remote communications
+ * @param[in]    data_Write: Filtering to configure the mac address
+ *               and set transmitter name
  ***************************************************************************************/
 void process_Write(uint8_t *data_Write)
 {

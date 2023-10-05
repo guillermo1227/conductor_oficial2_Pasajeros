@@ -24,6 +24,12 @@
 #include "ports_services.h"
 #include "config_ports.h"
 
+/*********************************************************************************************
+ * Function name: button_cback_26
+ * Description:   interruption service for boarding requests
+ * @param[in]     data: optional data
+ * @param[in]     port_pin: designated pin in the event
+ *********************************************************************************************/
 void button_cback_26( void *data, uint8_t port_pin )
 {
 	/*if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_06 ) )
@@ -49,6 +55,12 @@ void button_cback_26( void *data, uint8_t port_pin )
 	}
 }
 
+/*********************************************************************************************
+ * Function name: button_cback_4
+ * Description:   interruption service for boarding requests
+ * @param[in]     data: optional data
+ * @param[in]     port_pin: designated pin in the event
+ *********************************************************************************************/
 void button_cback_4( void *data, uint8_t port_pin )
 {
 	/*if( GPIO_PIN_OUTPUT_HIGH == wiced_hal_gpio_get_pin_output(LED_GPIO_13 ) )
@@ -74,7 +86,11 @@ void button_cback_4( void *data, uint8_t port_pin )
 	}
 }
 
-
+/***********************************************************
+ * Function name: init_event_SER
+ * Description: interruption service to accept addresses and
+ *              to send link requests with external reader
+ ***********************************************************/
 void init_event_SER(void)
 {
 	WICED_BT_TRACE( "Interrup2 HIGH\n\r" );
@@ -88,6 +104,10 @@ void init_event_SER(void)
 	}
 }
 
+/*********************************************************************************************
+ * Function name: init_event_RAC
+ * Description:   interruption service for boarding requests
+ *********************************************************************************************/
 void init_event_RAC(void)
 {
 	if(value_gap==WICED_TRUE)

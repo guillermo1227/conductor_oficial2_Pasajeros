@@ -20,6 +20,10 @@
 #include "config_ports.h"
 
 
+/***********************************************************
+ * Function name: set_outPuts
+ * Description: calibration data conversion
+ ***********************************************************/
 void set_outPuts(void)
 {
     /* Configure LED PIN as input and initial outvalue as high */

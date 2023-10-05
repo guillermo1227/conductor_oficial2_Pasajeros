@@ -345,11 +345,23 @@ void      f_timer_er( uint32_t data )
 	}
 	}
 }
+
+/***********************************************************
+ * Function name: f_timer_ach
+ * Description: evaluate the devices addressed
+ * @parameter   data: data with current time
+ ***********************************************************/
 void      f_timer_ach( uint32_t data )
 {
 	evalue_ach();
 }
 
+/***************************************************************
+ * Function name: f_timer_ach
+ * Description: The time has elapsed to clear device detection
+ *               using the external reader
+ * @parameter   data: data with current time
+ ***************************************************************/
 void      f_timer_CER( uint32_t data )
 {
 	clear_cer();
