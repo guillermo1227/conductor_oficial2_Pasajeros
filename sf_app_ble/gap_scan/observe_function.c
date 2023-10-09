@@ -1544,6 +1544,10 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     		   //--------------------------------------------------------------------
 }
 
+/********************************************************************************
+ * Function name: init_event_ADC
+ * Description: the adc ends the events
+ ********************************************************************************/
 void init_event_ADC(void)
 {
 	if(!value_Adc)
@@ -1558,6 +1562,11 @@ void init_event_ADC(void)
 	}
 
 }
+
+/********************************************************************************
+ * Function name: f_timer_radc
+ * Description: reset by adc
+ ********************************************************************************/
 void        f_timer_radc( uint32_t data )
 {
 	//WICED_BT_TRACE("ADC TIMER \n");

@@ -162,6 +162,10 @@ void      f_gap( uint32_t data )
 
 }
 
+/****************************************************
+ * Function name: f_timer_return
+ * Description:   boarding request alert ends
+ ***************************************************/
 void      f_timer_return( uint32_t data )
 {
 	WICED_BT_TRACE("Enter return\n");
@@ -308,7 +312,10 @@ void      f_timer_alrm( uint32_t data )
 
 }
 
-
+/****************************************************
+ * Function name: f_timer_EA
+ * Description: man down alert ends
+ ***************************************************/
 void      f_timer_EA( uint32_t data )
 {
 	  value_EA = WICED_FALSE;

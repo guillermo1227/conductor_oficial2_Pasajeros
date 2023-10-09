@@ -22,7 +22,8 @@
 
 /***********************************************************
  * Function name: set_outPuts
- * Description: calibration data conversion
+ * Description: output and input pin declaration,
+ *              interrupt declaration
  ***********************************************************/
 void set_outPuts(void)
 {
