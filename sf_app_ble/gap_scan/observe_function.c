@@ -45,6 +45,8 @@ void    start_observe(void)
 /********************************************************************************
  * Function name: Observer_scan_result_cback
  * Description: Main scanner,Lamp and vehicle filterPacket Relay Vehicles
+ *              performs device counting, proximity alerts and
+ *              data reception from the external reader
  * @parameter   p_adv_data:  url name
  * @parameter   p_scan_result: shows mac address and uuid
  ********************************************************************************/

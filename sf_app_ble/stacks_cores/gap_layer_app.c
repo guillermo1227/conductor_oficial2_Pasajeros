@@ -62,15 +62,22 @@ wiced_bt_beacon_multi_advert_data_t adv_param =
 static wiced_timer_t beacon_timer;
 uint16_t      beacon_conn_id = 0;
 
+/*************************************************************************************
+ * Function name: gap_stack_init
+ * Description: initialize the application stack for vehicle tag
+ **************************************************************************************/
 void gap_stack_init(void)
 {
   init_config_logs();
   wiced_bt_stack_init(beacon_management_callback, &app_cfg_settings2, app_buf_pools2);
 }
 
-/*
- * This function is executed in the BTM_ENABLED_EVT management callback.
- */
+/*************************************************************************************
+ * Function name:beacon_init
+ * Description: This function is executed in the BTM_ENABLED_EVT management callback.
+ * configures connectivity parameters, gap transmission layer data and
+ * registers to configure the transmission name and its mac address
+ **************************************************************************************/
 void beacon_init(void)
 {
     wiced_bt_gatt_status_t gatt_status;
@@ -332,6 +339,9 @@ static wiced_bt_gatt_status_t	app_gatt_get_value( wiced_bt_gatt_read_t *p_data )
 /*******************************************************************************
 * Function Name: app_gatt_set_value(
 *					wiced_bt_gatt_write_t *p_data )
+* @parameter: p_data: structure of the database,
+*             in terms of data, length, handlers, etc.
+* Description: access the database to display the saved values
 ********************************************************************************/
 static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data )
 {
@@ -401,10 +411,12 @@ static wiced_bt_gatt_status_t	app_gatt_set_value( wiced_bt_gatt_write_t *p_data 
     return res;
 }
 
-/***********************************************************
+/********************************************************************
  * Function name: set_data_base
- * Description: calibration data conversion
- ***********************************************************/
+ * Description: calibration data conversion. The data is recorded
+ *              at the user level and the algorithm
+ *              converts it to be able to process it
+ ********************************************************************/
 void set_data_base(void)
 {
 	//char    Data_n[]    = { 'A', 'B', 'V', ':', 'o', ' ', '0' };             //Notification Name
@@ -513,10 +525,10 @@ void set_data_base(void)
 //--------------------------------------------------------------------
 
 
-/*
+/***************************************************************************************
  * This function is invoked when advertisements stop.  Continue advertising if there
  * are no active connections
- */
+ ***************************************************************************************/
 void beacon_advertisement_stopped(void)
 {
     wiced_result_t result;
@@ -533,9 +545,9 @@ void beacon_advertisement_stopped(void)
     }
 }
 
-/*
+/**************************************************************
  * Setup advertisement data with 16 byte UUID and device name
- */
+ **************************************************************/
 void beacon_set_app_advertisement_data2(void)
 {
     wiced_bt_ble_advert_elem_t adv_elem[2];
