@@ -995,7 +995,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
 
 
-		   	   		  WICED_BT_TRACE("BNM:");
+		   	   		  WICED_BT_TRACE("BNM|");
 	   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
 	   				  for(int k=1; k<=5; k++)
 	   				  {
@@ -1069,7 +1069,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	   	   else if(memcmp(Filt_operate101, dataFiltEA, sizeof(dataFiltEA)) == 0 ||
 		   	    	   memcmp(Filt_operate101, dataFiltEA, sizeof(dataFiltEA)) == 0 ){//filtro de nombres
 
-		   	      	      WICED_BT_TRACE("BNM:");
+		   	      	      WICED_BT_TRACE("BNM|");
 		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
 		   				  for(int k=1; k<=5; k++)
 		   				  {
@@ -1140,7 +1140,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	 if(memcmp(Filt_GEOSF, dataFiltBC, sizeof(dataFiltBC)) == 0 ||
 		   	    	    	memcmp(Filt_GEOSF, dataFiltBC, sizeof(dataFiltBC)) == 0 )
 		   	    	{
-		   	      	      WICED_BT_TRACE("BNM:");
+		   	      	      WICED_BT_TRACE("BNM|");
 		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
 		   				  for(int k=1; k<=5; k++)
 		   				  {
@@ -1160,7 +1160,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	    	memcmp(Filt_operate1, dataFiltLV, sizeof(dataFiltLV)) == 0 )
 		   	    	{
 
-		   	      	      WICED_BT_TRACE("BNM:");
+		   	      	      WICED_BT_TRACE("BNM|");
 		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
 		   				  for(int k=1; k<=5; k++)
 		   				  {
@@ -1179,7 +1179,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	    	memcmp(Filt_operate2, dataFiltLV, sizeof(dataFiltLV)) == 0 )
 		   	    	{
 
-		   	      	      WICED_BT_TRACE("BNM:");
+		   	      	      WICED_BT_TRACE("BNM|");
 		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
 		   				  for(int k=1; k<=5; k++)
 		   				  {

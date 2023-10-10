@@ -43,6 +43,7 @@ void	config_Transceiver(void)
 {
     //-----------------------------------------------------------------------------------------------
     wiced_hal_puart_init();
+    wiced_hal_puart_configuration(230400, PARITY_NONE, STOP_BIT_1);
     wiced_hal_puart_flow_off();
     wiced_hal_puart_enable_tx();
     wiced_hal_puart_register_interrupt( rx_cback );
