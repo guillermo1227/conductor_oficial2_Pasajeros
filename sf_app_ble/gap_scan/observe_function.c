@@ -1123,7 +1123,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	 if(memcmp(Filt_operate103, dataFiltBC, sizeof(dataFiltBC)) == 0 ||
 		   	    	    	memcmp(Filt_ACARO, dataFiltBC, sizeof(dataFiltBC)) == 0 )
 		   	    	{
-		   	      	      WICED_BT_TRACE("BNM:");
+		   	      	      WICED_BT_TRACE("BNM|");
 		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
 		   				  for(int k=1; k<=5; k++)
 		   				  {
@@ -1251,7 +1251,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	      		   }
 
     	    	  	memcpy(dataV_SPI,data_flt2,6);
-    	    	  	memcpy(datac_fp,data_flt2,6);
+
     	    		 if(memcmp(Filt_MAC4, dataV_SPI, sizeof(dataV_SPI)) != 0 && gap_t1== WICED_FALSE)
     	    		 {
     	    			 /*WICED_BT_TRACE("URL:");
@@ -1340,6 +1340,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     	    	   		//-----------------------------------------
     	    	   		//----------------------------------------------------------------------------------
+        	    	  	memcpy(datac_fp,data_flt2,6);
     	    	   		if (strstr(substr3,substrSL) != NULL)
     	    	   		{
     	    	   			 WICED_BT_TRACE("SLB\n");
