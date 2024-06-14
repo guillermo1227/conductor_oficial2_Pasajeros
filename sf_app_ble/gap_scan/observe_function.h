@@ -36,7 +36,7 @@ volatile uint8_t state_machine_TKout = STATE_NO_ASIGNED;
 //extern uint8_t mc_driv[6];
 
 uint8_t mc_driv[6] = {0};  /* Usadas para comparar */
-char mac_driver[7]= {0};	/* Usadas para comparar */
+char mac_driver[6]= {0};	/* Usadas para comparar */
 BD_ADDR  Driver_dbs;    // Adress of the bluetoot
 
 	  uint8_t status_driver= 0;  /* driver */

@@ -1652,10 +1652,10 @@ void clear_cont(void)
 			 {
 					indice = p_datadbs - datam_buffer2;
 					WICED_BT_TRACE("*************Esta lampara se va %B\n",datav_dbs);
-					if(strstr(datav_dbs,Driver_dbs) && strlen(Driver_dbs)!=0)
+					if(strstr(Driver_dbs,datav_dbs) && strlen(Driver_dbs)!=0)
 					{
 						WICED_BT_TRACE("Se fue el conductor\n");
-						state_machine_TKout = STATE_DESASIGNED_LAMP;
+						//state_machine_TKout = STATE_DESASIGNED_LAMP;
 					}
 
 
@@ -2670,9 +2670,11 @@ void errace_data(void)
 		switch(state_machine_TKout){
 			case 0:
 				/* Agrego conductor a desabordados porque no lo han hecho */
-				state_machine_TKout = STATE_DESASIGNED_DR;
+				//state_machine_TKout = STATE_DESASIGNED_DR;
+				WICED_BT_TRACE("********* Caso 0\n");
 				break;
 			case 1:
+				WICED_BT_TRACE("********* Caso 1\n");
 				/* No lo agrego porque ya lo hizo el desabordamiento de lampara */
 				state_machine_TKout = STATE_NO_ASIGNED;
 				break;
