@@ -24,12 +24,20 @@ extern	uint8_t dtv;
 	  uint8_t RSSI_CLOSER = 77;
 	  uint8_t RSSI_DRIVER = 98;
 
-//	  typedef enum {
-//	      STATE_INIT,
-//	      STATE_RUNNING,
-//	      STATE_STOPPED,
-//	      STATE_ERROR
-//	  } StateMachineState;
+enum StateMachineState{
+	STATE_NO_ASIGNED,
+	STATE_DESASIGNED_LAMP,
+	STATE_DESASIGNED_DR,
+	STATE_STOPPED,
+	STATE_ERROR
+};
+
+volatile uint8_t state_machine_TKout = STATE_NO_ASIGNED;
+//extern uint8_t mc_driv[6];
+
+uint8_t mc_driv[6] = {0};  /* Usadas para comparar */
+char mac_driver[7]= {0};	/* Usadas para comparar */
+BD_ADDR  Driver_dbs;    // Adress of the bluetoot
 
 	  uint8_t status_driver= 0;  /* driver */
 	  //volatile StateMachineState status_driver = STATE_INIT;

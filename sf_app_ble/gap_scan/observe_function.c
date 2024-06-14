@@ -540,6 +540,10 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     				   }
     				   /* Si ya esta abordada solo agrega conductor */
     				   Know_driver(p_scan_result);
+
+    				   memcpy(Driver_dbs,p_scan_result->remote_bd_addr,6);
+
+    				   WICED_BT_TRACE("*********** Mac copiada %B\n",Driver_dbs);
     			   }
     			   else if(p_scan_result->rssi*(-1) <= RSSI_DRIVER && status_driver == 1)
     			   {
@@ -1244,7 +1248,16 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     	 }
 
+    	 if(state_machine_TKout == STATE_DESASIGNED_DR)  /* Desasignacion por alejarce el conductor */
+    	 {
+    		 state_machine_TKout=STATE_NO_ASIGNED;
+    		 memcpy(&datam_bufferdbs[data_mcdbs],Driver_dbs,6);
+    		 data_mcdbs+=6;
+    		 datac_mdbs++;
 
+    		 //memset(mc_driv,NULL,6);
+    		 WICED_BT_TRACE("********** Desasigno mac por conductor con MAC %B\n",Driver_dbs);
+    	 }
     	//--------------------------------------------------------------------------------
     	        //uint8_t dataFilt5[6];
 
@@ -1639,6 +1652,13 @@ void clear_cont(void)
 			 {
 					indice = p_datadbs - datam_buffer2;
 					WICED_BT_TRACE("*************Esta lampara se va %B\n",datav_dbs);
+					if(strstr(datav_dbs,Driver_dbs) && strlen(Driver_dbs)!=0)
+					{
+						WICED_BT_TRACE("Se fue el conductor\n");
+						state_machine_TKout = STATE_DESASIGNED_LAMP;
+					}
+
+
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
 				/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Bbuffer dbs1: %B");
 				WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Bbuffer dbs2: %B");
@@ -2646,6 +2666,22 @@ void errace_data(void)
 	{
 		WICED_BT_TRACE("KDV|NONE\n");   /* The number 40 is just a piece of information to fill out */
 		flag_f++;
+
+		switch(state_machine_TKout){
+			case 0:
+				/* Agrego conductor a desabordados porque no lo han hecho */
+				state_machine_TKout = STATE_DESASIGNED_DR;
+				break;
+			case 1:
+				/* No lo agrego porque ya lo hizo el desabordamiento de lampara */
+				state_machine_TKout = STATE_NO_ASIGNED;
+				break;
+			case 2:
+				/* */
+				break;
+			default:
+				break;
+		}
 	}
 	else
 	{

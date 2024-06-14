@@ -25,6 +25,7 @@ void Know_driver(wiced_bt_ble_scan_results_t *p_scan_result)
 	{
 		/* Copy the data */
 		memcpy(bdaddr_driver,p_scan_result->remote_bd_addr,6);
+		//memcpy(mc_driv,bdaddr_driver,6);   /* Copio para poder comparar */
 
 		WICED_BT_TRACE("KDV|");
 		WICED_BT_TRACE("%02X",bdaddr_driver[0]);

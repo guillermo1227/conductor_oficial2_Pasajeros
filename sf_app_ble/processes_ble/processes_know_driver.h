@@ -19,6 +19,8 @@
 
 BD_ADDR  bdaddr_driver;    // Adress of the bluetoot
 
+
+
 uint8_t 	safe_macs, array_mac[SIZE];
 int8_t 		array_rssi;
 int 		minor_lamp_rssi=0, position=0;
