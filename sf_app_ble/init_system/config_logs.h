@@ -97,6 +97,7 @@ extern unsigned char data_ma_save[12];
 
 void   init_config_logs(void);
 void   init_mac_logs(void);
+void   init_macCTR_logs(void);
 
 extern             void prevention_inspection(void);
 extern void filt_cfb(uint8_t *data_cfb2);

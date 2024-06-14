@@ -373,3 +373,54 @@ void      f_timer_CER( uint32_t data )
 {
 	clear_cer();
 }
+
+/***************************************************************
+ * Function name: f_timer_driver
+ * Description: The time has elapsed to clear device detection
+ *               using the external reader
+ * @parameter   data: data with current time
+ ***************************************************************/
+void      f_timer_driver( uint32_t data )
+{
+	 //wiced_hal_gpio_configure_pin( LED_GPIO_03, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_LOW );  /* Risk Zone P05 */
+	 //stop_TimerDriver();
+	send_again();
+	start_TimerDriver();
+}
+
+/***************************************************************
+ * Function name: f_drop_timer
+ * Description: The time has elapsed to clear the designated driver
+ *
+ * @parameter   data: void
+ ***************************************************************/
+void f_drop_timer( uint32_t data )
+{
+	static uint8_t leav_flag=0;
+	if(gap_t1 == WICED_FALSE)
+	{
+		if(leav_flag==0)
+		{
+			leav_flag++;
+			stop_TimerDriver();  /* Paro el envio del conductor */
+			start_DropDriver();  /* Envio una vez mas el conductor */
+			errace_data();
+		}
+		else if(leav_flag==1)
+		{
+			leav_flag=0;
+			stop_TimerDriver();
+			stop_DropDriver();
+			errace_data();
+		}
+
+	}
+	else if(gap_t1 == WICED_TRUE)
+	{
+		WICED_BT_TRACE("Paro el timer\n");
+		//leav_flag=3;
+		//start_DropDriver();
+		//start_DropDriver2();
+		stop_DropDriver();
+	}
+}

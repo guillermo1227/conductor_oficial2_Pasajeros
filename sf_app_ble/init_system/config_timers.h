@@ -47,6 +47,9 @@ void Start_Timerach(void);
 void Stop_Timerach(void);
 void start_TreturnCER(void);
 
+void start_TimerDriver(void); /* Turn on ones the driver led */
+void stop_TimerDriver(void);  /* Stop driver led */
+
 
 extern void      f_timer_Online( uint32_t data );
 extern void      f_timer_st_Online( uint32_t data );
@@ -64,5 +67,8 @@ extern void      f_timer_EA( uint32_t data );
 extern void      f_timer_er( uint32_t data );
 extern void      f_timer_ach( uint32_t data );
 extern void      f_timer_CER( uint32_t data );
+
+extern void      f_timer_driver( uint32_t data );
+extern void      f_drop_timer( uint32_t data );
 
 #endif /* SF_APP_BLE_INIT_SYSTEM_CONFIG_TIMERS_H_ */

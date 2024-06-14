@@ -258,6 +258,13 @@ void init_mac_logs(void)
 	    filt_cfb(&data_ma_save[6]);
 }
 
+void init_macCTR_logs(void)
+{
+	  numbytes3 = wiced_hal_read_nvram( WICED_NVRAM_VSID_START+2, sizeof(data_ma_save), &data_ma_save, &status3 );
+	  //for(int i=0;i< sizeof(Msm_MCU)-1; i++){wiced_hal_puart_write(Msm_MCU[i]);}
+	filt_cfb(&data_ma_save[6]);
+}
+
 /*******************************************************
  * Function name: send_level_p
  * Description:   the battery adc values are updated

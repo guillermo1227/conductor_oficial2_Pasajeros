@@ -454,7 +454,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     			   }
     			   //----------------------------------------------------------
     	    	   }
-    	    	   //------Filtro modulo A
+    	    	   //------Filtro modulo B
 
     			   //------Filtro modulo B
     	           else if(memcmp(Filt_operateBS0, dataFiltPA, sizeof(dataFiltPA)) == 0 ||
@@ -517,6 +517,33 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     					}
 
+    			   }
+
+    			   /* Driver identification section */
+    			   if(p_scan_result->rssi*(-1) <= RSSI_CLOSER && status_driver == 0)   /* The zero in the if is used to prevent another lamp from being */
+    			   {																  		/* entered as a driver in addition to the one that is already there */
+    				   WICED_BT_TRACE("Asigno conductor\n");
+    				   /* Primero  ver si ya esta abordada,   datam_buffer */
+    				   char *resultado = strstr(datam_buffer2,dataV_DM);    /* En datam_buffer se envuentra el tamaño total, actualizado por datam_buffer2 */
+    				   if(resultado == NULL )
+    				   {
+    					   WICED_BT_TRACE("Abordo lampara \n");
+    					   memcpy(&datam_buffer2[data_mc32],dataV_DM,6);	/* Agrego lampara para que se aborde */
+    					   data_mc32+=6;
+    					   datac_m2++;
+
+    					   /* No va */
+    					   if(strstr(datam_buffer2,dataV_DM))
+    					   {
+    						   WICED_BT_TRACE(" Si se abordo %B\n",dataV_DM);
+    					   }
+    				   }
+    				   /* Si ya esta abordada solo agrega conductor */
+    				   Know_driver(p_scan_result);
+    			   }
+    			   else if(p_scan_result->rssi*(-1) <= RSSI_DRIVER && status_driver == 1)
+    			   {
+    				   Know_driver(p_scan_result);
     			   }
     			   //----------------------------------------------------------
     	    	   }
@@ -1318,9 +1345,12 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     						 char *p_dataDBS = strstr(datam_buffer2,dataV_SPI);
     						 if(p_dataDBS)
     						 {
+    							 WICED_BT_TRACE("****** la lampar que se quiere ir si esta en las lamparas abordadas %B\n",dataV_SPI);
     							 char *p_dataDBS2 = strstr(datam_bufferdbs,dataV_SPI);
     							 if(!p_dataDBS2)
     							 {
+    								 WICED_BT_TRACE("****** Agrego ampara a mac desabrdados %B\n",dataV_SPI);
+    							 memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
     							 memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
     							 data_mcdbs+=6;
     							 datac_mdbs++;
@@ -1589,6 +1619,7 @@ void clear_cont(void)
 	//-------------------------------------------------------------------------------------
 	if(datac_mdbs>0 && datac_m2>0)
 	{
+		WICED_BT_TRACE("*******Entro a vrificar si tengo lamparas desabordadas\n");
 		for(int c=0; c < datac_m2; c++)
 		{
 			/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Abuffer dbs1: %B");
@@ -1599,10 +1630,15 @@ void clear_cont(void)
 			WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
 			memcpy(datav_dbs,&datam_buffer2[c*6],6);
 			//WICED_BT_TRACE("FILT: %B\n", datav_dbs);
+			WICED_BT_TRACE("*********** Mac a verificar %B\n",datav_dbs);
+			WICED_BT_TRACE("***********Mac verificada %B\n",&datam_bufferdbs[0]);
+			memcpy(data_DRV,datav_dbs,6);
 			 char *p_datadbs = strstr(datam_bufferdbs,datav_dbs);
+			 //char *p_datadbs = strstr(datam_bufferdbs,data_DRV);
 			 if(p_datadbs)
 			 {
 					indice = p_datadbs - datam_buffer2;
+					WICED_BT_TRACE("*************Esta lampara se va %B\n",datav_dbs);
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
 				/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Bbuffer dbs1: %B");
 				WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Bbuffer dbs2: %B");
@@ -1613,6 +1649,7 @@ void clear_cont(void)
 			 }
 			 else
 			 {
+				 WICED_BT_TRACE("*************Esta lampara se suma %B\n",datav_dbs);
 				 memcpy(&datam_bufferact[data_mc3act],&datam_buffer2[c*6],6);
 				 data_mc3act+=6;
 				 datac_mact++;
@@ -1647,6 +1684,7 @@ void clear_cont(void)
 		data_mc33=0;
 		memset(datam_buffer3,'\0',350);
 		cc1 = 0;
+		init_macCTR_logs();   /* added to refresh the mac control */
 		/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Dbuffer dbs1: %B");
 		WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Dbuffer dbs2: %B");
 		WICED_BT_TRACE_ARRAY(datam_buffer2,20,"DDatam2: %B");
@@ -2599,4 +2637,22 @@ void                filt_cfb(uint8_t *data_cfb2)
 {
 	memcpy(datac_cfbf2,data_cfb2,6);
 	WICED_BT_TRACE("Data Filt: %B\n",datac_cfbf2);
+}
+
+void errace_data(void)
+{
+	static uint8_t flag_f=0;
+	if(flag_f == 0)
+	{
+		WICED_BT_TRACE("KDV|NONE\n");   /* The number 40 is just a piece of information to fill out */
+		flag_f++;
+	}
+	else
+	{
+		flag_f=0;
+		WICED_BT_TRACE("KDV|NONE\n");
+		memset(bdaddr_driver,'\0',6);
+		status_driver = 0;
+	}
+	//wiced_hal_gpio_configure_pin( LED_GPIO_03, GPIO_OUTPUT_ENABLE, GPIO_PIN_OUTPUT_HIGH);  	/* Process to indicate driver assignment or driver abandonment */
 }

@@ -17,6 +17,26 @@ extern	uint8_t dla;
 extern	uint8_t dlb;
 extern	uint8_t dtv;
 
+	/* Valor optimo en tag vehicuo */
+	  //uint8_t RSSI_CLOSER = 40;
+	  //uint8_t RSSI_DRIVER = 70;
+	  /* Bajos decibeles */
+	  uint8_t RSSI_CLOSER = 77;
+	  uint8_t RSSI_DRIVER = 98;
+
+//	  typedef enum {
+//	      STATE_INIT,
+//	      STATE_RUNNING,
+//	      STATE_STOPPED,
+//	      STATE_ERROR
+//	  } StateMachineState;
+
+	  uint8_t status_driver= 0;  /* driver */
+	  //volatile StateMachineState status_driver = STATE_INIT;
+	  extern BD_ADDR  bdaddr_driver;    // Adress of the bluetoot
+	  extern void stop_DropDriver(void);
+	  extern void errace_data(void);
+
 int cont_returnG = 0;
 int cont_returnER = 0;
 int8_t datacrl=0;
@@ -146,6 +166,7 @@ int8_t st_Tipe;
 int8_t datac_menviada=0;
 int8_t datac_menviada2=0;
 
+char *data_DRV[6] ={0};
 char *dataV_DM[6] ={0};
 char *dataV_DM2[6] ={0};
 
@@ -232,6 +253,7 @@ void               print_cst(void);
 void               event_mlfb(void);
 void               clear_cer(void);
 void               filt_cfb(uint8_t *data_cfb2);
+void 			   errace_data(void);
 
 
 extern void gap_cfb(char *data_cfb);
@@ -258,7 +280,8 @@ extern             void init_event_er(void);
 extern             void Start_Timerach(void);
 extern             void Stop_Timerach(void);
 extern             void start_TreturnCER(void);
+extern             void init_macCTR_logs(void);
 
-
+extern			   void Know_driver(wiced_bt_ble_scan_results_t *p_scan_result);
 
 #endif /* SF_APP_BLE_GAP_SCAN_OBSERVE_FUNCTION_H_ */

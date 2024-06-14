@@ -54,6 +54,9 @@ wiced_timer_t timer_er;
 wiced_timer_t timer_ach;
 wiced_timer_t timer_cer;
 
+wiced_timer_t timer_driver;     //Turn on ligth for indicate the driver
+wiced_timer_t timer_drop_driver; //drop driver
+
 /***********************************************************
  * Function name: config_clk_timers
  * Description: calibration data conversion
@@ -76,6 +79,9 @@ void config_clk_timers(void)
     wiced_init_timer( &timer_er, f_timer_er, 0, WICED_SECONDS_TIMER );
     wiced_init_timer( &timer_ach, f_timer_ach, 0, WICED_MILLI_SECONDS_TIMER );
     wiced_init_timer( &timer_cer, f_timer_CER, 0, WICED_MILLI_SECONDS_TIMER );
+
+    wiced_init_timer( &timer_driver, f_timer_driver, 0, WICED_MILLI_SECONDS_TIMER );  /* Turn on the led driver */
+    wiced_init_timer( &timer_drop_driver, f_drop_timer, 0, WICED_MILLI_SECONDS_TIMER ); /* Timer to left the driver */
 }
 
 /***********************************************************
@@ -309,4 +315,47 @@ void Stop_Timerach(void)
 void start_TreturnCER(void)
 {
 	wiced_start_timer( &timer_cer, 7000);
+}
+
+/*************************************************************
+ * Function name: start_TimerDriver
+ * Description: timer that init the time of erase of the driver
+ *
+ *************************************************************/
+void start_TimerDriver(void)
+{
+	WICED_BT_TRACE("********** Mando conductor\n");
+	wiced_start_timer( &timer_driver, 5000);
+}
+
+/*************************************************************
+ * Function name: stop_TimerDriver
+ * Description: timer that stop the time of erase of the driver
+ *
+ *************************************************************/
+
+void stop_TimerDriver(void)
+{
+	WICED_BT_TRACE("YYYYYY FIN TIMER\n");
+	wiced_stop_timer( &timer_driver);
+}
+
+/*************************************************************
+ * Function name: start_TimerDriver
+ * Description: timer used to start the time to drop the driver
+ *
+ *************************************************************/
+void start_DropDriver(void)
+{
+	wiced_start_timer( &timer_drop_driver, 2600);
+}
+
+/*************************************************************
+ * Function name: stop_TimerDriver
+ * Description: timer used to start the time to drop the driver
+ *
+ *************************************************************/
+void stop_DropDriver(void)
+{
+	wiced_stop_timer( &timer_drop_driver);
 }
