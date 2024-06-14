@@ -1639,6 +1639,11 @@ void clear_cont(void)
 			 {
 					indice = p_datadbs - datam_buffer2;
 					WICED_BT_TRACE("*************Esta lampara se va %B\n",datav_dbs);
+
+					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
+					{
+						WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
+					}
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
 				/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Bbuffer dbs1: %B");
 				WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Bbuffer dbs2: %B");
