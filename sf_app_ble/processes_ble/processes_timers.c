@@ -156,7 +156,7 @@ void      f_gap( uint32_t data )
 		 value_gap =  WICED_TRUE;
 		 wiced_hal_gpio_set_pin_output( LED_GPIO_04, GPIO_PIN_OUTPUT_LOW);
 		 print_cst();
-
+		 stop_DropDriver();  /* Agregado por mi para pausar el tag */
 	}
 	}
 
