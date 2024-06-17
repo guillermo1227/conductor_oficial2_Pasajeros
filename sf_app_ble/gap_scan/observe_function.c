@@ -338,7 +338,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 datac_m2++;
 							 //WICED_BT_TRACE("******Si contiene lamparas %B\n",dataV_DM);
 
-							 if(strlen(bdaddr_driver)!=0)
+							 if(strlen(bdaddr_driver)!=0)   /* Si el conductor se fue, pero se vuelve a asignar se viene a esta seccion y baja de nuevo el valor de St_dsbDr para que empiece de nuevo */
 							 {
 								 //WICED_BT_TRACE("Si hay conductor %B\n",bdaddr_driver);
 
@@ -1302,11 +1302,12 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     	            if(St_dsbDr == 2)
     	            {
+    	            	//memcpy(data_Mac,)
 //    	            	memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
 //    	            	data_mcdbs+=6;
 //    	            	datac_mdbs++;
     	            	St_dsbDr = 0;
-    	            	WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
+    	            	WICED_BT_TRACE("********* Agrego a sumas de desabordados %B\n",data_Mac);
     	            }
 
     	    	  	memcpy(dataV_SPI,data_flt2,6);
