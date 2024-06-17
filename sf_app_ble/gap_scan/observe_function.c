@@ -1300,15 +1300,6 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	      			   //return;
     	      		   }
 
-    	            if(St_dsbDr == 2)
-    	            {
-//    	            	memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
-//    	            	data_mcdbs+=6;
-//    	            	datac_mdbs++;
-    	            	St_dsbDr = 0;
-    	            	WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
-    	            }
-
     	    	  	memcpy(dataV_SPI,data_flt2,6);
 
     	    		 if(memcmp(Filt_MAC4, dataV_SPI, sizeof(dataV_SPI)) != 0 && gap_t1== WICED_FALSE)
@@ -1647,6 +1638,15 @@ void clear_cont(void)
 {
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
 
+	if(St_dsbDr == 2)
+	{
+		memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
+		data_mcdbs+=6;
+		datac_mdbs++;
+
+		St_dsbDr = 0;
+		//WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
+	}
 
 	//-------------------------------------------------------------------------------------
 	if(datac_mdbs>0 && datac_m2>0)
@@ -1900,7 +1900,7 @@ void clear_cont(void)
     	}
     	else if (datac_m == datac_m2 && !value_p1)
     	{
-			if(gap_t1 == WICED_FALSE)
+			if(gap_t1 == WICED_FALSE)  /* Pregunta que no este presionado el boton */
 			{
 				cc4 ++;
 				if(cc4 == 5)
