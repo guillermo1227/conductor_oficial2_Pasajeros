@@ -23,7 +23,8 @@ uint8_t 	safe_macs, array_mac[SIZE];
 int8_t 		array_rssi;
 int 		minor_lamp_rssi=0, position=0;
 extern uint8_t status_driver;
-//extern      volatile StateMachineState status_driver;
+extern volatile int8_t St_dsbDr;
+
 uint8_t     count_lamp = 0;
 
 void Know_driver(wiced_bt_ble_scan_results_t *p_scan_result);

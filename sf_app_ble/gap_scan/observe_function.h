@@ -32,6 +32,11 @@ extern	uint8_t dtv;
 //	  } StateMachineState;
 
 	  uint8_t status_driver= 0;  /* driver */
+	  volatile int8_t St_dsbDr=0;
+	  int8_t St_dsbDr2=0;
+	  int8_t St_dsbDr3=0;
+	  int8_t St_dsbDr4=0;
+	  int8_t St_dsbDr5=0;
 	  //volatile StateMachineState status_driver = STATE_INIT;
 	  extern BD_ADDR  bdaddr_driver;    // Adress of the bluetoot
 	  extern void stop_DropDriver(void);

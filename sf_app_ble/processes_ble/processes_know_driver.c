@@ -62,5 +62,5 @@ void send_again(void)
 		{
 			WICED_BT_TRACE(":%02X",bdaddr_driver[k]);
 		}
-		WICED_BT_TRACE("|\n");
+		WICED_BT_TRACE("|%d\n",St_dsbDr);
 }

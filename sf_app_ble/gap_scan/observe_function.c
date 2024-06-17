@@ -465,6 +465,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     			   //---------------------------------------------------------------------------
     			   if(p_scan_result->rssi>=-dlb &&  gap_t1 == WICED_FALSE)
     			   {
+    				   //WICED_BT_TRACE("Senso de St_dsbDr: %d\n",St_dsbDr);
     					if(datac_m > datac_menviada)
     					{
     						/*if((datac_m - datac_menviada2)!=0)
@@ -1196,7 +1197,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   				  //WICED_BT_TRACE("NAME:");
 		   				  //wiced_hal_puart_print(p_name);
 		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+		   				  WICED_BT_TRACE(",0,%d\n",St_dsbDr);
 		   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
 		   	    	      //wiced_hal_puart_print(p_name);
 
@@ -1276,6 +1277,12 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     	      			  // WICED_BT_TRACE( "Return2\n");
     	      			   //return;
     	      		   }
+
+    	            if(St_dsbDr == 2)
+    	            {
+    	            	St_dsbDr = 0;
+    	            	WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
+    	            }
 
     	    	  	memcpy(dataV_SPI,data_flt2,6);
 
@@ -1642,6 +1649,11 @@ void clear_cont(void)
 
 					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
 					{
+						St_dsbDr=1;
+						St_dsbDr2=1;
+						St_dsbDr3=1;
+						St_dsbDr4=1;
+						St_dsbDr5=1;
 						WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
 					}
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
@@ -2651,6 +2663,16 @@ void errace_data(void)
 	{
 		WICED_BT_TRACE("KDV|NONE\n");   /* The number 40 is just a piece of information to fill out */
 		flag_f++;
+		if((St_dsbDr == 1) ) // || (St_dsbDr2 == 1) || (St_dsbDr3 == 1) || (St_dsbDr4 == 1) || (St_dsbDr5 == 1))
+		{
+			WICED_BT_TRACE("***** No desasigno lampara porque ya se fue\n");
+			St_dsbDr = 0;
+		}
+		else if(St_dsbDr == 0)
+		{
+			St_dsbDr = 2;
+			WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d %d %d %d %d\n",St_dsbDr,St_dsbDr2,St_dsbDr3,St_dsbDr4,St_dsbDr5);
+		}
 	}
 	else
 	{
