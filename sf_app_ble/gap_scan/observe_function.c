@@ -465,7 +465,6 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     			   //---------------------------------------------------------------------------
     			   if(p_scan_result->rssi>=-dlb &&  gap_t1 == WICED_FALSE)
     			   {
-    				   //WICED_BT_TRACE("Senso de St_dsbDr: %d\n",St_dsbDr);
     					if(datac_m > datac_menviada)
     					{
     						/*if((datac_m - datac_menviada2)!=0)
@@ -523,12 +522,12 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     			   /* Driver identification section */
     			   if(p_scan_result->rssi*(-1) <= RSSI_CLOSER && status_driver == 0)   /* The zero in the if is used to prevent another lamp from being */
     			   {																  		/* entered as a driver in addition to the one that is already there */
-    				   WICED_BT_TRACE("Asigno conductor\n");
+    				   //WICED_BT_TRACE("****** Asigno conductor\n");
     				   /* Primero  ver si ya esta abordada,   datam_buffer */
     				   char *resultado = strstr(datam_buffer2,dataV_DM);    /* En datam_buffer se envuentra el tamaño total, actualizado por datam_buffer2 */
     				   if(resultado == NULL )
     				   {
-    					   WICED_BT_TRACE("Abordo lampara \n");
+    					   //WICED_BT_TRACE("******** Abordo lampara \n");
     					   memcpy(&datam_buffer2[data_mc32],dataV_DM,6);	/* Agrego lampara para que se aborde */
     					   data_mc32+=6;
     					   datac_m2++;
@@ -536,7 +535,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     					   /* No va */
     					   if(strstr(datam_buffer2,dataV_DM))
     					   {
-    						   WICED_BT_TRACE(" Si se abordo %B\n",dataV_DM);
+    						   ///WICED_BT_TRACE("******* Si se abordo %B\n",dataV_DM);
     					   }
     				   }
     				   /* Si ya esta abordada solo agrega conductor */
@@ -1280,6 +1279,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     	            if(St_dsbDr == 2)
     	            {
+//    	            	memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
+//    	            	data_mcdbs+=6;
+//    	            	datac_mdbs++;
     	            	St_dsbDr = 0;
     	            	WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
     	            }
@@ -1650,10 +1652,6 @@ void clear_cont(void)
 					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
 					{
 						St_dsbDr=1;
-						St_dsbDr2=1;
-						St_dsbDr3=1;
-						St_dsbDr4=1;
-						St_dsbDr5=1;
 						WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
 					}
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
@@ -2661,9 +2659,10 @@ void errace_data(void)
 	static uint8_t flag_f=0;
 	if(flag_f == 0)
 	{
+		status_driver=2;
 		WICED_BT_TRACE("KDV|NONE\n");   /* The number 40 is just a piece of information to fill out */
 		flag_f++;
-		if((St_dsbDr == 1) ) // || (St_dsbDr2 == 1) || (St_dsbDr3 == 1) || (St_dsbDr4 == 1) || (St_dsbDr5 == 1))
+		if((St_dsbDr == 1) )
 		{
 			WICED_BT_TRACE("***** No desasigno lampara porque ya se fue\n");
 			St_dsbDr = 0;
@@ -2671,7 +2670,8 @@ void errace_data(void)
 		else if(St_dsbDr == 0)
 		{
 			St_dsbDr = 2;
-			WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d %d %d %d %d\n",St_dsbDr,St_dsbDr2,St_dsbDr3,St_dsbDr4,St_dsbDr5);
+			memcpy(data_Mac,bdaddr_driver,6);
+			WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d\n",St_dsbDr);
 		}
 	}
 	else

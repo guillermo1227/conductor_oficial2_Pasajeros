@@ -324,7 +324,7 @@ void start_TreturnCER(void)
  *************************************************************/
 void start_TimerDriver(void)
 {
-	WICED_BT_TRACE("********** Mando conductor\n");
+	//WICED_BT_TRACE("********** Mando conductor\n");
 	wiced_start_timer( &timer_driver, 5000);
 }
 
@@ -336,7 +336,7 @@ void start_TimerDriver(void)
 
 void stop_TimerDriver(void)
 {
-	WICED_BT_TRACE("YYYYYY FIN TIMER\n");
+	//WICED_BT_TRACE("YYYYYY FIN TIMER\n");
 	wiced_stop_timer( &timer_driver);
 }
 

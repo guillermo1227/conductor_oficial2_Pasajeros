@@ -417,7 +417,7 @@ void f_drop_timer( uint32_t data )
 	}
 	else if(gap_t1 == WICED_TRUE)
 	{
-		WICED_BT_TRACE("Paro el timer\n");
+		//WICED_BT_TRACE("******Paro el timer\n");
 		//leav_flag=3;
 		//start_DropDriver();
 		//start_DropDriver2();
