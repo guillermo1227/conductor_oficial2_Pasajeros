@@ -336,7 +336,19 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 memcpy(&datam_buffer2[data_mc32],dataV_DM,6);
 							 data_mc32+=6;
 							 datac_m2++;
-							 //WICED_BT_TRACE("Si contiene lamparas\n");
+							 //WICED_BT_TRACE("******Si contiene lamparas %B\n",dataV_DM);
+
+							 if(strlen(bdaddr_driver)!=0)
+							 {
+								 //WICED_BT_TRACE("Si hay conductor %B\n",bdaddr_driver);
+
+								 if(memcmp(bdaddr_driver,dataV_DM,6)==0)
+								 {
+									// WICED_BT_TRACE("Entra 1");
+									 St_dsbDr = 0;
+								 }
+							 }
+
 							 }
 						   }
     				    else if (value_p1== WICED_FALSE)
@@ -347,7 +359,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 memcpy(&datam_buffer2[data_mc32],dataV_DM,6);
 							 data_mc32+=6;
 							 datac_m2++;
-							 //WICED_BT_TRACE("Si contiene lamparas2\n");
+							 //WICED_BT_TRACE("******Si contiene lamparas2 %B\n",dataV_DM);
 							 }
     				    }
     				    else if(value_p1 == WICED_TRUE)
@@ -362,8 +374,19 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 memcpy(&datam_buffer3[data_mc33],dataV_DM,6);
 								 data_mc33+=6;
 								 datac_m3++;
-								 //WICED_BT_TRACE("Si contiene lamparasB2\n");
+								 //WICED_BT_TRACE("*******Si contiene lamparasB2 %B\n",dataV_DM);
 								 }
+
+//								 if(memcmp(bdaddr_driver,dataV_DM,6))
+//								 {
+//									 WICED_BT_TRACE("Entra 2");
+//									 St_dsbDr = 0;
+//								 }
+//								 else if(memcmp(dataV_DM,bdaddr_driver,6))
+//								 {
+//									 WICED_BT_TRACE("Entra 2.2");
+//									 St_dsbDr = 0;
+//								 }
 
 							 }
 
