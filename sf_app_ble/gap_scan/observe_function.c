@@ -1280,8 +1280,11 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     	            if(St_dsbDr == 2)
     	            {
+    	            	memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
+    	            	data_mcdbs+=6;
+    	            	datac_mdbs++;
     	            	St_dsbDr = 0;
-    	            	WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
+    	            	WICED_BT_TRACE("********* Agrego a sumas de desabordados %B\n",data_Mac);
     	            }
 
     	    	  	memcpy(dataV_SPI,data_flt2,6);
@@ -1650,10 +1653,6 @@ void clear_cont(void)
 					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
 					{
 						St_dsbDr=1;
-						St_dsbDr2=1;
-						St_dsbDr3=1;
-						St_dsbDr4=1;
-						St_dsbDr5=1;
 						WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
 					}
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
@@ -2663,6 +2662,7 @@ void errace_data(void)
 	{
 		WICED_BT_TRACE("KDV|NONE\n");   /* The number 40 is just a piece of information to fill out */
 		flag_f++;
+		status_driver = 2;
 		if((St_dsbDr == 1) ) // || (St_dsbDr2 == 1) || (St_dsbDr3 == 1) || (St_dsbDr4 == 1) || (St_dsbDr5 == 1))
 		{
 			WICED_BT_TRACE("***** No desasigno lampara porque ya se fue\n");
@@ -2671,7 +2671,8 @@ void errace_data(void)
 		else if(St_dsbDr == 0)
 		{
 			St_dsbDr = 2;
-			WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d %d %d %d %d\n",St_dsbDr,St_dsbDr2,St_dsbDr3,St_dsbDr4,St_dsbDr5);
+			memcpy(data_Mac,bdaddr_driver,6);
+			WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d\n",St_dsbDr);
 		}
 	}
 	else

@@ -17,6 +17,8 @@ extern	uint8_t dla;
 extern	uint8_t dlb;
 extern	uint8_t dtv;
 
+
+/* ------------------------------------ */
 	/* Valor optimo en tag vehicuo */
 	  //uint8_t RSSI_CLOSER = 40;
 	  //uint8_t RSSI_DRIVER = 70;
@@ -33,14 +35,12 @@ extern	uint8_t dtv;
 
 	  uint8_t status_driver= 0;  /* driver */
 	  volatile int8_t St_dsbDr=0;
-	  int8_t St_dsbDr2=0;
-	  int8_t St_dsbDr3=0;
-	  int8_t St_dsbDr4=0;
-	  int8_t St_dsbDr5=0;
-	  //volatile StateMachineState status_driver = STATE_INIT;
+
 	  extern BD_ADDR  bdaddr_driver;    // Adress of the bluetoot
 	  extern void stop_DropDriver(void);
 	  extern void errace_data(void);
+	  char *data_Mac[6] ={0};
+	  /* ------------------------------ */
 
 int cont_returnG = 0;
 int cont_returnER = 0;
