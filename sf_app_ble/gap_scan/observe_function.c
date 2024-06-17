@@ -1354,11 +1354,11 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     						 char *p_dataDBS = strstr(datam_buffer2,dataV_SPI);
     						 if(p_dataDBS)
     						 {
-    							 WICED_BT_TRACE("****** la lampar que se quiere ir si esta en las lamparas abordadas %B\n",dataV_SPI);
+    							 //WICED_BT_TRACE("****** la lampar que se quiere ir si esta en las lamparas abordadas %B\n",dataV_SPI);
     							 char *p_dataDBS2 = strstr(datam_bufferdbs,dataV_SPI);
     							 if(!p_dataDBS2)
     							 {
-    								 WICED_BT_TRACE("****** Agrego ampara a mac desabrdados %B\n",dataV_SPI);
+    								 //WICED_BT_TRACE("****** Agrego ampara a mac desabrdados %B\n",dataV_SPI);
     							 memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
     							 memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
     							 data_mcdbs+=6;
@@ -1628,7 +1628,7 @@ void clear_cont(void)
 	//-------------------------------------------------------------------------------------
 	if(datac_mdbs>0 && datac_m2>0)
 	{
-		WICED_BT_TRACE("*******Entro a vrificar si tengo lamparas desabordadas\n");
+		//WICED_BT_TRACE("*******Entro a vrificar si tengo lamparas desabordadas\n");
 		for(int c=0; c < datac_m2; c++)
 		{
 			/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Abuffer dbs1: %B");
@@ -1639,20 +1639,20 @@ void clear_cont(void)
 			WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
 			memcpy(datav_dbs,&datam_buffer2[c*6],6);
 			//WICED_BT_TRACE("FILT: %B\n", datav_dbs);
-			WICED_BT_TRACE("*********** Mac a verificar %B\n",datav_dbs);
-			WICED_BT_TRACE("***********Mac verificada %B\n",&datam_bufferdbs[0]);
+			//--->WICED_BT_TRACE("*********** Mac a verificar %B\n",datav_dbs);
+			//--->WICED_BT_TRACE("***********Mac verificada %B\n",&datam_bufferdbs[0]);
 			memcpy(data_DRV,datav_dbs,6);
 			 char *p_datadbs = strstr(datam_bufferdbs,datav_dbs);
 			 //char *p_datadbs = strstr(datam_bufferdbs,data_DRV);
 			 if(p_datadbs)
 			 {
 					indice = p_datadbs - datam_buffer2;
-					WICED_BT_TRACE("*************Esta lampara se va %B\n",datav_dbs);
+					//--->WICED_BT_TRACE("*************Esta lampara se va %B\n",datav_dbs);
 
 					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
 					{
 						St_dsbDr=1;
-						WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
+						//----->WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
 					}
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
 				/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Bbuffer dbs1: %B");
@@ -1664,7 +1664,7 @@ void clear_cont(void)
 			 }
 			 else
 			 {
-				 WICED_BT_TRACE("*************Esta lampara se suma %B\n",datav_dbs);
+				 //WICED_BT_TRACE("*************Esta lampara se suma %B\n",datav_dbs);
 				 memcpy(&datam_bufferact[data_mc3act],&datam_buffer2[c*6],6);
 				 data_mc3act+=6;
 				 datac_mact++;
@@ -2664,14 +2664,14 @@ void errace_data(void)
 		flag_f++;
 		if((St_dsbDr == 1) )
 		{
-			WICED_BT_TRACE("***** No desasigno lampara porque ya se fue\n");
+			//WICED_BT_TRACE("***** No desasigno lampara porque ya se fue\n");
 			St_dsbDr = 0;
 		}
 		else if(St_dsbDr == 0)
 		{
 			St_dsbDr = 2;
 			memcpy(data_Mac,bdaddr_driver,6);
-			WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d\n",St_dsbDr);
+			//WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d\n",St_dsbDr);
 		}
 	}
 	else
