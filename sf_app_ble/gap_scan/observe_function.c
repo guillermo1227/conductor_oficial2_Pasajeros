@@ -1219,7 +1219,8 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   				  //WICED_BT_TRACE("NAME:");
 		   				  //wiced_hal_puart_print(p_name);
 		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0,%d\n",St_dsbDr);
+		   				  WICED_BT_TRACE(",0\n");
+		   				  //WICED_BT_TRACE(",0,%d\n",St_dsbDr);-------->
 		   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
 		   	    	      //wiced_hal_puart_print(p_name);
 
@@ -2093,7 +2094,7 @@ void clear_cont(void)
 	//WICED_BT_TRACE("GAP: %d\n",gap_t1);
 
 	//-----------------------------------------------------------------------------------------
-	WICED_BT_TRACE( "OBSERVE START--------------------------------\n\r" );
+	WICED_BT_TRACE( "OBSERVE START--------------------------------%d\n\r",St_dsbDr);
 	wiced_bt_ble_observe (1,0 , Observer_scan_result_cback);
 
 }
