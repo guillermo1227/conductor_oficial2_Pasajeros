@@ -349,6 +349,25 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 }
 							 }
 
+							 	 if(datac_pasaj < NUM_PASAJEROS) /* Copiar 4 macs abordadas para mandarlas a wifi */
+							 	 {
+								 	 /* Voy a buscar donde esta disponible para guardar */
+								 	 for(uint8_t i=1;i<4;i++)
+								 	 {
+								 		 if(strlen(T_pasajeros[i].mac_pasajero) == 0 && (strlen(bdaddr_driver)==0 || memcmp(bdaddr_driver, dataV_DM, 6) != 0))
+								 		 {
+								 			 memcpy(&T_pasajeros[i].mac_pasajero,dataV_DM,strlen(dataV_DM)); /* Copy of mac struct */
+								 			 WICED_BT_TRACE("PCM|%d|",i+1);
+								 			 WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
+								 			 WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
+								 			 WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
+								 			 WICED_BT_TRACE("|1|\n");
+								 			 datac_pasaj++;
+								 			 break;
+								 		 }
+								 	 }
+								 	 start_TPass();
+							 	 }
 							 }
 						   }
     				    else if (value_p1== WICED_FALSE)
@@ -555,12 +574,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     					   data_mc32+=6;
     					   datac_m2++;
 
-    					   /* No va */
-    					   if(strstr(datam_buffer2,dataV_DM))
-    					   {
-    						   ///WICED_BT_TRACE("******* Si se abordo %B\n",dataV_DM);
-    					   }
+
     				   }
+    				   memcpy(&T_pasajeros[0].mac_pasajero,dataV_DM,strlen(dataV_DM)); /* Copio conductor en la primera seccion de los pasajeros */
     				   /* Si ya esta abordada solo agrega conductor */
     				   Know_driver(p_scan_result);
     			   }
@@ -1639,6 +1655,19 @@ void clear_cont(void)
 {
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
 
+	for(uint8_t i=1;i<4;i++) /* 1.- Verifico que el conductor no este en los abordados */
+	{
+		if(status_driver == 1 && memcmp(bdaddr_driver,T_pasajeros[i].mac_pasajero,6) == 0)
+		{
+			WICED_BT_TRACE("PCO|%d|",i+1);
+			WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
+			WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
+			WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
+			WICED_BT_TRACE("|2|\n");
+			memset(T_pasajeros[i].mac_pasajero,NULL,6);
+		}
+	}
+
 	if(St_dsbDr == 2)
 	{
 		memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
@@ -1730,6 +1759,80 @@ void clear_cont(void)
 		WICED_BT_TRACE_ARRAY(datam_buffer3,20,"DDatam3: %B");
 		WICED_BT_TRACE_ARRAY(datam_bufferact,20,"DDatamact: %B");
 		WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
+
+		/* Take out the aborders */
+		int8_t m=0, total_t = datac_pasaj;  /* Integer used to add */
+		for(uint8_t q=0; q<4;q++)
+		{
+			if(strlen(T_pasajeros[q].mac_pasajero) != 0)
+			{
+				memcpy(mac_help,T_pasajeros[q].mac_pasajero,6);
+				valor = strstr(datam_buffer2,mac_help);
+				if(valor == NULL || valor == 0)
+				{
+					WICED_BT_TRACE("PCO|%d|",q+1);
+					WICED_BT_TRACE("%02X:%02X",T_pasajeros[q].mac_pasajero[0],T_pasajeros[q].mac_pasajero[1]);
+					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[2],T_pasajeros[q].mac_pasajero[3]);
+					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
+					WICED_BT_TRACE("|2|\n");
+					memset(T_pasajeros[q].mac_pasajero,0, 6);  /* Limpio esta parte de mi cadena */
+					total_t --; /* Se fue */
+				}
+				//else
+				//WICED_BT_TRACE("\n Si esta la lampara[%d]: %s \n", q+1 ,mac_help);
+
+				memset(mac_help,0,6);
+			}
+		}
+		datac_pasaj = total_t;
+		/* ------ Seccion donde voy a meter a mi arreglo una mac si el numero de abordados es mayor a 4 y se va una, buffer3 ------ */
+//		if(datac_pasaj < datac_m2 && datac_pasaj < 3)  // Con el datac_m2 es el que dice cuantas lamapras se encuentran actualmnte
+//		{
+//			/* Primero paso todo a datam_buffer4 de mis datos */
+//			data_s6 = 0;
+//			for(q=0; q<4;q++)
+//			{
+//				if(strlen(T_pasajeros[q].mac_pasajero) != 0){
+//					memcpy(&datam_buffer4[data_s6], &T_pasajeros[q].mac_pasajero, 6);
+//					//WICED_BT_TRACE("\n Copio de mi arreglo: %B \n",&datam_buffer4[data_s6]);
+//					data_s6 = data_s6 + 6;
+//				}
+//			}
+//			//WICED_BT_TRACE("\n ************** Cantidad de pasajeros %d, longitud de mi arreglo %d \n",datac_pasaj, strlen(datam_buffer4)/6);
+//			data_s6 = 0;
+//			for(q=0;q<datac_m2;q++)
+//			{
+//				memcpy(mac_help,&datam_buffer2[data_s6],6);
+//				valor = strstr(&datam_buffer4[0],mac_help);
+//				//WICED_BT_TRACE("\n longitud[%d] %d\n",strlen(T_pasajeros[q].mac_pasajero), q);
+//				if((valor == NULL || valor == 0) && datac_pasaj < 4 && strlen(T_pasajeros[q].mac_pasajero) == 0)
+//				{
+//					T_pasajeros[q].out_value=1; /* <---------- Take the position of the new passenger ----------> */
+//					memcpy(&T_pasajeros[q].mac_pasajero,&datam_buffer2[data_s6],6);
+//					datac_pasaj++;
+//					data_s6 = data_s6 + 6;
+//				}
+//				else if((valor != NULL || valor != 0) && datac_pasaj < 4 && strlen(T_pasajeros[q].mac_pasajero) == 0)
+//				{
+//					q--;
+//					data_s6 = data_s6 + 6;
+//				}
+//				else if((valor != NULL || valor != 0) && datac_pasaj < 4 && strlen(T_pasajeros[q].mac_pasajero) != 0)
+//				{
+//					data_s6 = data_s6 + 6;
+//				}
+//
+//				memset(mac_help,0,6);
+//				if(datac_pasaj == 4 || datac_pasaj == datac_m2)
+//				{
+//					break;   /* Salirce del ciclo for */
+//				}
+//			}
+//			/* Mandare infromacion en un timer posterior */
+//			//WICED_BT_TRACE("\n ************** Cantidad de pasajeros %d \n",datac_pasaj);
+//			timer_sendpassenger();
+//		}
+
 	}
 
 

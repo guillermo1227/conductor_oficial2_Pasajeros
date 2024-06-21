@@ -21,13 +21,20 @@ BD_ADDR  bdaddr_driver;    // Adress of the bluetoot
 
 uint8_t 	safe_macs, array_mac[SIZE];
 int8_t 		array_rssi;
+uint8_t     count_lamp = 0;
 int 		minor_lamp_rssi=0, position=0;
 extern uint8_t status_driver;
 extern volatile int8_t St_dsbDr;
 
-uint8_t     count_lamp = 0;
+typedef struct
+	  {
+	  	char mac_pasajero[6];
+	  	uint8_t out_value;
+	  }pasajeros;
+	  extern pasajeros T_pasajeros[4];  /* Total de pasajeros */
 
 void Know_driver(wiced_bt_ble_scan_results_t *p_scan_result);
+void send_again_pass(void);
 //void errace_data(void);
 //void send_again(void);
 

@@ -10,6 +10,8 @@
 
       #define clk_radc 20
       #define clk_radc120 120
+	  #define NUM_PASAJEROS 3
+
 	  wiced_timer_t timer_radc;
 	  void        f_timer_radc( uint32_t data );
 
@@ -24,13 +26,6 @@ extern	uint8_t dtv;
 	  uint8_t RSSI_CLOSER = 77;
 	  uint8_t RSSI_DRIVER = 98;
 
-//	  typedef enum {
-//	      STATE_INIT,
-//	      STATE_RUNNING,
-//	      STATE_STOPPED,
-//	      STATE_ERROR
-//	  } StateMachineState;
-
 	  uint8_t status_driver= 0;  /* driver */
 	  volatile int8_t St_dsbDr=0;
 	  char data_Mac[6];
@@ -39,6 +34,18 @@ extern	uint8_t dtv;
 	  extern void stop_DropDriver(void);
 	  extern void errace_data(void);
 
+	  /* Variables de pasajeros */
+	  typedef struct
+	  {
+	  	char mac_pasajero[6];
+	  	uint8_t out_value;
+	  }pasajeros;
+	  pasajeros T_pasajeros[4];  /* Total de pasajeros */
+
+	  int8_t datac_pasaj =0;   /* --> llevar el conteo de pasajeros */
+	  char mac_help[6]={0};
+	  char *valor;
+	  /* ---------------------- */
 int cont_returnG = 0;
 int cont_returnER = 0;
 int8_t datacrl=0;
@@ -285,5 +292,7 @@ extern             void start_TreturnCER(void);
 extern             void init_macCTR_logs(void);
 
 extern			   void Know_driver(wiced_bt_ble_scan_results_t *p_scan_result);
+extern			   void start_TPass(void);
+extern			   void stop_TPass(void);
 
 #endif /* SF_APP_BLE_GAP_SCAN_OBSERVE_FUNCTION_H_ */

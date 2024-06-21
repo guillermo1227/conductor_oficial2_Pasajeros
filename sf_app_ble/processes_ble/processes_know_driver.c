@@ -64,3 +64,19 @@ void send_again(void)
 		}
 		WICED_BT_TRACE("|%d\n",St_dsbDr);
 }
+
+void send_again_pass(void)
+{
+	WICED_BT_TRACE("*************** Mando pasajeros repetidos\n");
+	for(uint8_t i=1 ; i<4 ; i++)
+		{
+			if(strlen(T_pasajeros[i].mac_pasajero)!=0)
+			{
+				WICED_BT_TRACE("PCR|%d|",i+1);
+				WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
+				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
+				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
+				WICED_BT_TRACE("|1|\n");
+			}
+		}
+}

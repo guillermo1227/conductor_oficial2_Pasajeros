@@ -56,6 +56,7 @@ wiced_timer_t timer_cer;
 
 wiced_timer_t timer_driver;     //Turn on ligth for indicate the driver
 wiced_timer_t timer_drop_driver; //drop driver
+wiced_timer_t timer_passenger; //drop driver
 
 /***********************************************************
  * Function name: config_clk_timers
@@ -82,6 +83,7 @@ void config_clk_timers(void)
 
     wiced_init_timer( &timer_driver, f_timer_driver, 0, WICED_MILLI_SECONDS_TIMER );  /* Turn on the led driver */
     wiced_init_timer( &timer_drop_driver, f_drop_timer, 0, WICED_MILLI_SECONDS_TIMER ); /* Timer to left the driver */
+    wiced_init_timer( &timer_passenger, f_timer_pass, 0, WICED_MILLI_SECONDS_TIMER ); /* Timer to left the driver */
 }
 
 /***********************************************************
@@ -358,4 +360,14 @@ void start_DropDriver(void)
 void stop_DropDriver(void)
 {
 	wiced_stop_timer( &timer_drop_driver);
+}
+
+void start_TPass(void)
+{
+	wiced_start_timer( &timer_passenger, 5200);
+}
+
+void stop_TPass(void)
+{
+	wiced_stop_timer( &timer_passenger);
 }

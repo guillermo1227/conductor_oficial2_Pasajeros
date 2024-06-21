@@ -424,3 +424,9 @@ void f_drop_timer( uint32_t data )
 		stop_DropDriver();
 	}
 }
+
+void f_timer_pass( uint32_t data )
+{
+	send_again_pass();
+	start_TPass();
+}
