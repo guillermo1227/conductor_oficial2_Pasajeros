@@ -406,7 +406,7 @@ void f_drop_timer( uint32_t data )
 			start_DropDriver();  /* Envio una vez mas el conductor */
 			errace_data();
 		}
-		else if(leav_flag==1)
+		else
 		{
 			leav_flag=0;
 			stop_TimerDriver();

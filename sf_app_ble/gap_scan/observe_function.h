@@ -45,6 +45,8 @@ extern	uint8_t dtv;
 	  int8_t datac_pasaj =0;   /* --> llevar el conteo de pasajeros */
 	  char mac_help[6]={0};
 	  char *valor;
+	  char datam_buffer4[30]={0};   /* Store the passengers' mac */
+	  int8_t data_s6 = 0,data_sum = 0;
 	  /* ---------------------- */
 int cont_returnG = 0;
 int cont_returnER = 0;
@@ -186,6 +188,7 @@ char datav_dbs[7] ={0};
 char datam_buffer[350];
 char datam_buffer2[350];
 char datam_buffer3[350];
+char datam_buffer5[350];   /* Arreglo para no moverle a buffer2 */
 
 char datam_bufferdbs[50];
 char datam_bufferact[350];

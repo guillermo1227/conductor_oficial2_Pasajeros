@@ -349,7 +349,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 }
 							 }
 
-							 	 if(datac_pasaj < NUM_PASAJEROS) /* Copiar 4 macs abordadas para mandarlas a wifi */
+							 	 if(datac_pasaj < NUM_PASAJEROS) /* Copiar 3 macs abordadas para mandarlas a wifi */
 							 	 {
 								 	 /* Voy a buscar donde esta disponible para guardar */
 								 	 for(uint8_t i=1;i<4;i++)
@@ -573,8 +573,6 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     					   memcpy(&datam_buffer2[data_mc32],dataV_DM,6);	/* Agrego lampara para que se aborde */
     					   data_mc32+=6;
     					   datac_m2++;
-
-
     				   }
     				   memcpy(&T_pasajeros[0].mac_pasajero,dataV_DM,strlen(dataV_DM)); /* Copio conductor en la primera seccion de los pasajeros */
     				   /* Si ya esta abordada solo agrega conductor */
@@ -1060,17 +1058,17 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
 
 
-
-		   	   		  WICED_BT_TRACE("BNM|");
-	   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-	   				  for(int k=1; k<=5; k++)
-	   				  {
-	   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-	   				  }
-	   				  //WICED_BT_TRACE("NAME:");
-	   				  //wiced_hal_puart_print(p_name);
-	   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-	   				  WICED_BT_TRACE(",1\n");
+		   	   		/* */
+//		   	   		  WICED_BT_TRACE("BNM|");
+//	   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//	   				  for(int k=1; k<=5; k++)
+//	   				  {
+//	   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//	   				  }
+//	   				  //WICED_BT_TRACE("NAME:");
+//	   				  //wiced_hal_puart_print(p_name);
+//	   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//	   				  WICED_BT_TRACE(",1\n");
 
 
 	   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
@@ -1135,16 +1133,17 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	   	   else if(memcmp(Filt_operate101, dataFiltEA, sizeof(dataFiltEA)) == 0 ||
 		   	    	   memcmp(Filt_operate101, dataFiltEA, sizeof(dataFiltEA)) == 0 ){//filtro de nombres
 
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+		   	   		   /* */
+//		   	      	      WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
 
 		   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
 		   	    	      //wiced_hal_puart_print(p_name);
@@ -1189,14 +1188,16 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	 if(memcmp(Filt_operate103, dataFiltBC, sizeof(dataFiltBC)) == 0 ||
 		   	    	    	memcmp(Filt_ACARO, dataFiltBC, sizeof(dataFiltBC)) == 0 )
 		   	    	{
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  WICED_BT_TRACE(",BEAC,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+		   	    		 /* */
+//		   	      	      WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  WICED_BT_TRACE(",BEAC,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
+
 		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
 		       		      //wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_HIGH);
 		       		      //WICED_BT_TRACE("SPIN 11 HIGH\n");
@@ -1206,14 +1207,17 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	 if(memcmp(Filt_GEOSF, dataFiltBC, sizeof(dataFiltBC)) == 0 ||
 		   	    	    	memcmp(Filt_GEOSF, dataFiltBC, sizeof(dataFiltBC)) == 0 )
 		   	    	{
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  WICED_BT_TRACE(",GEOSF,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+
+		   	    		 /* */
+//		   	    		  WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  WICED_BT_TRACE(",GEOSF,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
+
 		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
 		       		      //wiced_hal_gpio_set_pin_output( LED_GPIO_03, GPIO_PIN_OUTPUT_HIGH);
 		       		      //WICED_BT_TRACE("SPIN 11 HIGH\n");
@@ -1226,16 +1230,18 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	    	memcmp(Filt_operate1, dataFiltLV, sizeof(dataFiltLV)) == 0 )
 		   	    	{
 
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+		   	    		 /* */
+//		   	      	      WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
+
 		   				  //WICED_BT_TRACE(",0,%d\n",St_dsbDr);-------->
 		   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
 		   	    	      //wiced_hal_puart_print(p_name);
@@ -1246,17 +1252,18 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	    	memcmp(Filt_operate2, dataFiltLV, sizeof(dataFiltLV)) == 0 )
 		   	    	{
 
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",VEHI,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
-		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
+		   	    		 /* */
+//		   	      	      WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",VEHI,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
+//		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
 
 		   	    	}
 
@@ -1655,20 +1662,27 @@ void clear_cont(void)
 {
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
 
-	for(uint8_t i=1;i<4;i++) /* 1.- Verifico que el conductor no este en los abordados */
+	datac_pasaj=0;
+	for(uint8_t i=1;i<4;i++) /* 1.- Verifico que el conductor no este en los abordados  * Pasajeros */
 	{
 		if(status_driver == 1 && memcmp(bdaddr_driver,T_pasajeros[i].mac_pasajero,6) == 0)
 		{
-			WICED_BT_TRACE("PCO|%d|",i+1);
+			WICED_BT_TRACE("PCO8|%d|",i+1);
 			WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
 			WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
 			WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
 			WICED_BT_TRACE("|2|\n");
 			memset(T_pasajeros[i].mac_pasajero,NULL,6);
 		}
-	}
 
-	if(St_dsbDr == 2)
+		if(strlen(T_pasajeros[i].mac_pasajero) != 0) /* Conteo de pasajeros */
+		{
+			datac_pasaj++;
+		}
+	}
+	WICED_BT_TRACE("Cantidad de pasajeros abordados %d\n",datac_pasaj);
+
+	if(St_dsbDr == 2)    /* Aun forma parte de asignacion conductor */
 	{
 		memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
 		data_mcdbs+=6;
@@ -1679,9 +1693,8 @@ void clear_cont(void)
 	}
 
 	//-------------------------------------------------------------------------------------
-	if(datac_mdbs>0 && datac_m2>0)
+	if(datac_mdbs>0 && datac_m2>0)  /* Si hay laguna mac desabordada y aparte tambine tenemos lamparas abordadas entra aqui */
 	{
-		//WICED_BT_TRACE("*******Entro a vrificar si tengo lamparas desabordadas\n");
 		for(int c=0; c < datac_m2; c++)
 		{
 			/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Abuffer dbs1: %B");
@@ -1700,11 +1713,11 @@ void clear_cont(void)
 			 if(p_datadbs)
 			 {
 					indice = p_datadbs - datam_buffer2;
-					//--->WICED_BT_TRACE("*************Esta lampara se va %B\n",datav_dbs);
 
 					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
 					{
 						St_dsbDr=1;
+						memset(T_pasajeros[0].mac_pasajero,0, 6);  /* Limpio al conductor de los abordados */
 						//----->WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
 					}
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
@@ -1738,6 +1751,7 @@ void clear_cont(void)
 		}
 
 		memcpy(datam_buffer2,datam_bufferact,350);
+		memcpy(datam_buffer5,datam_bufferact,350);
 		datac_m2=datac_mact;
 		//datac_m2=0;
 		data_mc32=data_mc3act;
@@ -1761,78 +1775,81 @@ void clear_cont(void)
 		WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
 
 		/* Take out the aborders */
+		data_s6 = 0;
 		int8_t m=0, total_t = datac_pasaj;  /* Integer used to add */
-		for(uint8_t q=0; q<4;q++)
+		for(uint8_t q=1; q<4;q++)
 		{
 			if(strlen(T_pasajeros[q].mac_pasajero) != 0)
 			{
 				memcpy(mac_help,T_pasajeros[q].mac_pasajero,6);
-				valor = strstr(datam_buffer2,mac_help);
+				valor = strstr(datam_buffer5,mac_help);
 				if(valor == NULL || valor == 0)
 				{
-					WICED_BT_TRACE("PCO|%d|",q+1);
+					WICED_BT_TRACE("PCO1|%d|",q+1);
 					WICED_BT_TRACE("%02X:%02X",T_pasajeros[q].mac_pasajero[0],T_pasajeros[q].mac_pasajero[1]);
 					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[2],T_pasajeros[q].mac_pasajero[3]);
 					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
 					WICED_BT_TRACE("|2|\n");
-					memset(T_pasajeros[q].mac_pasajero,0, 6);  /* Limpio esta parte de mi cadena */
+					memset(T_pasajeros[q].mac_pasajero,NULL, 6);  /* Limpio esta parte de mi cadena */
 					total_t --; /* Se fue */
 				}
-				//else
-				//WICED_BT_TRACE("\n Si esta la lampara[%d]: %s \n", q+1 ,mac_help);
-
 				memset(mac_help,0,6);
 			}
 		}
 		datac_pasaj = total_t;
-		/* ------ Seccion donde voy a meter a mi arreglo una mac si el numero de abordados es mayor a 4 y se va una, buffer3 ------ */
-//		if(datac_pasaj < datac_m2 && datac_pasaj < 3)  // Con el datac_m2 es el que dice cuantas lamapras se encuentran actualmnte
-//		{
-//			/* Primero paso todo a datam_buffer4 de mis datos */
-//			data_s6 = 0;
-//			for(q=0; q<4;q++)
-//			{
-//				if(strlen(T_pasajeros[q].mac_pasajero) != 0){
-//					memcpy(&datam_buffer4[data_s6], &T_pasajeros[q].mac_pasajero, 6);
-//					//WICED_BT_TRACE("\n Copio de mi arreglo: %B \n",&datam_buffer4[data_s6]);
-//					data_s6 = data_s6 + 6;
-//				}
-//			}
-//			//WICED_BT_TRACE("\n ************** Cantidad de pasajeros %d, longitud de mi arreglo %d \n",datac_pasaj, strlen(datam_buffer4)/6);
-//			data_s6 = 0;
-//			for(q=0;q<datac_m2;q++)
-//			{
-//				memcpy(mac_help,&datam_buffer2[data_s6],6);
-//				valor = strstr(&datam_buffer4[0],mac_help);
-//				//WICED_BT_TRACE("\n longitud[%d] %d\n",strlen(T_pasajeros[q].mac_pasajero), q);
-//				if((valor == NULL || valor == 0) && datac_pasaj < 4 && strlen(T_pasajeros[q].mac_pasajero) == 0)
-//				{
-//					T_pasajeros[q].out_value=1; /* <---------- Take the position of the new passenger ----------> */
-//					memcpy(&T_pasajeros[q].mac_pasajero,&datam_buffer2[data_s6],6);
-//					datac_pasaj++;
-//					data_s6 = data_s6 + 6;
-//				}
-//				else if((valor != NULL || valor != 0) && datac_pasaj < 4 && strlen(T_pasajeros[q].mac_pasajero) == 0)
-//				{
-//					q--;
-//					data_s6 = data_s6 + 6;
-//				}
-//				else if((valor != NULL || valor != 0) && datac_pasaj < 4 && strlen(T_pasajeros[q].mac_pasajero) != 0)
-//				{
-//					data_s6 = data_s6 + 6;
-//				}
-//
-//				memset(mac_help,0,6);
-//				if(datac_pasaj == 4 || datac_pasaj == datac_m2)
-//				{
-//					break;   /* Salirce del ciclo for */
-//				}
-//			}
-//			/* Mandare infromacion en un timer posterior */
-//			//WICED_BT_TRACE("\n ************** Cantidad de pasajeros %d \n",datac_pasaj);
-//			timer_sendpassenger();
-//		}
 
+		/* ------ Seccion donde voy a meter a mi arreglo una mac si el numero de abordados es mayor a 4 y se va una, buffer3 ------ */
+		if(datac_pasaj < datac_m2 && datac_pasaj < 3)  // Con el datac_m2 es el que dice cuantas lamapras se encuentran actualmnte
+		{
+			WICED_BT_TRACE("**************Entro a ver que onda\n");
+			stop_TPass(); /* Paro el timer para al final volverlo a encender, mandar la informacio y darle tiempo al wifi de procesar la informacion */
+			data_s6 = 0;
+			for(uint8_t q=0; q<4;q++) /* Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
+			{
+				if(strlen(T_pasajeros[q].mac_pasajero) != 0){
+					memcpy(&datam_buffer4[data_s6], &T_pasajeros[q].mac_pasajero, 6);
+					WICED_BT_TRACE("dato copiado %B \n",&datam_buffer4[data_s6]);
+					data_s6 = data_s6 + 6;
+				}
+			}
+
+			data_s6 = 0;
+			uint8_t q=1;  /* Inicio en 1 poque a partir de alli es donde copiare la mac del conductor */
+			while(q<4)
+			{
+				memcpy(mac_help,&datam_buffer5[data_s6],6);
+				WICED_BT_TRACE("---->Dato a comparar con mi arreglo %B %X\n",mac_help,mac_help[0]);
+				valor = strstr(&datam_buffer4[0],mac_help);
+				if((valor == NULL || valor == 0) && strlen(T_pasajeros[q].mac_pasajero) == 0)//&& datac_pasaj < 3) /* No esta y aparte no la tengo, redundancia data_pasaj */
+					{
+					T_pasajeros[q].out_value=1; /* <---------- Take the position of the new passenger ----------> */
+					memcpy(&T_pasajeros[q].mac_pasajero,mac_help,6);
+					datac_pasaj++;
+					data_s6 = data_s6 + 6;
+					q++;
+					}
+				else if(valor != NULL || valor != 0) /* Este valor si esta, aumento para bucar otra mac */
+					{
+					data_s6 = data_s6 + 6;
+					}
+				else /* Solo aumento la q, es la contraparte de la opcion primera, si no tengo esa mac, pero esta ocupado ese lugar */
+					{
+					q++;
+					}
+				memset(mac_help,0,6);
+
+				/* Me falta mejorar la salida  */
+//				status_driver = 0
+				if(datac_pasaj == (datac_m2-1)) /* Caso en el que se llega a igualar y ya no hay mas que buscar */
+					{
+					WICED_BT_TRACE("Salgo por break\n");
+					break;   /* Salirce del ciclo for no necesariamente cuando sea q menor a 4, si no que cuando ya no hay que pasar */
+					}
+			}
+			memset(datam_buffer5,'\0',350);
+			start_TPass(); /* Falta agregar que si aun hay algo, continuo con el timer, si no, mejor apagarlo */
+		}
+		/* <----------------------------  Fin de abordados ----------------------------------> */
 	}
 
 
@@ -2786,7 +2803,8 @@ void errace_data(void)
 	static uint8_t flag_f=0;
 	if(flag_f == 0)
 	{
-		status_driver=2;
+		//status_driver=2;
+		status_driver=0;
 		WICED_BT_TRACE("KDV|NONE\n");   /* The number 40 is just a piece of information to fill out */
 		flag_f++;
 		if((St_dsbDr == 1) )
