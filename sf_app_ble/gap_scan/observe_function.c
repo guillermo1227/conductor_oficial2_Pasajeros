@@ -1680,7 +1680,11 @@ void clear_cont(void)
 			datac_pasaj++;
 		}
 	}
-	WICED_BT_TRACE("Cantidad de pasajeros abordados %d\n",datac_pasaj);
+	if(datac_m2 > (datac_pasaj + 1) && datac_pasaj<3)
+	{
+		datac_mdbs++;  	/* Agrego esto en el caso de que algun acompañante del conductor tome el contro, se asigna pero si hay mas personas que pueden tomar su lugar este entrara */
+	}
+	WICED_BT_TRACE("Cantidad de pasajeros abordados %d, -----> Cantidad de pasjeros %d\n",datac_pasaj,datac_m2);
 
 	if(St_dsbDr == 2)    /* Aun forma parte de asignacion conductor */
 	{
@@ -1695,6 +1699,7 @@ void clear_cont(void)
 	//-------------------------------------------------------------------------------------
 	if(datac_mdbs>0 && datac_m2>0)  /* Si hay laguna mac desabordada y aparte tambine tenemos lamparas abordadas entra aqui */
 	{
+		WICED_BT_TRACE("----->>Entra a ver que se desabordo\n");
 		for(int c=0; c < datac_m2; c++)
 		{
 			/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Abuffer dbs1: %B");
@@ -1714,12 +1719,13 @@ void clear_cont(void)
 			 {
 					indice = p_datadbs - datam_buffer2;
 
-					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
+					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))   /* Aqui tengo el problema -----> */
 					{
 						St_dsbDr=1;
-						memset(T_pasajeros[0].mac_pasajero,0, 6);  /* Limpio al conductor de los abordados */
-						//----->WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
+						memset(T_pasajeros[0].mac_pasajero,NULL, 6);  /* Limpio al conductor de los abordados */
+						WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
 					}
+					WICED_BT_TRACE("Solo se va la mac de %B \n",datav_dbs);
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
 				/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Bbuffer dbs1: %B");
 				WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Bbuffer dbs2: %B");
@@ -1798,8 +1804,14 @@ void clear_cont(void)
 		}
 		datac_pasaj = total_t;
 
+		if(status_driver == 1)   //if(strlen(T_pasajeros[0].mac_pasajero) != 0)
+		{
+			datac_pasaj++;
+			WICED_BT_TRACE("Total de pasajeros junto con lampara %d  total en abordado normal %d\n",datac_pasaj,datac_m2);
+		}
+
 		/* ------ Seccion donde voy a meter a mi arreglo una mac si el numero de abordados es mayor a 4 y se va una, buffer3 ------ */
-		if(datac_pasaj < datac_m2 && datac_pasaj < 3)  // Con el datac_m2 es el que dice cuantas lamapras se encuentran actualmnte
+		if( (datac_pasaj < datac_m2) && (datac_pasaj < 3) || (status_driver == 1 && datac_pasaj <= 3))  // Con el datac_m2 es el que dice cuantas lamapras se encuentran actualmnte
 		{
 			WICED_BT_TRACE("**************Entro a ver que onda\n");
 			stop_TPass(); /* Paro el timer para al final volverlo a encender, mandar la informacio y darle tiempo al wifi de procesar la informacion */
@@ -1822,6 +1834,7 @@ void clear_cont(void)
 				valor = strstr(&datam_buffer4[0],mac_help);
 				if((valor == NULL || valor == 0) && strlen(T_pasajeros[q].mac_pasajero) == 0)//&& datac_pasaj < 3) /* No esta y aparte no la tengo, redundancia data_pasaj */
 					{
+					WICED_BT_TRACE("----->1\n");
 					T_pasajeros[q].out_value=1; /* <---------- Take the position of the new passenger ----------> */
 					memcpy(&T_pasajeros[q].mac_pasajero,mac_help,6);
 					datac_pasaj++;
@@ -1830,23 +1843,26 @@ void clear_cont(void)
 					}
 				else if(valor != NULL || valor != 0) /* Este valor si esta, aumento para bucar otra mac */
 					{
+					WICED_BT_TRACE("---->2\n");
 					data_s6 = data_s6 + 6;
 					}
 				else /* Solo aumento la q, es la contraparte de la opcion primera, si no tengo esa mac, pero esta ocupado ese lugar */
 					{
+					WICED_BT_TRACE("------>3\n");
 					q++;
 					}
 				memset(mac_help,0,6);
 
 				/* Me falta mejorar la salida  */
 //				status_driver = 0
-				if(datac_pasaj == (datac_m2-1)) /* Caso en el que se llega a igualar y ya no hay mas que buscar */
+				if(datac_pasaj == datac_m2) /* Caso en el que se llega a igualar y ya no hay mas que buscar */
 					{
 					WICED_BT_TRACE("Salgo por break\n");
 					break;   /* Salirce del ciclo for no necesariamente cuando sea q menor a 4, si no que cuando ya no hay que pasar */
 					}
 			}
 			memset(datam_buffer5,'\0',350);
+			memset(datam_buffer4,'\0',30);
 			start_TPass(); /* Falta agregar que si aun hay algo, continuo con el timer, si no, mejor apagarlo */
 		}
 		/* <----------------------------  Fin de abordados ----------------------------------> */
@@ -2816,7 +2832,7 @@ void errace_data(void)
 		{
 			St_dsbDr = 2;
 			memcpy(data_Mac,bdaddr_driver,6);
-			//WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d\n",St_dsbDr);
+			WICED_BT_TRACE("***** Si desasigno lampara No se ha ido %d\n",St_dsbDr);
 		}
 	}
 	else
