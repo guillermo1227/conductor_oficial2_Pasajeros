@@ -1759,6 +1759,7 @@ void clear_cont(void)
 		memcpy(datam_buffer2,datam_bufferact,350);
 		memcpy(datam_buffer5,datam_bufferact,350);
 		datac_m2=datac_mact;
+		datac_m5=datac_mact;
 		//datac_m2=0;
 		data_mc32=data_mc3act;
 		datac_comp=0;
@@ -1853,13 +1854,13 @@ void clear_cont(void)
 					}
 				memset(mac_help,0,6);
 
-				/* Me falta mejorar la salida  */
-//				status_driver = 0
-				if(datac_pasaj == datac_m2) /* Caso en el que se llega a igualar y ya no hay mas que buscar */
-					{
-					WICED_BT_TRACE("Salgo por break\n");
-					break;   /* Salirce del ciclo for no necesariamente cuando sea q menor a 4, si no que cuando ya no hay que pasar */
-					}
+				/* Si ya no hay mas datos se va a salir */
+				if(strlen(&datam_buffer5[data_s6]) == 0)
+				{
+					WICED_BT_TRACE("Salgo por Break\n");
+					break;
+				}
+
 			}
 			memset(datam_buffer5,'\0',350);
 			memset(datam_buffer4,'\0',30);
