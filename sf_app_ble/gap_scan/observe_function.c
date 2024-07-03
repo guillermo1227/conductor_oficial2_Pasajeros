@@ -239,7 +239,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
 							//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARASA2");
 							//WICED_BT_TRACE_ARRAY(datam_buffer3, 18, "BUFFER LAMPARASA3");
-							if(datac_comp>datac_m2)
+							if(datac_comp>datac_m2)						/* **********************************   Cunado entra entra en un caso que una lampara neuva */
 							{
 
 								memcpy(datam_buffer2,datam_buffer,data_mc3-6);
@@ -370,8 +370,8 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 	 }
 							 }
 						   }
-    				    else if (value_p1== WICED_FALSE)
-    				    {
+    				    else if (value_p1== WICED_FALSE)    /* desabordar todo .----------------------------------------------------> */
+    				    {									/* Filtro RSSI */
 							 char *p_dataDm2 = strstr(datam_buffer2,dataV_DM);
 							 if(!p_dataDm2)
 							 {
@@ -1398,7 +1398,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     							 {
     								 //WICED_BT_TRACE("****** Agrego ampara a mac desabrdados %B\n",dataV_SPI);
     							 memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
-    							 memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
+    							 //memcpy(&datam_bufferdbs[data_mcdbs],dataV_SPI,6);
     							 data_mcdbs+=6;
     							 datac_mdbs++;
     							 //WICED_BT_TRACE("Si contiene lamparasB2\n");
@@ -1680,13 +1680,15 @@ void clear_cont(void)
 			datac_pasaj++;
 		}
 	}
-	if(datac_m2 > (datac_pasaj + 1) && datac_pasaj<3)
-	{
-		datac_mdbs++;  	/* Agrego esto en el caso de que algun acompañante del conductor tome el contro, se asigna pero si hay mas personas que pueden tomar su lugar este entrara */
-	}
-	WICED_BT_TRACE("Cantidad de pasajeros abordados %d, -----> Cantidad de pasjeros %d\n",datac_pasaj,datac_m2);
 
-	if(St_dsbDr == 2)    /* Aun forma parte de asignacion conductor */
+//	if(datac_m2 > (datac_pasaj + 1) && datac_pasaj<3)  /* Esto esta mal porque atrasa el caso cuando se vaya a desabordar la lampara*/
+//	{
+//		datac_mdbs++;  	/* Agrego esto en el caso de que algun acompañante del conductor tome el contro, se asigna pero si hay mas personas que pueden tomar su lugar este entrara */
+//	}   											   /* Esto esta mal */
+
+	//WICED_BT_TRACE("Cantidad de pasajeros abordados %d, -----> Cantidad de pasjeros %d\n",datac_pasaj,datac_m2);
+
+	if(St_dsbDr == 2)    /* El conductor se fue, quitalo de desabordados, aun forma parte de asignacion conductor */
 	{
 		memcpy(&datam_bufferdbs[data_mcdbs],data_Mac,6);
 		data_mcdbs+=6;
@@ -1699,7 +1701,7 @@ void clear_cont(void)
 	//-------------------------------------------------------------------------------------
 	if(datac_mdbs>0 && datac_m2>0)  /* Si hay laguna mac desabordada y aparte tambine tenemos lamparas abordadas entra aqui */
 	{
-		WICED_BT_TRACE("----->>Entra a ver que se desabordo\n");
+		//WICED_BT_TRACE("----->>Entra a ver que se desabordo\n");<-----------
 		for(int c=0; c < datac_m2; c++)
 		{
 			/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Abuffer dbs1: %B");
@@ -1719,11 +1721,11 @@ void clear_cont(void)
 			 {
 					indice = p_datadbs - datam_buffer2;
 
-					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))   /* Aqui tengo el problema -----> */
+					if(status_driver == 1 && strstr(datav_dbs,bdaddr_driver))
 					{
 						St_dsbDr=1;
-						memset(T_pasajeros[0].mac_pasajero,NULL, 6);  /* Limpio al conductor de los abordados */
-						WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");
+						//memset(T_pasajeros[0].mac_pasajero,NULL, 6);  /* Esto no va a qui XXXXXXXXXXX */
+						//WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");<--------
 					}
 					WICED_BT_TRACE("Solo se va la mac de %B \n",datav_dbs);
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
@@ -1783,8 +1785,8 @@ void clear_cont(void)
 
 		/* Take out the aborders */
 		data_s6 = 0;
-		int8_t m=0, total_t = datac_pasaj;  /* Integer used to add */
-		for(uint8_t q=1; q<4;q++)
+		datac_pasaj=0;
+		for(uint8_t q=1; q<4;q++)  /* 1.- Limpio la mac de los pasajeros y saco un conteo de los pasajeros que habia */
 		{
 			if(strlen(T_pasajeros[q].mac_pasajero) != 0)
 			{
@@ -1798,30 +1800,32 @@ void clear_cont(void)
 					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
 					WICED_BT_TRACE("|2|\n");
 					memset(T_pasajeros[q].mac_pasajero,NULL, 6);  /* Limpio esta parte de mi cadena */
-					total_t --; /* Se fue */
 				}
 				memset(mac_help,0,6);
 			}
-		}
-		datac_pasaj = total_t;
 
-		if(status_driver == 1)   //if(strlen(T_pasajeros[0].mac_pasajero) != 0)
-		{
-			datac_pasaj++;
-			WICED_BT_TRACE("Total de pasajeros junto con lampara %d  total en abordado normal %d\n",datac_pasaj,datac_m2);
+			if(strlen(T_pasajeros[q].mac_pasajero) != 0)
+			{
+				datac_pasaj++;		/* Otro conteo */
+			}
 		}
 
-		/* ------ Seccion donde voy a meter a mi arreglo una mac si el numero de abordados es mayor a 4 y se va una, buffer3 ------ */
-		if( (datac_pasaj < datac_m2) && (datac_pasaj < 3) || (status_driver == 1 && datac_pasaj <= 3))  // Con el datac_m2 es el que dice cuantas lamapras se encuentran actualmnte
+		if(status_driver == 1)    /* 1.1 Solo hago esto para que no entre cuando tiene un conductor y no se tarde */
+			datac_pas_Cn = datac_pasaj + 1;
+		else
+			datac_pas_Cn = datac_pasaj;
+
+		WICED_BT_TRACE("Pasajeros %d  Pas_Conduc %d total de abordados %d\n",datac_pasaj,datac_pas_Cn,datac_m2);//<----------
+
+		/* 2.- Seccion donde voy a meter a mi arreglo una mac si el numero de abordados es mayor a 4 y se va una, buffer3 */
+		if( (datac_pasaj < datac_m2) && (datac_pasaj < 3) & datac_pas_Cn <3)  // Con el datac_m2 es el que dice cuantas lamapras se encuentran actualmnte
 		{
-			WICED_BT_TRACE("**************Entro a ver que onda\n");
 			stop_TPass(); /* Paro el timer para al final volverlo a encender, mandar la informacio y darle tiempo al wifi de procesar la informacion */
-			data_s6 = 0;
-			for(uint8_t q=0; q<4;q++) /* Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
+			for(uint8_t q=0; q<4;q++) /* 2.1 Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
 			{
 				if(strlen(T_pasajeros[q].mac_pasajero) != 0){
 					memcpy(&datam_buffer4[data_s6], &T_pasajeros[q].mac_pasajero, 6);
-					WICED_BT_TRACE("dato copiado %B \n",&datam_buffer4[data_s6]);
+					WICED_BT_TRACE("dato copiado %B \n",&datam_buffer4[data_s6]);//<---------
 					data_s6 = data_s6 + 6;
 				}
 			}
@@ -1831,7 +1835,7 @@ void clear_cont(void)
 			while(q<4)
 			{
 				memcpy(mac_help,&datam_buffer5[data_s6],6);
-				WICED_BT_TRACE("---->Dato a comparar con mi arreglo %B %X\n",mac_help,mac_help[0]);
+				WICED_BT_TRACE("---->Dato a comparar con mi arreglo %B %X\n",mac_help,mac_help[0]);//<---------
 				valor = strstr(&datam_buffer4[0],mac_help);
 				if((valor == NULL || valor == 0) && strlen(T_pasajeros[q].mac_pasajero) == 0)//&& datac_pasaj < 3) /* No esta y aparte no la tengo, redundancia data_pasaj */
 					{
@@ -1857,18 +1861,66 @@ void clear_cont(void)
 				/* Si ya no hay mas datos se va a salir */
 				if(strlen(&datam_buffer5[data_s6]) == 0)
 				{
-					WICED_BT_TRACE("Salgo por Break\n");
+					//WICED_BT_TRACE("Salgo por Break\n");<----------
 					break;
 				}
 
 			}
 			memset(datam_buffer5,'\0',350);
 			memset(datam_buffer4,'\0',30);
-			start_TPass(); /* Falta agregar que si aun hay algo, continuo con el timer, si no, mejor apagarlo */
+			if(datac_m2 == 0)
+			{
+				stop_TPass();
+			}
+			else
+			{
+				start_TPass(); /* Falta agregar que si aun hay algo, continuo con el timer, si no, mejor apagarlo */
+			}
 		}
 		/* <----------------------------  Fin de abordados ----------------------------------> */
 	}
+	else if(datac_pasaj < 3 && (datac_m2 >=datac_pasaj + 2) && status_driver == 1)  /* 3.- Seccion donde verificare si algun pasajero toma el lugar del conductor, se saldra pero necesito meter otra lampara si esta el lugar disponible */
+		{
+		WICED_BT_TRACE("Opcion en donde voy a meter otra lampara si un pasajero se hace conductor \n");
+			data_s6=0;
+			for(uint8_t q=0; q<4;q++) /* 2.1 Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
+			{
+				if(strlen(T_pasajeros[q].mac_pasajero) != 0){
+					memcpy(&datam_buffer4[data_s6], &T_pasajeros[q].mac_pasajero, 6);
+					WICED_BT_TRACE("dato copiado << 2 %B \n",&datam_buffer4[data_s6]);//<---------
+					data_s6 = data_s6 + 6;
+				}
+			}
+			//memcpy(datam_buffer5,datam_buffer2,350);
 
+			data_s6=0 , data_2s6=0;
+			for(uint8_t a=0; a<datac_m2;a++)
+			{
+				memcpy(mac_help,&datam_buffer2[data_s6],6);
+				WICED_BT_TRACE("Mac antes de copiar %B\n",&datam_buffer2[data_s6]);
+				if(strstr(&datam_buffer4[0],mac_help) == NULL)
+				{
+					WICED_BT_TRACE("Mac abordada pero no en pasajeros %B \n",mac_help);
+					memcpy(&datam_buffer5[data_2s6],mac_help,6);
+					data_2s6+=6;
+				}
+				else
+					data_s6+=6;
+			}
+			data_s6=0;
+			/* Solo copio las mac en la estructura */
+			for(uint8_t q=1;q<4;q++)
+			{
+				if(strlen(T_pasajeros[q].mac_pasajero)==0)
+				{
+					memcpy(T_pasajeros[q].mac_pasajero,&datam_buffer5[data_s6],6);
+					WICED_BT_TRACE("Dato copiado en posicion %d %B\n",q, T_pasajeros[q].mac_pasajero);
+					data_s6+=6;
+				}
+			}
+			memset(datam_buffer5,NULL,350);
+			memset(datam_buffer4,NULL,30);
+		}
 
 	//----------------------------------------------------------------------------------------
 
@@ -1963,7 +2015,7 @@ void clear_cont(void)
 
     if(datac_m > datac_m2 && value_p1)
     	{
-			if(gap_t1 == WICED_FALSE)
+			if(gap_t1 == WICED_FALSE)  /* Si no esta presionado el control */
 			{
 				if(datac_m2 == datac_m3)
 				{
@@ -2036,10 +2088,11 @@ void clear_cont(void)
     		//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ3");
     		//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ3");
     	}
-    	else if (datac_m == datac_m2 && !value_p1)
+    	else if (datac_m == datac_m2 && !value_p1)   /* Cada 4 segundos entra y hasata los 20  b0tta todo, cuando valupe_p1 alerta quiere decir que la cuenta buffer  */
     	{
 			if(gap_t1 == WICED_FALSE)  /* Pregunta que no este presionado el boton */
 			{
+				//WICED_BT_TRACE("********** Conteo de cc4:%d\n",cc4);
 				cc4 ++;
 				if(cc4 == 5)
 				{
@@ -2054,6 +2107,7 @@ void clear_cont(void)
 					datac_m3=0;
 					data_mc33=0;
 					memset(datam_buffer3,'\0',350);
+					//WICED_BT_TRACE("*********************** ----> Limpio todo\n");
 					//----------------------------------
 					//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ4");
 					//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ4");
@@ -2211,6 +2265,7 @@ void clear_cont(void)
 				datac_mV3=0;
 				data_mc3V3=0;
 				memset(datam_bufferV3,'\0',350);
+				//WICED_BT_TRACE("*********** ----> Limpio todo V\n");
 				//----------------------------------
 				//WICED_BT_TRACE_ARRAY(datam_bufferV, 18, "BUFFER VEHICULOSZZ4");
 				//WICED_BT_TRACE_ARRAY(datam_bufferV2, 18, "BUFFER VEHICULOS2ZZ4");
@@ -2231,7 +2286,7 @@ void clear_cont(void)
 	//WICED_BT_TRACE("GAP: %d\n",gap_t1);
 
 	//-----------------------------------------------------------------------------------------
-	WICED_BT_TRACE( "OBSERVE START--------------------------------%d\n\r",St_dsbDr);
+	WICED_BT_TRACE( "OBSERVE START--------------------------------%d,%d,%d\n\r",St_dsbDr,datac_pasaj,datac_m2);
 	wiced_bt_ble_observe (1,0 , Observer_scan_result_cback);
 
 }
@@ -2821,6 +2876,7 @@ void errace_data(void)
 	if(flag_f == 0)
 	{
 		//status_driver=2;
+		memset(T_pasajeros[0].mac_pasajero,NULL, 6);  /* Va a qui */
 		status_driver=0;
 		WICED_BT_TRACE("KDV|NONE\n");   /* The number 40 is just a piece of information to fill out */
 		flag_f++;
