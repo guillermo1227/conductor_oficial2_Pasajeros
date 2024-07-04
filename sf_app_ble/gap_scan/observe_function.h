@@ -23,7 +23,7 @@ extern	uint8_t dtv;
 	  //uint8_t RSSI_CLOSER = 40;
 	  //uint8_t RSSI_DRIVER = 67;
 	  /* Bajos decibeles */
-	  uint8_t RSSI_CLOSER = 76;
+	  uint8_t RSSI_CLOSER = 77;
 	  uint8_t RSSI_DRIVER = 98;
 
 	  uint8_t status_driver= 0;  /* driver */
@@ -49,6 +49,8 @@ extern	uint8_t dtv;
 	  char datam_buffer4[30]={0};   /* Store the passengers' mac */
 	  int8_t data_s6 = 0,data_sum = 0;
 	  int8_t data_2s6 = 0;
+
+	  wiced_bool_t clear_passenger = WICED_FALSE;
 	  /* ---------------------- */
 int cont_returnG = 0;
 int cont_returnER = 0;

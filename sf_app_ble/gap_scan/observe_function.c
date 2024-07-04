@@ -159,7 +159,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     {
     	memcpy(dataFilt5,p_scan_result->remote_bd_addr,6);
     	memcpy(dataFilt, p_name, 5);
-         if(p_scan_result->rssi>=-125 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
+         if(p_scan_result->rssi>=-95 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
         		 ){
     	if(//value_pin==WICED_TRUE
 
@@ -210,7 +210,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
     	      //------------------------------------------------------------------
 
-    			if(st_Tipe==0x00 || st_Tipe==0x01)
+    			if(st_Tipe==0x00 || st_Tipe==0x01)   /* L4SEC || 1A5EC */
     			{
     			   memcpy(dataV_DM,data_flt,6);
     		   	   char *p_dataDm = strstr(datam_buffer,dataV_DM);
@@ -328,7 +328,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     				   }*/
 
     				   //------------------------------------------------
-    				    if (gap_t1== WICED_TRUE && st_Tipe==0x01 )
+    				    if (gap_t1== WICED_TRUE && st_Tipe==0x01 )			/* Seccion donde aborda a las lamparas */
 						   {
 							 char *p_dataDm2 = strstr(datam_buffer2,dataV_DM);
 							 if(!p_dataDm2)
@@ -378,12 +378,11 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 							 memcpy(&datam_buffer2[data_mc32],dataV_DM,6);
 							 data_mc32+=6;
 							 datac_m2++;
-							 //WICED_BT_TRACE("******Si contiene lamparas2 %B\n",dataV_DM);
+							 WICED_BT_TRACE("******Si contiene lamparas2 %B datac_m2 %d\n",dataV_DM,datac_m2);
 							 }
     				    }
     				    else if(value_p1 == WICED_TRUE)
     				    {
-
 							 char *p_dataDm2 = strstr(datam_buffer2,dataV_DM);
 							 if(p_dataDm2)
 							 {
@@ -393,7 +392,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								 memcpy(&datam_buffer3[data_mc33],dataV_DM,6);
 								 data_mc33+=6;
 								 datac_m3++;
-								 //WICED_BT_TRACE("*******Si contiene lamparasB2 %B\n",dataV_DM);
+								 WICED_BT_TRACE("*******Si contiene lamparasB2 %B datac_m3 %d\n",dataV_DM,datac_m3);
 								 }
 
 //								 if(memcmp(bdaddr_driver,dataV_DM,6))
@@ -1883,7 +1882,7 @@ void clear_cont(void)
 		{
 		WICED_BT_TRACE("Opcion en donde voy a meter otra lampara si un pasajero se hace conductor \n");
 			data_s6=0;
-			for(uint8_t q=0; q<4;q++) /* 2.1 Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
+			for(uint8_t q=0; q<4;q++) /* 3.1 Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
 			{
 				if(strlen(T_pasajeros[q].mac_pasajero) != 0){
 					memcpy(&datam_buffer4[data_s6], &T_pasajeros[q].mac_pasajero, 6);
@@ -1921,6 +1920,33 @@ void clear_cont(void)
 			memset(datam_buffer5,NULL,350);
 			memset(datam_buffer4,NULL,30);
 		}
+
+	/* 4.- Sacar pasajeros abordados cuando estos se retiran */
+//	if(clear_passenger == WICED_TRUE)  /* Saco pasajeros alejamiento cuando solo estan los que son y n hay mas lamparas */
+//	{
+//		WICED_BT_TRACE("Entro a revisar si se fue una lampara por alejarce \n");
+//		clear_passenger = WICED_FALSE;
+//		memcpy(datam_buffer5,datam_buffer2,350);
+//
+//		datac_pasaj = 0;
+//		for(uint8_t q=1; q<4;q++) /*  */
+//		{
+//			if(strstr(datam_buffer5,&T_pasajeros[q].mac_pasajero)==NULL && strlen(T_pasajeros[q].mac_pasajero)!=0){  /*  */
+//				WICED_BT_TRACE("PCO9|%d|",q);
+//				WICED_BT_TRACE("%02X:%02X",T_pasajeros[q].mac_pasajero[0],T_pasajeros[q].mac_pasajero[1]);
+//				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[2],T_pasajeros[q].mac_pasajero[3]);
+//				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
+//				WICED_BT_TRACE("|2|\n");
+//				memset(T_pasajeros[q].mac_pasajero,NULL, 6);  /* Limpio esta parte de mi cadena */
+//			}
+//
+//			if(strlen(T_pasajeros[q].mac_pasajero) != 0) /* Conteo de pasajeros */
+//			{
+//				datac_pasaj++;
+//			}
+//		}
+//		memset(datam_buffer5,NULL,350);
+//	}
 
 	//----------------------------------------------------------------------------------------
 
@@ -2017,8 +2043,10 @@ void clear_cont(void)
     	{
 			if(gap_t1 == WICED_FALSE)  /* Si no esta presionado el control */
 			{
+				WICED_BT_TRACE("Caso 1 cc1 %d \n",cc1);
 				if(datac_m2 == datac_m3)
 				{
+				WICED_BT_TRACE("Caso 1.1\n");
 				memcpy(datam_buffer,datam_buffer2,350);
 				datac_m=datac_m2;
 				//datac_m2=0;
@@ -2035,9 +2063,11 @@ void clear_cont(void)
 				}
 				else
 				{
+					WICED_BT_TRACE("Caso 1.2\n");
 					cc1 ++;
 					if(cc1 == 3)
 					{
+						WICED_BT_TRACE("Caso 1.3\n");
 						memcpy(datam_buffer,datam_buffer3,350);
 						datac_m=datac_m3;
 						//datac_m2=0;
@@ -2052,6 +2082,30 @@ void clear_cont(void)
 						//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ11");
 						//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ11");
 						cc1 = 0;
+						/* <--Aqui voy a poner el primer desboramiento por alejarce--> */
+							WICED_BT_TRACE("Entro a revisar si se fue una lampara por alejarce \n");
+							memcpy(datam_buffer5,datam_buffer3,350);
+
+							datac_pasaj = 0;
+							for(uint8_t q=1; q<4;q++)
+							{
+								if(strstr(datam_buffer5,&T_pasajeros[q].mac_pasajero)==NULL && strlen(T_pasajeros[q].mac_pasajero)!=0){  /*  */
+									WICED_BT_TRACE("PCO9|%d|",q);
+									WICED_BT_TRACE("%02X:%02X",T_pasajeros[q].mac_pasajero[0],T_pasajeros[q].mac_pasajero[1]);
+									WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[2],T_pasajeros[q].mac_pasajero[3]);
+									WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
+									WICED_BT_TRACE("|2|\n");
+									memset(T_pasajeros[q].mac_pasajero,NULL, 6);  /* Limpio esta parte de mi cadena */
+								}
+
+								if(strlen(T_pasajeros[q].mac_pasajero) != 0) /* Conteo de pasajeros */
+								{
+									datac_pasaj++;
+								}
+							}
+							memset(datam_buffer5,NULL,350);
+						/* <----------------------------------------------------- > */
+
 					}
 				}
 			}
@@ -2066,6 +2120,7 @@ void clear_cont(void)
     	}
     	else if(datac_m > datac_m2 && !value_p1)
     	{
+    		WICED_BT_TRACE("Caso 2\n");
     		memcpy(datam_buffer,datam_buffer2,350);
     		datac_m=datac_m2;
     		datac_menviada=datac_m;//  cambio
@@ -2074,8 +2129,9 @@ void clear_cont(void)
     		//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ2");
     		//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ2");
     	}
-    	else if (datac_m == datac_m2 && value_p1)
+    	else if (datac_m == datac_m2 && value_p1)   /* Hasta aqui voy estudiando */
     	{
+    		WICED_BT_TRACE("Caso 3\n");
     		//memcpy(datam_buffer,datam_buffer2,350);
     		//datac_m=datac_m2;
     		//datac_m2=0;
@@ -2092,7 +2148,7 @@ void clear_cont(void)
     	{
 			if(gap_t1 == WICED_FALSE)  /* Pregunta que no este presionado el boton */
 			{
-				//WICED_BT_TRACE("********** Conteo de cc4:%d\n",cc4);
+				WICED_BT_TRACE("********** Conteo de cc4:%d\n",cc4);
 				cc4 ++;
 				if(cc4 == 5)
 				{
@@ -2112,6 +2168,7 @@ void clear_cont(void)
 					//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ4");
 					//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ4");
     		        cc4 = 0;
+    		        clear_passenger = WICED_TRUE;  /* Flag, indica que se borraron abordados y apenas volvera a meterlos si aun se encuentran */
 				}
 			}
 			else
