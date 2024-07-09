@@ -1728,7 +1728,7 @@ void clear_cont(void)
 						//memset(T_pasajeros[0].mac_pasajero,NULL, 6);  /* Esto no va a qui XXXXXXXXXXX */
 						//WICED_BT_TRACE("---------> Se desasigno la lampara pero aun sigue abordado \n");<--------
 					}
-					WICED_BT_TRACE("Solo se va la mac de %B \n",datav_dbs);
+					//WICED_BT_TRACE("Solo se va la mac de %B \n",datav_dbs);
 			 //WICED_BT_TRACE("Si contiene lamparas\n");
 				/*WICED_BT_TRACE_ARRAY(datam_buffer,20,"Bbuffer dbs1: %B");
 				WICED_BT_TRACE_ARRAY(datam_bufferdbs,20,"Bbuffer dbs2: %B");
@@ -2046,6 +2046,7 @@ void clear_cont(void)
 
 						//----------------------------
 						memcpy(datam_buffer2,datam_buffer3,350);
+						memcpy(datam_buffer5,datam_buffer3,350); 	/* Added passenger */
 						datac_m2=datac_m3;
 						//datac_m2=0;
 						data_mc32=data_mc33;
@@ -2053,6 +2054,26 @@ void clear_cont(void)
 						//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ11");
 						//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ11");
 						cc1 = 0;
+						//----------------------------
+						/* Sacar pasajeros que se han ido por alejarce */
+						data_s6=0;
+						memset(mac_help,NULL,6);
+						for(uint8_t q=1;q<4;q++)
+						{
+							memcpy(mac_help,T_pasajeros[q].mac_pasajero,6);
+							valor = strstr(datam_buffer5,mac_help);
+							if(valor == NULL || valor == 0)
+							{
+								WICED_BT_TRACE("PCO20|%d|",q+1);
+								WICED_BT_TRACE("%02X:%02X",T_pasajeros[q].mac_pasajero[0],T_pasajeros[q].mac_pasajero[1]);
+								WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[2],T_pasajeros[q].mac_pasajero[3]);
+								WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
+								WICED_BT_TRACE("|2|\n");
+								memset(T_pasajeros[q].mac_pasajero,NULL, 6);  /* Limpio esta parte de mi cadena */
+							}
+							memset(mac_help,NULL,6);
+						}
+
 					}
 				}
 			}
@@ -2291,6 +2312,7 @@ void clear_cont(void)
 		{
 			WICED_BT_TRACE("Start timer paseenger\n");
 			start_TPass();
+			break;
 		}
 	}
 	//-----------------------------------------------------------------------------------------
