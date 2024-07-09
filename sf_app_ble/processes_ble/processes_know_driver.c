@@ -67,7 +67,7 @@ void send_again(void)
 
 void send_again_pass(void)
 {
-	WICED_BT_TRACE("*************** Mando pasajeros repetidos\n");
+	//WICED_BT_TRACE("*************** Mando pasajeros repetidos\n");
 	for(uint8_t i=1 ; i<4 ; i++)
 		{
 			if(strlen(T_pasajeros[i].mac_pasajero)!=0)

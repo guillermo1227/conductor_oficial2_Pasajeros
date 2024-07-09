@@ -364,7 +364,7 @@ void stop_DropDriver(void)
 
 void start_TPass(void)
 {
-	wiced_start_timer( &timer_passenger, 5200);
+	wiced_start_timer( &timer_passenger, 3000);
 }
 
 void stop_TPass(void)
