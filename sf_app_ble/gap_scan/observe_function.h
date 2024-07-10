@@ -49,6 +49,7 @@ extern	uint8_t dtv;
 	  char datam_buffer4[30]={0};   /* Store the passengers' mac */
 	  int8_t data_s6 = 0,data_sum = 0;
 	  int8_t data_2s6 = 0;
+	  wiced_bool_t flag_errace_P = WICED_FALSE;
 	  /* ---------------------- */
 int cont_returnG = 0;
 int cont_returnER = 0;

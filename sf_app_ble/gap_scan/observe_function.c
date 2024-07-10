@@ -245,12 +245,13 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								memcpy(datam_buffer2,datam_buffer,data_mc3-6);
 								datac_m2=datac_m-1;
 								data_mc32=data_mc3-6;
+								datac_comp=datac_m2;  /* llllllllllllllllllllllllllllllllllllll */
 								wiced_hal_gpio_set_pin_output(LED_GPIO_01, GPIO_PIN_OUTPUT_HIGH);
 								value_p1 = WICED_TRUE;
 								value_pa1=WICED_FALSE;
-								//WICED_BT_TRACE("COPEARRRRRRRRRRRRRRRRRRRRR\n");
-								//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASA");
-								//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARASA2");
+								WICED_BT_TRACE("COPEARRRRRRRRRRRRRRRRRRRRR\n");				/* Estaba comentado */
+								WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASA");	/* Estaba comentado */
+								WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARASA2"); /* Estaba comentado */
 							}
 
 	 //--------------------------------------------------------------------------------
@@ -690,6 +691,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								memcpy(datam_bufferV2,datam_bufferV,data_mc3V-6);
 								datac_mV2=datac_mV-1;
 								data_mc3V2=data_mc3V-6;
+								datac_compV=datac_mV2;    /* Agregado para solucionar desbordamiento pasajeros LLLLLLLLLLLLLLLLLLLLLLLLLLLL */
 								wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);
 								value_pV1 = WICED_TRUE;
 								value_paV1=WICED_FALSE;
@@ -1663,6 +1665,37 @@ void clear_cont(void)
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
 	stop_TPass();
 
+	/* Borrado de lamparas cuando todas estan abordadas */
+	if(flag_errace_P == WICED_TRUE)
+	{
+		//WICED_BT_TRACE("Entro al caso 4 para eliminar algo datac_m2 %d \n",datac_m2);
+		memcpy(datam_buffer5,datam_buffer2,350);
+
+//		for(uint8_t i=0;i<datac_m2;i++)
+//		{
+//			//WICED_BT_TRACE("Mac: %B\n",&datam_buffer5[data_s6]);
+//			data_s6= data_s6 + 6;
+//		}
+		data_s6=0;
+		for(uint8_t i=1;i<4;i++)
+		{
+			memcpy(mac_help,T_pasajeros[i].mac_pasajero,6);
+			valor = strstr(datam_buffer5,mac_help);
+			if(valor == NULL || valor == 0)
+			{
+				WICED_BT_TRACE("PCO30|%d|",i);
+				WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
+				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
+				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
+				WICED_BT_TRACE("|2|\n");
+				memset(T_pasajeros[i].mac_pasajero,NULL,6);
+			}
+			memset(mac_help,NULL,6);
+		}
+		flag_errace_P = WICED_FALSE;
+		memset(datam_buffer5,NULL,350);
+	}
+
 	datac_pasaj=0;
 	for(uint8_t i=1;i<4;i++) /* 1.- Verifico que el conductor no este en los abordados  * Pasajeros */
 	{
@@ -1711,7 +1744,7 @@ void clear_cont(void)
 			WICED_BT_TRACE_ARRAY(datam_buffer3,20,"ADatam3: %B");
 			WICED_BT_TRACE_ARRAY(datam_bufferact,20,"ADatamact: %B");
 			WICED_BT_TRACE("Admdbs: %d, dmdbs:%d, dm1:%d, dmc1:%d, dm2:%d, dmc2:%d, dmact:%d, dmcact:%d,dm3:%d, dmc3:%d\n", datac_mdbs, data_mcdbs, datac_m, data_mc3,  datac_m2, data_mc32, datac_mact, data_mc3act, datac_m3, data_mc33);*/
-			memcpy(datav_dbs,&datam_buffer2[c*6],6);
+				memcpy(datav_dbs,&datam_buffer2[c*6],6);
 			//WICED_BT_TRACE("FILT: %B\n", datav_dbs);
 			//--->WICED_BT_TRACE("*********** Mac a verificar %B\n",datav_dbs);
 			//--->WICED_BT_TRACE("***********Mac verificada %B\n",&datam_bufferdbs[0]);
@@ -1922,6 +1955,10 @@ void clear_cont(void)
 			memset(datam_buffer5,NULL,350);
 			memset(datam_buffer4,NULL,30);
 		}
+	 else if(datac_pasaj < 3 && (datac_m2 >=datac_pasaj + 2) && status_driver == 1)  /* 3.- Seccion donde verificare si algun pasajero toma el lugar del conductor, se saldra pero necesito meter otra lampara si esta el lugar disponible */
+	 {
+
+	 }
 
 	//----------------------------------------------------------------------------------------
 
@@ -2129,11 +2166,12 @@ void clear_cont(void)
 					datac_m3=0;
 					data_mc33=0;
 					memset(datam_buffer3,'\0',350);
-					//WICED_BT_TRACE("*********************** ----> Limpio todo\n");
+					WICED_BT_TRACE("*********************** ----> Caso cuatro\n");
 					//----------------------------------
 					//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ4");
 					//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ4");
     		        cc4 = 0;
+    		        flag_errace_P = WICED_TRUE;
 				}
 			}
 			else
