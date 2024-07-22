@@ -1665,17 +1665,11 @@ void clear_cont(void)
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
 	stop_TPass();
 
-	/* Borrado de lamparas cuando todas estan abordadas */
+	/* Borrado de lamparas cuando todas estan abordadas despues del caso 4 */
 	if(flag_errace_P == WICED_TRUE)
 	{
-		//WICED_BT_TRACE("Entro al caso 4 para eliminar algo datac_m2 %d \n",datac_m2);
 		memcpy(datam_buffer5,datam_buffer2,350);
 
-//		for(uint8_t i=0;i<datac_m2;i++)
-//		{
-//			//WICED_BT_TRACE("Mac: %B\n",&datam_buffer5[data_s6]);
-//			data_s6= data_s6 + 6;
-//		}
 		data_s6=0;
 		for(uint8_t i=1;i<4;i++)
 		{
@@ -1955,9 +1949,47 @@ void clear_cont(void)
 			memset(datam_buffer5,NULL,350);
 			memset(datam_buffer4,NULL,30);
 		}
-	 else if(datac_pasaj < 3 && (datac_m2 >=datac_pasaj + 2) && status_driver == 1)  /* 3.- Seccion donde verificare si algun pasajero toma el lugar del conductor, se saldra pero necesito meter otra lampara si esta el lugar disponible */
+	 else if(datac_pasaj < 3 && (datac_m2 >datac_pasaj) && status_driver == 0)  /* 4.- Si no tengo conductor y ademas de eso una lampara que estaba abordada se va por distancia y hay otra lampara que puede tomar su lugar entra aqui */
 	 {
+		 memset(datam_buffer4,NULL,30);
+		 data_s6=0;
+		 for(uint8_t q=0; q<4;q++) /* 4.1 Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
+		 {
+			 if(strlen(T_pasajeros[q].mac_pasajero) != 0){
+				 memcpy(&datam_buffer4[data_s6], &T_pasajeros[q].mac_pasajero, 6);
+				 WICED_BT_TRACE("dato copiado  %B \n",&datam_buffer4[data_s6]);//<---------
+				 data_s6 = data_s6 + 6;
+			 }
+		 }
 
+		 data_s6=0 , data_2s6=0;
+		 for(uint8_t a=0; a<datac_m2;a++)	/* 4.2 Copio las macs que no tengo en buffer5 */
+		 {
+			 memcpy(mac_help,&datam_buffer2[data_s6],6);
+			 //WICED_BT_TRACE("Mac antes de copiar %B\n",&datam_buffer2[data_s6]);
+			 if(strstr(&datam_buffer4[0],mac_help) == NULL)
+			 {
+				 WICED_BT_TRACE("Mac abordada pero no en pasajeros %B \n",mac_help);
+				 memcpy(&datam_buffer5[data_2s6],mac_help,6);
+				 data_2s6+=6;
+				 data_s6+=6;
+			 }
+			 else
+				 data_s6+=6;
+		 }
+
+		 data_s6=0;
+		 for(uint8_t q=1;q<4;q++)		/* 4.3 Solo copio las mac en la estructura */
+		 {
+			 if(strlen(T_pasajeros[q].mac_pasajero)==0)
+			 {
+				 memcpy(T_pasajeros[q].mac_pasajero,&datam_buffer5[data_s6],6);
+				 WICED_BT_TRACE("Dato copiado en posicion %d %B\n",q, T_pasajeros[q].mac_pasajero);
+				 data_s6+=6;
+			 }
+		 }
+		 memset(datam_buffer5,NULL,350);
+		 memset(datam_buffer4,NULL,30);
 	 }
 
 	//----------------------------------------------------------------------------------------
@@ -2166,7 +2198,7 @@ void clear_cont(void)
 					datac_m3=0;
 					data_mc33=0;
 					memset(datam_buffer3,'\0',350);
-					WICED_BT_TRACE("*********************** ----> Caso cuatro\n");
+					//WICED_BT_TRACE("*********************** ----> Caso cuatro\n");
 					//----------------------------------
 					//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASZZ4");
 					//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARAS2ZZ4");
