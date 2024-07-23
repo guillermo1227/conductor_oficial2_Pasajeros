@@ -249,9 +249,9 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								wiced_hal_gpio_set_pin_output(LED_GPIO_01, GPIO_PIN_OUTPUT_HIGH);
 								value_p1 = WICED_TRUE;
 								value_pa1=WICED_FALSE;
-								WICED_BT_TRACE("COPEARRRRRRRRRRRRRRRRRRRRR\n");				/* Estaba comentado */
-								WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASA");	/* Estaba comentado */
-								WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARASA2"); /* Estaba comentado */
+								//WICED_BT_TRACE("COPEARRRRRRRRRRRRRRRRRRRRR\n");				/* Estaba comentado */
+								//WICED_BT_TRACE_ARRAY(datam_buffer, 18, "BUFFER LAMPARASA");	/* Estaba comentado */
+								//WICED_BT_TRACE_ARRAY(datam_buffer2, 18, "BUFFER LAMPARASA2"); /* Estaba comentado */
 							}
 
 	 //--------------------------------------------------------------------------------
@@ -1681,7 +1681,7 @@ void clear_cont(void)
 				WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
 				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
 				WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
-				WICED_BT_TRACE("|2|\n");
+				WICED_BT_TRACE("|0|\n");
 				memset(T_pasajeros[i].mac_pasajero,NULL,6);
 			}
 			memset(mac_help,NULL,6);
@@ -1699,7 +1699,7 @@ void clear_cont(void)
 			WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
 			WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
 			WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
-			WICED_BT_TRACE("|2|\n");
+			WICED_BT_TRACE("|0|\n");
 			memset(T_pasajeros[i].mac_pasajero,NULL,6);
 		}
 
@@ -1826,7 +1826,7 @@ void clear_cont(void)
 					WICED_BT_TRACE("%02X:%02X",T_pasajeros[q].mac_pasajero[0],T_pasajeros[q].mac_pasajero[1]);
 					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[2],T_pasajeros[q].mac_pasajero[3]);
 					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
-					WICED_BT_TRACE("|2|\n");
+					WICED_BT_TRACE("|0|\n");
 					memset(T_pasajeros[q].mac_pasajero,NULL, 6);  /* Limpio esta parte de mi cadena */
 				}
 				memset(mac_help,0,6);
@@ -2137,7 +2137,7 @@ void clear_cont(void)
 								WICED_BT_TRACE("%02X:%02X",T_pasajeros[q].mac_pasajero[0],T_pasajeros[q].mac_pasajero[1]);
 								WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[2],T_pasajeros[q].mac_pasajero[3]);
 								WICED_BT_TRACE(":%02X:%02X",T_pasajeros[q].mac_pasajero[4],T_pasajeros[q].mac_pasajero[5]);
-								WICED_BT_TRACE("|2|\n");
+								WICED_BT_TRACE("|0|\n");
 								memset(T_pasajeros[q].mac_pasajero,NULL, 6);  /* Limpio esta parte de mi cadena */
 							}
 							memset(mac_help,NULL,6);
