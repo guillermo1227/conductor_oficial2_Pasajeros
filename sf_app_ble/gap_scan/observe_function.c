@@ -245,6 +245,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								memcpy(datam_buffer2,datam_buffer,data_mc3-6);
 								datac_m2=datac_m-1;
 								data_mc32=data_mc3-6;
+								datac_comp=datac_m2;  /* LLLL  si estan las lamparas contadas abordadas y desabordas una se va, pero al sacar otra, la que ya estaba afuera la vuelve  meter, con esta linea se soluciona */
 								wiced_hal_gpio_set_pin_output(LED_GPIO_01, GPIO_PIN_OUTPUT_HIGH);
 								value_p1 = WICED_TRUE;
 								value_pa1=WICED_FALSE;
@@ -690,6 +691,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 								memcpy(datam_bufferV2,datam_bufferV,data_mc3V-6);
 								datac_mV2=datac_mV-1;
 								data_mc3V2=data_mc3V-6;
+								datac_compV=datac_mV2;    /* LLLLL Desbordamiento de tags cuando solo estan abordados los tags especificos */
 								wiced_hal_gpio_set_pin_output( LED_GPIO_02, GPIO_PIN_OUTPUT_HIGH);
 								value_pV1 = WICED_TRUE;
 								value_paV1=WICED_FALSE;
@@ -1059,16 +1061,16 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 
 
 		   	   		/* -----> */
-		   	   		  WICED_BT_TRACE("BNM|");
-	   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-	   				  for(int k=1; k<=5; k++)
-	   				  {
-	   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-	   				  }
-	   				  //WICED_BT_TRACE("NAME:");
-	   				  //wiced_hal_puart_print(p_name);
-	   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-	   				  WICED_BT_TRACE(",1\n");
+//		   	   		  WICED_BT_TRACE("BNM|");
+//	   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//	   				  for(int k=1; k<=5; k++)
+//	   				  {
+//	   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//	   				  }
+//	   				  //WICED_BT_TRACE("NAME:");
+//	   				  //wiced_hal_puart_print(p_name);
+//	   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//	   				  WICED_BT_TRACE(",1\n");
 
 
 	   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
@@ -1134,16 +1136,16 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	   memcmp(Filt_operate101, dataFiltEA, sizeof(dataFiltEA)) == 0 ){//filtro de nombres
 
 		   	   		   /* ------> */
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+//		   	      	      WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
 
 		   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
 		   	    	      //wiced_hal_puart_print(p_name);
@@ -1231,16 +1233,16 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	{
 
 		   	    		 /* -----> */
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
+//		   	      	      WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",LAMP,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
 
 		   				  //WICED_BT_TRACE(",0,%d\n",St_dsbDr);-------->
 		   	      	     // WICED_BT_TRACE( "%B\n", static_addr );
@@ -1253,17 +1255,17 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
 		   	    	{
 
 		   	    		 /* -----> */
-		   	      	      WICED_BT_TRACE("BNM|");
-		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
-		   				  for(int k=1; k<=5; k++)
-		   				  {
-		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
-		   				  }
-		   				  //WICED_BT_TRACE("NAME:");
-		   				  //wiced_hal_puart_print(p_name);
-		   				  WICED_BT_TRACE(",VEHI,%d",p_scan_result->rssi);
-		   				  WICED_BT_TRACE(",0\n");
-		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
+//		   	      	      WICED_BT_TRACE("BNM|");
+//		   	      	      WICED_BT_TRACE("%02X",dataFiltR[0]);
+//		   				  for(int k=1; k<=5; k++)
+//		   				  {
+//		   				    WICED_BT_TRACE(":%02X",dataFiltR[k]);
+//		   				  }
+//		   				  //WICED_BT_TRACE("NAME:");
+//		   				  //wiced_hal_puart_print(p_name);
+//		   				  WICED_BT_TRACE(",VEHI,%d",p_scan_result->rssi);
+//		   				  WICED_BT_TRACE(",0\n");
+//		   	    	      //WICED_BT_TRACE( "%B\n", static_addr );
 
 		   	    	}
 
@@ -2269,7 +2271,7 @@ void clear_cont(void)
 		//WICED_BT_TRACE_ARRAY(datam_bufferV, 18, "BUFFER VEHICULOSZZ3");
 		//WICED_BT_TRACE_ARRAY(datam_bufferV2, 18, "BUFFER VEHICULOS2ZZ3");
 	}
-	else if (datac_mV == datac_mV2 && !value_pV1)
+	else if (datac_mV == datac_mV2 && !value_pV1)	/* Cada 4 segundos entra y hasata los 20  b0tta todo, cuando valupe_p1 alerta quiere decir que la cuenta buffer  */
 	{
 		if(gap_t1 == WICED_FALSE)
 		{
