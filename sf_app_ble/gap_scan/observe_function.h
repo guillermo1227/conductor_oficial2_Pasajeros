@@ -20,11 +20,11 @@ extern	uint8_t dlb;
 extern	uint8_t dtv;
 
 	/* Valor optimo en tag vehicuo */
-	  //uint8_t RSSI_CLOSER = 40;
-	  //uint8_t RSSI_DRIVER = 67;
+	  uint8_t RSSI_CLOSER = 40;
+	  uint8_t RSSI_DRIVER = 67;
 	  /* Bajos decibeles */
-	  uint8_t RSSI_CLOSER = 76;
-	  uint8_t RSSI_DRIVER = 98;
+//	  uint8_t RSSI_CLOSER = 76;
+//	  uint8_t RSSI_DRIVER = 98;
 
 	  uint8_t status_driver= 0;  /* driver */
 	  volatile int8_t St_dsbDr=0;
@@ -49,6 +49,7 @@ extern	uint8_t dtv;
 	  char datam_buffer4[30]={0};   /* Store the passengers' mac */
 	  int8_t data_s6 = 0,data_sum = 0;
 	  int8_t data_2s6 = 0;
+	  wiced_bool_t flag_errace_P = WICED_FALSE;
 	  /* ---------------------- */
 int cont_returnG = 0;
 int cont_returnER = 0;
@@ -269,6 +270,8 @@ void               event_mlfb(void);
 void               clear_cer(void);
 void               filt_cfb(uint8_t *data_cfb2);
 void 			   errace_data(void);
+
+void insert_passenger(pasajeros *passenger, char *buffer4, char *buffer5,char *buffer2, int8_t t_lamp);
 
 
 extern void gap_cfb(char *data_cfb);
