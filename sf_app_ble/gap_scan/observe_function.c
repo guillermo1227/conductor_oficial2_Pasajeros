@@ -159,7 +159,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     {
     	memcpy(dataFilt5,p_scan_result->remote_bd_addr,6);
     	memcpy(dataFilt, p_name, 5);
-         if(p_scan_result->rssi>=-63 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
+         if(p_scan_result->rssi>=-90//-63 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
         		 ){
     	if(//value_pin==WICED_TRUE
 
@@ -1665,6 +1665,30 @@ void clear_cont(void)
 	wiced_bt_ble_observe (0,0 , Observer_scan_result_cback);
 	stop_TPass();
 
+	/* Borrado de lamparas cuando todas estan abordadas despues del caso 4 */
+		if(flag_errace_P == WICED_TRUE)
+		{
+			/* Saco la que se fue */
+			for(uint8_t i=1;i<4;i++)
+			{
+				char *p_datadbs = strstr(datam_buffer2,&T_pasajeros[i].mac_pasajero);
+				if(!p_datadbs)
+				{
+					WICED_BT_TRACE("PCO18|%d|",i+1);
+					WICED_BT_TRACE("%02X:%02X",T_pasajeros[i].mac_pasajero[0],T_pasajeros[i].mac_pasajero[1]);
+					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[2],T_pasajeros[i].mac_pasajero[3]);
+					WICED_BT_TRACE(":%02X:%02X",T_pasajeros[i].mac_pasajero[4],T_pasajeros[i].mac_pasajero[5]);
+					memset(T_pasajeros[i].mac_pasajero,NULL,6);
+				}
+			}
+			memcpy(datam_buffer5,datam_buffer2,350);
+			WICED_BT_TRACE("Borro todo, checo despues de ver que borro datac_m2 %d, longitd %d\n",datac_m2,strlen(datam_buffer2));
+			flag_errace_P = WICED_FALSE;
+
+			memset(datam_buffer5,NULL,350);
+			insert_passenger(T_pasajeros, &datam_buffer4, &datam_buffer5,&datam_buffer2,datac_m2);
+		}
+
 	datac_pasaj=0;
 	for(uint8_t i=1;i<4;i++) /* 1.- Verifico que el conductor no este en los abordados  * Pasajeros */
 	{
@@ -1697,7 +1721,7 @@ void clear_cont(void)
 		datac_mdbs++;
 
 		St_dsbDr = 0;
-		//WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
+		WICED_BT_TRACE("********* Agrego a sumas de desabordados \n");
 	}
 
 	//-------------------------------------------------------------------------------------
@@ -2951,8 +2975,6 @@ void errace_data(void)
 
 void insert_passenger(pasajeros *passenger, char *buffer4, char *buffer5,char *buffer2, int8_t t_lamp)
 {
-	for(uint8_t q=1;q<datac_m3;q++)		/* datam_buffer5 */
-	{
 		data_s6=0;
 		for(uint8_t q=0; q<4;q++) /* 3.1 Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
 		{
@@ -2991,5 +3013,5 @@ void insert_passenger(pasajeros *passenger, char *buffer4, char *buffer5,char *b
 		}
 		memset(buffer5,NULL,350);
 		memset(buffer4,NULL,30);
-	}
+
 }
