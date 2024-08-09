@@ -159,7 +159,7 @@ void Observer_scan_result_cback( wiced_bt_ble_scan_results_t *p_scan_result, uin
     {
     	memcpy(dataFilt5,p_scan_result->remote_bd_addr,6);
     	memcpy(dataFilt, p_name, 5);
-         if(p_scan_result->rssi>=-125 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
+         if(p_scan_result->rssi>=-63 //&& memcmp(Filt_operate72, dataFilt5, sizeof(dataFilt5)) == 0
         		 ){
     	if(//value_pin==WICED_TRUE
 
@@ -2087,6 +2087,7 @@ void clear_cont(void)
 						WICED_BT_TRACE("datac_m3 %d datac_pasaj %d\n",datac_m3,datac_pasaj);
 						if(datac_m3 > datac_pasaj)   /* Voy a agregar condiuctores si se van */
 						{
+							memset(datam_buffer5,NULL,350);
 							insert_passenger(T_pasajeros, &datam_buffer4, &datam_buffer5,&datam_buffer2,datac_m2);
 						}
 					}
@@ -2956,6 +2957,7 @@ void insert_passenger(pasajeros *passenger, char *buffer4, char *buffer5,char *b
 		for(uint8_t q=0; q<4;q++) /* 3.1 Primero paso todo a datam_buffer4 de mis datos incluyendo al conductor */
 		{
 			if(strlen(passenger[q].mac_pasajero) != 0){
+				WICED_BT_TRACE("Dato copiado %B\n",passenger[q].mac_pasajero);
 				memcpy(&buffer4[data_s6], &passenger[q].mac_pasajero, 6);
 				data_s6 = data_s6 + 6;
 			}
@@ -2969,7 +2971,7 @@ void insert_passenger(pasajeros *passenger, char *buffer4, char *buffer5,char *b
 			//WICED_BT_TRACE("Mac antes de copiar %B\n",&datam_buffer2[data_s6]);
 			if(strstr(&buffer4[0],mac_help) == NULL)
 			{
-				//WICED_BT_TRACE("Mac abordada pero no en pasajeros %B \n",mac_help);
+				WICED_BT_TRACE("Mac abordada pero no en pasajeros %B \n",mac_help);
 				memcpy(&buffer5[data_2s6],mac_help,6);
 				data_2s6+=6;
 			}

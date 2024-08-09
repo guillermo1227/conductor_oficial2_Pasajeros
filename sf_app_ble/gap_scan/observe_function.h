@@ -20,8 +20,8 @@ extern	uint8_t dlb;
 extern	uint8_t dtv;
 
 	/* Valor optimo en tag vehicuo */
-	  uint8_t RSSI_CLOSER = 40;
-	  uint8_t RSSI_DRIVER = 67;
+	  uint8_t RSSI_CLOSER = 39; /* 40 */
+	  uint8_t RSSI_DRIVER = 62; /* 67 */
 	  /* Bajos decibeles */
 //	  uint8_t RSSI_CLOSER = 76;
 //	  uint8_t RSSI_DRIVER = 98;
